@@ -82,9 +82,11 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
         
         //perform authorization
-        connection = SlackConnection();
-        connection.SetDelegate(self);
-        connection.Connect();
+        if(connection==nil) {
+            connection = SlackConnection();
+        }
+        connection?.SetDelegate(self);
+        connection?.Connect();
     }
     
     func presentSmileViewWithText (text : NSString) -> () {
@@ -95,6 +97,11 @@ class ViewController: NSViewController, SlackConnectionDelegate {
     
     func didReceiveURLResponseWithData(response : NSURLResponse, data : NSData){
         webView?.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:response.URL);
+    }
+    
+    func authorizationComplete() -> (){
+        webView?.hidden = true;
+        self.presentSmileViewWithText("Authorized!");
     }
     
     override func webView(webView: WebView!,
@@ -108,7 +115,7 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         if(actInfo.objectForKey(WebActionNavigationTypeKey) as Int == WebNavigationType.FormSubmitted.rawValue){
             //tried to submit form, parse code
             var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
-            var code : String = originalURL.lastPathComponent!;
+            connection?.CompleteAuthorizationWithURL(originalURL.absoluteString!);
         }
         listener.use();
     }

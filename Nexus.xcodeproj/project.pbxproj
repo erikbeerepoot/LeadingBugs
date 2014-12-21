@@ -13,7 +13,7 @@
 		031D328C1A46058D00A6E271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031D328A1A46058D00A6E271 /* Main.storyboard */; };
 		031D32981A46058D00A6E271 /* NexusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32971A46058D00A6E271 /* NexusTests.swift */; };
 		031D32A41A4605AA00A6E271 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A11A4605AA00A6E271 /* Constants.swift */; };
-		031D32A51A4605AA00A6E271 /* SlackAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A21A4605AA00A6E271 /* SlackAPIEndpoints.swift */; };
+		031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A21A4605AA00A6E271 /* SlackConstants.swift */; };
 		031D32A61A4605AA00A6E271 /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A31A4605AA00A6E271 /* SlackConnection.swift */; };
 		03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAB3271A4629F6001E3866 /* SmileView.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +39,7 @@
 		031D32961A46058D00A6E271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		031D32971A46058D00A6E271 /* NexusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusTests.swift; sourceTree = "<group>"; };
 		031D32A11A4605AA00A6E271 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
-		031D32A21A4605AA00A6E271 /* SlackAPIEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackAPIEndpoints.swift; path = ../SlackAPIEndpoints.swift; sourceTree = "<group>"; };
+		031D32A21A4605AA00A6E271 /* SlackConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackConstants.swift; path = ../SlackConstants.swift; sourceTree = "<group>"; };
 		031D32A31A4605AA00A6E271 /* SlackConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackConnection.swift; path = ../SlackConnection.swift; sourceTree = "<group>"; };
 		03DAB3271A4629F6001E3866 /* SmileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SmileView.swift; path = ../SmileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				031D32A11A4605AA00A6E271 /* Constants.swift */,
-				031D32A21A4605AA00A6E271 /* SlackAPIEndpoints.swift */,
+				031D32A21A4605AA00A6E271 /* SlackConstants.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -256,7 +256,7 @@
 				03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */,
 				031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */,
 				031D32A61A4605AA00A6E271 /* SlackConnection.swift in Sources */,
-				031D32A51A4605AA00A6E271 /* SlackAPIEndpoints.swift in Sources */,
+				031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */,
 				031D32A41A4605AA00A6E271 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

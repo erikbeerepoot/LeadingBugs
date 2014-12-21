@@ -8,6 +8,8 @@
 
 import Foundation
 
+public let kClientSecret = "01ad48926afe592a28f8571ae80cc4e9"
+
 public struct SlackIDs {
     public static let kTeamID = "T024G2VPR";
     public static let kClientID = "2152097807.3263247755";
