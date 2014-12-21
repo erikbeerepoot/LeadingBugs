@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32841A46058D00A6E271 /* AppDelegate.swift */; };
+		031D32871A46058D00A6E271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32861A46058D00A6E271 /* ViewController.swift */; };
+		031D32891A46058D00A6E271 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031D32881A46058D00A6E271 /* Images.xcassets */; };
+		031D328C1A46058D00A6E271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031D328A1A46058D00A6E271 /* Main.storyboard */; };
+		031D32981A46058D00A6E271 /* NexusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32971A46058D00A6E271 /* NexusTests.swift */; };
+		031D32A41A4605AA00A6E271 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A11A4605AA00A6E271 /* Constants.swift */; };
+		031D32A51A4605AA00A6E271 /* SlackAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A21A4605AA00A6E271 /* SlackAPIEndpoints.swift */; };
+		031D32A61A4605AA00A6E271 /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A31A4605AA00A6E271 /* SlackConnection.swift */; };
+		03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAB3271A4629F6001E3866 /* SmileView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		031D32921A46058D00A6E271 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 031D32771A46058D00A6E271 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 031D327E1A46058D00A6E271;
+			remoteInfo = Nexus;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		031D327F1A46058D00A6E271 /* Nexus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nexus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		031D32831A46058D00A6E271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		031D32841A46058D00A6E271 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		031D32861A46058D00A6E271 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		031D32881A46058D00A6E271 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		031D328B1A46058D00A6E271 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		031D32911A46058D00A6E271 /* NexusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NexusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		031D32961A46058D00A6E271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		031D32971A46058D00A6E271 /* NexusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusTests.swift; sourceTree = "<group>"; };
+		031D32A11A4605AA00A6E271 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
+		031D32A21A4605AA00A6E271 /* SlackAPIEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackAPIEndpoints.swift; path = ../SlackAPIEndpoints.swift; sourceTree = "<group>"; };
+		031D32A31A4605AA00A6E271 /* SlackConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackConnection.swift; path = ../SlackConnection.swift; sourceTree = "<group>"; };
+		03DAB3271A4629F6001E3866 /* SmileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SmileView.swift; path = ../SmileView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		031D327C1A46058D00A6E271 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		031D328E1A46058D00A6E271 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		031D32761A46058D00A6E271 = {
+			isa = PBXGroup;
+			children = (
+				031D32811A46058D00A6E271 /* Nexus */,
+				031D32941A46058D00A6E271 /* NexusTests */,
+				031D32801A46058D00A6E271 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		031D32801A46058D00A6E271 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				031D327F1A46058D00A6E271 /* Nexus.app */,
+				031D32911A46058D00A6E271 /* NexusTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		031D32811A46058D00A6E271 /* Nexus */ = {
+			isa = PBXGroup;
+			children = (
+				03DAB32C1A462A22001E3866 /* Helper */,
+				03DAB32B1A462A13001E3866 /* Model */,
+				03DAB32A1A462A07001E3866 /* Controllers */,
+				03DAB3291A462A00001E3866 /* Views */,
+				031D32841A46058D00A6E271 /* AppDelegate.swift */,
+				031D32881A46058D00A6E271 /* Images.xcassets */,
+				031D328A1A46058D00A6E271 /* Main.storyboard */,
+				031D32821A46058D00A6E271 /* Supporting Files */,
+			);
+			path = Nexus;
+			sourceTree = "<group>";
+		};
+		031D32821A46058D00A6E271 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				031D32831A46058D00A6E271 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		031D32941A46058D00A6E271 /* NexusTests */ = {
+			isa = PBXGroup;
+			children = (
+				031D32971A46058D00A6E271 /* NexusTests.swift */,
+				031D32951A46058D00A6E271 /* Supporting Files */,
+			);
+			path = NexusTests;
+			sourceTree = "<group>";
+		};
+		031D32951A46058D00A6E271 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				031D32961A46058D00A6E271 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03DAB3291A462A00001E3866 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				03DAB3271A4629F6001E3866 /* SmileView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		03DAB32A1A462A07001E3866 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				031D32861A46058D00A6E271 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		03DAB32B1A462A13001E3866 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				031D32A31A4605AA00A6E271 /* SlackConnection.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		03DAB32C1A462A22001E3866 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				031D32A11A4605AA00A6E271 /* Constants.swift */,
+				031D32A21A4605AA00A6E271 /* SlackAPIEndpoints.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		031D327E1A46058D00A6E271 /* Nexus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 031D329B1A46058D00A6E271 /* Build configuration list for PBXNativeTarget "Nexus" */;
+			buildPhases = (
+				031D327B1A46058D00A6E271 /* Sources */,
+				031D327C1A46058D00A6E271 /* Frameworks */,
+				031D327D1A46058D00A6E271 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Nexus;
+			productName = Nexus;
+			productReference = 031D327F1A46058D00A6E271 /* Nexus.app */;
+			productType = "com.apple.product-type.application";
+		};
+		031D32901A46058D00A6E271 /* NexusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 031D329E1A46058D00A6E271 /* Build configuration list for PBXNativeTarget "NexusTests" */;
+			buildPhases = (
+				031D328D1A46058D00A6E271 /* Sources */,
+				031D328E1A46058D00A6E271 /* Frameworks */,
+				031D328F1A46058D00A6E271 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				031D32931A46058D00A6E271 /* PBXTargetDependency */,
+			);
+			name = NexusTests;
+			productName = NexusTests;
+			productReference = 031D32911A46058D00A6E271 /* NexusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		031D32771A46058D00A6E271 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Dactyl Studios";
+				TargetAttributes = {
+					031D327E1A46058D00A6E271 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					031D32901A46058D00A6E271 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 031D327E1A46058D00A6E271;
+					};
+				};
+			};
+			buildConfigurationList = 031D327A1A46058D00A6E271 /* Build configuration list for PBXProject "Nexus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 031D32761A46058D00A6E271;
+			productRefGroup = 031D32801A46058D00A6E271 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				031D327E1A46058D00A6E271 /* Nexus */,
+				031D32901A46058D00A6E271 /* NexusTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		031D327D1A46058D00A6E271 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				031D32891A46058D00A6E271 /* Images.xcassets in Resources */,
+				031D328C1A46058D00A6E271 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		031D328F1A46058D00A6E271 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		031D327B1A46058D00A6E271 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				031D32871A46058D00A6E271 /* ViewController.swift in Sources */,
+				03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */,
+				031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */,
+				031D32A61A4605AA00A6E271 /* SlackConnection.swift in Sources */,
+				031D32A51A4605AA00A6E271 /* SlackAPIEndpoints.swift in Sources */,
+				031D32A41A4605AA00A6E271 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		031D328D1A46058D00A6E271 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				031D32981A46058D00A6E271 /* NexusTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		031D32931A46058D00A6E271 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 031D327E1A46058D00A6E271 /* Nexus */;
+			targetProxy = 031D32921A46058D00A6E271 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		031D328A1A46058D00A6E271 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				031D328B1A46058D00A6E271 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		031D32991A46058D00A6E271 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		031D329A1A46058D00A6E271 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		031D329C1A46058D00A6E271 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Nexus/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		031D329D1A46058D00A6E271 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Nexus/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		031D329F1A46058D00A6E271 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NexusTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nexus.app/Contents/MacOS/Nexus";
+			};
+			name = Debug;
+		};
+		031D32A01A46058D00A6E271 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NexusTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nexus.app/Contents/MacOS/Nexus";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		031D327A1A46058D00A6E271 /* Build configuration list for PBXProject "Nexus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				031D32991A46058D00A6E271 /* Debug */,
+				031D329A1A46058D00A6E271 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		031D329B1A46058D00A6E271 /* Build configuration list for PBXNativeTarget "Nexus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				031D329C1A46058D00A6E271 /* Debug */,
+				031D329D1A46058D00A6E271 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		031D329E1A46058D00A6E271 /* Build configuration list for PBXNativeTarget "NexusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				031D329F1A46058D00A6E271 /* Debug */,
+				031D32A01A46058D00A6E271 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 031D32771A46058D00A6E271 /* Project object */;
+}
