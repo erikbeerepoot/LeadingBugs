@@ -12,6 +12,7 @@ import Foundation
 protocol SlackConnectionDelegate {
     func didReceiveURLResponseWithData(response : NSURLResponse,data : NSData) -> ();
     func authorizationComplete() -> ();
+    func didConnect() -> ();
 }
 
 class SlackConnection {
@@ -58,6 +59,7 @@ class SlackConnection {
             if(result==1){
                 //success!
                 isConnected = true;
+                delegate?.didConnect()
             } else {
                 NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
                 isConnected = false;
@@ -101,17 +103,22 @@ class SlackConnection {
     
     func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
         
-        //convert JSON string to NSData
-        let jsonData = NSJSONSerialization.dataWithJSONObject(jsonDict, options: nil, error: nil);
-        
         var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
+        //append parameters
+        var urlString = NSMutableString(string : url.absoluteString!);
+        urlString.appendString("?");
+        for parameter in jsonDict {
+            urlString.appendString(NSString(string : parameter.key as String) + "=" + NSString(string : parameter.value as String)  + "&");
+        }
+        
         //create task & start it
-        var task = urlSession.dataTaskWithURL(url, completionHandler:
-            { (jsonData : NSData!, response: NSURLResponse!,error: NSError!) in
+        let newUrl = NSURL(string:urlString)!;
+        var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
+            { (data : NSData!, response: NSURLResponse!,error: NSError!) in
                 //parse JSON back to dictionary
-                let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
+                let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
                 aCompletionHandler(jsonDict,response,nil);
         });
         task.resume();
@@ -145,15 +152,12 @@ class SlackConnection {
                     let httpResponse = response as NSHTTPURLResponse;
                     let statusCode = httpResponse.statusCode;
                     
-                    
-                    
                     if(statusCode==kStatusCodeOK){
                         //parse data
                         dispatch_async(dispatch_get_main_queue(),{
                             let delegateObj = self.delegate! as SlackConnectionDelegate
                             self.delegate?.didReceiveURLResponseWithData(response,data:data);
                         });
-
                         success = true;
                     }
 
@@ -250,10 +254,31 @@ class SlackConnection {
         })
         authTask.resume();
     }
-    
+    //    func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
     func SendMessageToChannelWithName(message : NSString, channelName : NSString) -> Bool {
         if(!isConnected) { return false; }
+        
+        //set values
+        var paramDict = NSDictionary(objectsAndKeys: NSString(string: token!),"token",NSString(string: kBotName),"username",channelName,"channel",message.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!,"text");
+        PerformRequestWithURLAndJSONData(NSURL(string: SlackEndpoints.kSendMessageEndpoint)!, jsonDict: paramDict, aCompletionHandler: MessageSentHandler);
+        
         return true;
+    }
+    
+    func MessageSentHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> (){
+        if(data != nil){
+            NSLog("Connection attempt result: %@", data!);
+            let result = data!.objectForKey(kOKKey) as Int;
+            if(result==1){
+                //success!
+                isConnected = true;
+            } else {
+                NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
+                isConnected = false;
+            }
+        } else {
+            //bad stuff happened
+        }
     }
     
     

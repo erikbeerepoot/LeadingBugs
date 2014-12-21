@@ -8,6 +8,7 @@
 
 import Foundation
 
+let kBotName = "Nexus";
 let kStatusCodeOK = 200;
 
 let kWhiteColor = CGColorCreate(CGColorSpaceCreateDeviceRGB() ,[1.0,1.0,1.0,0.9]);

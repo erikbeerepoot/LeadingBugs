@@ -19,6 +19,8 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         case authorizedState;
     }
     
+    let testMessage : NSString = "Hello, world!";
+    
     var currentState : state = state.initialState;
     var stateTimer : NSTimer? = nil;
     var smileView : SmileView? = nil;
@@ -103,6 +105,14 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         webView?.hidden = true;
         self.presentSmileViewWithText("Authorized!");
         connection?.Connect();
+    }
+    
+    func didConnect() -> () {
+        smileView?.SetTextToDisplay("Nexus running...");
+        smileView!.setNeedsDisplayInRect(smileView!.frame)
+        
+        //send test message
+        connection?.SendMessageToChannelWithName("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
     }
     
     override func webView(webView: WebView!,

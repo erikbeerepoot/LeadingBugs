@@ -14,6 +14,9 @@ public let kAuthorizationKey = "access_token";
 public let kOKKey = "ok";
 public let kErrorKey = "error";
 
+public let kGeneralChannelID = "C024G2VPX";
+public let kTestChannelID = "G033JS5T7";
+
 public struct SlackIDs {
     public static let kTeamID = "T024G2VPR";
     public static let kClientID = "2152097807.3263247755";
