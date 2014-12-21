@@ -86,7 +86,7 @@ class ViewController: NSViewController, SlackConnectionDelegate {
             connection = SlackConnection();
         }
         connection?.SetDelegate(self);
-        connection?.Connect();
+        connection?.Authorize();
     }
     
     func presentSmileViewWithText (text : NSString) -> () {
@@ -102,6 +102,7 @@ class ViewController: NSViewController, SlackConnectionDelegate {
     func authorizationComplete() -> (){
         webView?.hidden = true;
         self.presentSmileViewWithText("Authorized!");
+        connection?.Connect();
     }
     
     override func webView(webView: WebView!,

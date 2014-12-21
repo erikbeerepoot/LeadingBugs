@@ -16,10 +16,11 @@ protocol SlackConnectionDelegate {
 
 class SlackConnection {
     
-
+    var authorizationInProgress : Bool = false;
+    var isAuthorized : Bool = false;
     var isConnected : Bool = false;
     var delegate : SlackConnectionDelegate? = nil;
-    
+    var token : NSString? = nil;
     /**
         @name: Init
         @brief: Class initialization
@@ -38,19 +39,82 @@ class SlackConnection {
         @returns: Success (true) or failure (false)
     */
     func Connect() -> (Bool){
+        if(!isAuthorized){ return false; }
+        
+        //we are authorized, attempt a connection
         println("Connecting...");
-        Authorize();
+        
+        let tokenDict = NSDictionary(object: token!, forKey: "token");
+        let URL : NSURL = NSURL(string: SlackEndpoints.kConnectEndpoint)!;
+        PerformAuthRequestWithURLAndParameters(URL, parameters : tokenDict, aCompletionHandler: ConnectionHandler)
+        
         return false;
+    }
+    
+    func ConnectionHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> () {
+        if(data != nil){
+            NSLog("Connection attempt result: %@", data!);
+            let result = data!.objectForKey(kOKKey) as Int;
+            if(result==1){
+                //success!
+                isConnected = true;
+            } else {
+                NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
+                isConnected = false;
+            }
+        } else {
+            //bad stuff happened
+        }
     }
 
     /**
         @name: Disconnect
         @brief: Disconnects from Slack
         @returns: Success (true) or failure (false)
-    :returns: <#return value description#>
     */
     func Disconnect() -> (Bool){
         return false;
+    }
+    
+    
+    func PerformAuthRequestWithURLAndParameters(url : NSURL, parameters : NSDictionary, aCompletionHandler : (NSDictionary?,NSURLResponse!,NSError?) -> ()) -> (){
+        var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
+        var urlSession = NSURLSession(configuration: sessionConfiguration);
+        
+        //append parameters
+        var urlString = NSMutableString(string : url.absoluteString!);
+        urlString.appendString("?");
+        for parameter in parameters {
+            urlString.appendString((parameter.key as String) + "=" + (parameter.value as String) + "&");
+        }
+        
+        //create task & start it
+        let newUrl = NSURL(string: urlString)!;
+        var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
+            { (data : NSData!, response: NSURLResponse!,error: NSError!) in
+                //parse JSON back to dictionary
+                let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
+                aCompletionHandler(jsonDict,response,nil);
+        });
+        task.resume();
+    }
+    
+    func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
+        
+        //convert JSON string to NSData
+        let jsonData = NSJSONSerialization.dataWithJSONObject(jsonDict, options: nil, error: nil);
+        
+        var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
+        var urlSession = NSURLSession(configuration: sessionConfiguration);
+        
+        //create task & start it
+        var task = urlSession.dataTaskWithURL(url, completionHandler:
+            { (jsonData : NSData!, response: NSURLResponse!,error: NSError!) in
+                //parse JSON back to dictionary
+                let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
+                aCompletionHandler(jsonDict,response,nil);
+        });
+        task.resume();
     }
     
     /**
@@ -59,7 +123,7 @@ class SlackConnection {
         @returns: Success (true) or failure (false)
     */
     func Authorize() -> (Bool){
-        if(isConnected) {
+        if(isAuthorized) {
             return true;
         }
         
@@ -71,7 +135,7 @@ class SlackConnection {
         var urlSession = NSURLSession(configuration: sessionConfiguration);
 
         //create authorization request
-        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=2152097807.3263247755&team=T024G2VPR");
+        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=2152097807.3263247755&team=T024G2VPR&scope=read,post,client");
         
         //send auth GET request
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
@@ -102,7 +166,7 @@ class SlackConnection {
     }
     
     func CompleteAuthorizationWithURL(urlString : NSString) -> () {
-        var success = false;
+        if(authorizationInProgress || isAuthorized) { return };
         
         //setup session
         var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
@@ -113,7 +177,7 @@ class SlackConnection {
         
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
             { (data : NSData!, response: NSURLResponse!,error: NSError!) in
-                success = false;
+
                 if(error != nil){
                     //grab the code from the error dict
                     let errorDict : NSDictionary = error.userInfo!;
@@ -126,9 +190,15 @@ class SlackConnection {
                     let codeComponents : NSArray = urlParameters.objectAtIndex(0).componentsSeparatedByString("=");
                     let code  : NSString = codeComponents.objectAtIndex(1) as NSString;
                     self.CompleteAuthorizationWithCode(code);
-                    }
+                    self.authorizationInProgress = false;
+                } else {
+                    var httpResponse = response as NSHTTPURLResponse;
+                    NSLog("URL: %@", httpResponse.URL!);
+                    self.authorizationInProgress = false;
+                }
                 });
         authTask.resume();
+        authorizationInProgress = true;
     }
     
     func CompleteAuthorizationWithCode(theCode : NSString) -> (){
@@ -162,7 +232,9 @@ class SlackConnection {
                                     NSLog("Failed with error: %@", jsonDict.objectForKey("error") as NSString);
                                 } else {
                                     NSLog("Success!");
-                                    self.isConnected = true;
+                                    self.isAuthorized = true;
+                                    self.token = jsonDict.objectForKey(kAuthorizationKey) as String;
+                                    
                                     dispatch_async(dispatch_get_main_queue(),{
                                         let delegateObj = self.delegate! as SlackConnectionDelegate
                                         self.delegate?.authorizationComplete();
@@ -177,7 +249,11 @@ class SlackConnection {
                 }
         })
         authTask.resume();
-
+    }
+    
+    func SendMessageToChannelWithName(message : NSString, channelName : NSString) -> Bool {
+        if(!isConnected) { return false; }
+        return true;
     }
     
     
