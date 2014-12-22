@@ -88,7 +88,6 @@ class ViewController: NSViewController, SlackConnectionDelegate {
             connection = SlackConnection();
         }
         connection?.SetDelegate(self);
-        connection?.Authorize();
     }
     
     func presentSmileViewWithText (text : NSString) -> () {
@@ -101,11 +100,11 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         webView?.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:response.URL);
     }
     
-    func authorizationComplete() -> (){
-        webView?.hidden = true;
-        self.presentSmileViewWithText("Authorized!");
-        connection?.Connect();
-    }
+//    func authorizationComplete() -> (){
+//        webView?.hidden = true;
+//        self.presentSmileViewWithText("Authorized!");
+//        connection?.Connect();
+//    }
     
     func didConnect() -> () {
         smileView?.SetTextToDisplay("Nexus running...");
@@ -122,12 +121,12 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         decisionListener listener: WebPolicyDecisionListener!){
 
         //interpret results
-        let actInfo = actionInformation as NSDictionary;
-        if(actInfo.objectForKey(WebActionNavigationTypeKey) as Int == WebNavigationType.FormSubmitted.rawValue){
-            //tried to submit form, parse code
-            var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
-            connection?.CompleteAuthorizationWithURL(originalURL.absoluteString!);
-        }
+//        let actInfo = actionInformation as NSDictionary;
+//        if(actInfo.objectForKey(WebActionNavigationTypeKey) as Int == WebNavigationType.FormSubmitted.rawValue){
+//            //tried to submit form, parse code
+//            var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
+//            connection?.CompleteAuthorizationWithURL(originalURL.absoluteString!);
+//        }
         listener.use();
     }
     
