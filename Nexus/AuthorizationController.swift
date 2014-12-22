@@ -9,10 +9,9 @@
 import Foundation
 import WebKit
 
+//MARK: Protocol: AuthorizationControllerDelegate
 protocol AuthorizationControllerDelegate {
-    func authorizationDidFinish() -> ();
-    func showAuthorizationPromptWithURLandData(url : NSURL, data : NSData) -> ();
-    func authorizationDidFailWithError(error : NSError) -> ();
+    func authorizationDidFinishWithError(error : NSError?) -> ();
 }
 
 class AuthorizationController {
@@ -22,16 +21,22 @@ class AuthorizationController {
     var authorizationToken : String = String();
     
     //auth view
-    var authorizationView : WebView? = nil;
+    private var m_authorizationView : WebView? = nil;
     
+    func setAuthorizationView(authorizationView : WebView) -> (){
+        m_authorizationView = authorizationView;
+        m_authorizationView?.policyDelegate = self;
+    }
+    
+    //MARK: Authorization methods
     /**
-    @name: Authorize
-    @brief: Performs authorization with Slack
-    @returns: Success (true) or failure (false)
+    @name: startAuthorization
+    @brief: Starts authorization process with Slack
+    @returns: True, if the process has been started. False, if not.
     */
-    func StartAuthorization() -> (Bool){
+    func startAuthorization() -> (Bool){
         if authorized { return true; }
-        if authorizationView==nil { return false; }
+        if m_authorizationView==nil { return false; }
         
         println("Authorizing with slack...");
         
@@ -40,39 +45,38 @@ class AuthorizationController {
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
         //create authorization request
-        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=2152097807.3263247755&team=T024G2VPR&scope=read,post,client");
+        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=" + SlackIDs.kClientID +  "&team=" + SlackIDs.kTeamID + "&scope=read,post,client");
         
         //send auth GET request
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
             { (data : NSData!, response: NSURLResponse!,error: NSError!) in
+                //process results
                 if(error==nil){
-                    let httpResponse = response as NSHTTPURLResponse;
-                    let statusCode = httpResponse.statusCode;
-
-                    
+                    let statusCode = (response as NSHTTPURLResponse).statusCode;
                     if(statusCode==kStatusCodeOK){
-                        //parse data
+                        //show authorization prompt on UI
                         dispatch_async(dispatch_get_main_queue(),{
                             let url : NSURL = response.URL!
-                            self.delegate?.showAuthorizationPromptWithURLandData(url, data: data);
+                            self.m_authorizationView?.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:url);
+                            self.m_authorizationView?.hidden = false;
                         });
                     }
-                    
                 } else {
                     //tell delegate about the error
                     dispatch_async(dispatch_get_main_queue(),{
                         let err = error!;
-                        self.delegate?.authorizationDidFailWithError(err);
+                        self.delegate?.authorizationDidFinishWithError(err);
                     });
                 }
         })
         
         //kick off task
         authTask.resume();
+        return true;
     }
     
 
-    func authorizationResponseWithURL(urlString : NSString) -> () {
+    func processAuthorizationResponseWithURL(urlString : NSString) -> () {
         if(authorized) { return };
         
         //setup session
@@ -96,7 +100,7 @@ class AuthorizationController {
                     let urlParameters : NSArray = urlComponents.objectAtIndex(1).componentsSeparatedByString("&")
                     let codeComponents : NSArray = urlParameters.objectAtIndex(0).componentsSeparatedByString("=");
                     let code  : NSString = codeComponents.objectAtIndex(1) as NSString;
-                    self.CompleteAuthorizationWithCode(code);
+                    self.completeAuthorizationWithCode(code);
 
                 } else {
                     var httpResponse = response as NSHTTPURLResponse;
@@ -106,7 +110,8 @@ class AuthorizationController {
         authTask.resume();
     }
 
-    func CompleteAuthorizationWithCode(theCode : NSString) -> (){
+    func completeAuthorizationWithCode(theCode : NSString) -> (){
+        if(authorized) { return };
         
         //setup session
         var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
@@ -139,7 +144,10 @@ class AuthorizationController {
 
                                     self.authorizationToken = jsonDict.objectForKey(kAuthorizationKey) as String;
                                     self.authorized = true;
-                                    self.delegate?.authorizationDidFinish();
+                                    self.delegate?.authorizationDidFinishWithError(nil);
+                                    
+                                    //hide webview
+                                    self.m_authorizationView?.hidden = true;
                                 }
                             }
                         } else {
@@ -149,5 +157,22 @@ class AuthorizationController {
                 }
         })
         authTask.resume();
+    }
+    
+    //MARK: WebView & Co delegate methods
+    func webView(webView: WebView!,
+        decidePolicyForNavigationAction actionInformation: [NSObject : AnyObject]!,
+        request: NSURLRequest!,
+        frame: WebFrame!,
+        decisionListener listener: WebPolicyDecisionListener!){
+
+        //interpret results
+        let actInfo = actionInformation as NSDictionary;
+        if(actInfo.objectForKey(WebActionNavigationTypeKey) as Int == WebNavigationType.FormSubmitted.rawValue){
+            //tried to submit form, parse code
+            var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
+            self.processAuthorizationResponseWithURL(originalURL.absoluteString!);
+        }
+        listener.use();
     }
 }

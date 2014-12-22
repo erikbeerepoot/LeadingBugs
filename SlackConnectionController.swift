@@ -16,15 +16,17 @@ protocol SlackConnectionControllerDelegate {
     func didDestroyConnectionWithIdentifier(identifier : String) -> ();
 }
 
-class SlackConnectionController : SlackConnectionDelegate {
+class SlackConnectionController : SlackConnectionDelegate,AuthorizationControllerDelegate {
     //MARK: Member variables
     var authorizationController : AuthorizationController? = nil;
     var connections : Dictionary<String,SlackConnection>? = nil;
     var delegate : SlackConnectionControllerDelegate? = nil;
-
+    
     //MARK: Construction/Destruction
-    init() {
+    init(authController : AuthorizationController ) {
         connections = Dictionary();
+        authorizationController = authController;
+        
     }
     
     //MARK: Main logic
@@ -32,6 +34,11 @@ class SlackConnectionController : SlackConnectionDelegate {
         let newConnection = SlackConnection();
         let identifier = NSUUID().UUIDString;
         newConnection.delegate = self;
+     
+        //attempt
+        if(!authorizationController!.authorized){
+            authorizationController!.startAuthorization();
+        }
         
         //new connection in dict
         connections?.updateValue(newConnection, forKey: identifier);
@@ -42,8 +49,6 @@ class SlackConnectionController : SlackConnectionDelegate {
      @name: connectionForIdentifier
      @brief: Returns the SlackConnection for the identifier, if it exists
      @returns: reference to SlackConnection
-    
-    
     */
     func connectionForIdentifier(id : String) -> SlackConnection? {
         return connections?[id];
@@ -73,7 +78,7 @@ class SlackConnectionController : SlackConnectionDelegate {
      @param: sender - The connection object invoking the method
     */
     func connectionDidFinishWithError(error : NSError?, sender : SlackConnection) -> (){
-
+        
         //find key for the connection
         let identifier = keyForConnection(sender);
         if(identifier==nil){
@@ -127,4 +132,15 @@ class SlackConnectionController : SlackConnectionDelegate {
         }
         return connectionIdentifier;
     }
+    
+    //MARK: Delegate methods
+    func authorizationDidFinishWithError(error : NSError?) -> (){
+        if(error == nil){
+            //if we have connections in our dict, connect them
+            
+        } else {
+            //not authorized, cannot connect
+        }
+    }
+
 }

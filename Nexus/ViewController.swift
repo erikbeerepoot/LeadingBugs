@@ -27,28 +27,27 @@ class ViewController: NSViewController {
         smileView?.SetTextToDisplay("Hello!");
         authorizationView = WebView(frame: self.view.frame);
         authorizationView?.hidden = true;
-        
-
-        //Add webview constraints for scaling, since swift doesn't allow us to use macros
-        var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
-        viewBindingsDict.setValue(authorizationView, forKey: "webView")
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
-    
+            
         //add views to the view hierarchy
         if smileView != nil {
             self.view.addSubview(smileView!);
         }
         
-        if authorizationView != nil {
-            self.view.addSubview(authorizationView!);
-        }
+        //we *need* an authorizationView to be able to use this app
+        assert(authorizationView != nil);
+        self.view.addSubview(authorizationView!);
+        
+        //Add webview constraints for scaling, since swift doesn't allow us to use macros
+        var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
+        viewBindingsDict.setValue(authorizationView, forKey: "webView")
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
         
         //Create controller objects
         let authorizationController = AuthorizationController();
-        let connectionController = SlackConnectionController();
-        authorizationController.authorizationView = authorizationView;
-        connectionController.authorizationController = authorizationController;
+        authorizationController.setAuthorizationView(authorizationView!);
+        connectionController = SlackConnectionController(authController: authorizationController);
+        let connectionID : String? = connectionController?.createConnection();
     }
 
     override var representedObject: AnyObject? {
