@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import WebKit
+
 protocol AuthorizationControllerDelegate {
     func authorizationDidFinish() -> ();
     func showAuthorizationPromptWithURLandData(url : NSURL, data : NSData) -> ();
@@ -19,21 +21,17 @@ class AuthorizationController {
     var authorized : Bool = false;
     var authorizationToken : String = String();
     
-    /**
-        @name: setDelegate
-        @brief: sets the delegate for this class
-    */
-    func setDelegate(aDelegate : AuthorizationControllerDelegate){
-        delegate = aDelegate;
-    }
+    //auth view
+    var authorizationView : WebView? = nil;
     
     /**
     @name: Authorize
     @brief: Performs authorization with Slack
     @returns: Success (true) or failure (false)
     */
-    func StartAuthorization() -> (){
-        if authorized {  return }
+    func StartAuthorization() -> (Bool){
+        if authorized { return true; }
+        if authorizationView==nil { return false; }
         
         println("Authorizing with slack...");
         

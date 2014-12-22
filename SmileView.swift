@@ -53,6 +53,7 @@ class SmileView : NSView {
     
     func SetTextToDisplay(text : NSString){
         uitext = text;
+        self.setNeedsDisplayInRect(self.bounds);
     }
     
     func GetTextSize(text : NSString) -> (CGSize) {

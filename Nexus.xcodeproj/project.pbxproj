@@ -145,9 +145,9 @@
 		03DAB32A1A462A07001E3866 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */,
 				031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */,
 				031D32861A46058D00A6E271 /* ViewController.swift */,
-				03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
