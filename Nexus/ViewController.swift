@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import WebKit
 
-class ViewController: NSViewController, SlackConnectionDelegate {
+class ViewController: NSViewController {
 
     enum state {
         case initialState;
@@ -60,7 +60,7 @@ class ViewController: NSViewController, SlackConnectionDelegate {
             break;
         case .authorizationState:
             smileView?.hidden = true;
-            presentAuthorizationView();
+//            presentAuthorizationView();
             break;
         case .authorizedState:
             break;
@@ -84,10 +84,10 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
         
         //perform authorization
-        if(connection==nil) {
-            connection = SlackConnection();
-        }
-        connection?.SetDelegate(self);
+//        if(connection==nil) {
+//            connection = SlackConnection();
+//        }
+//        connection?.SetDelegate(self);
     }
     
     func presentSmileViewWithText (text : NSString) -> () {
@@ -100,18 +100,13 @@ class ViewController: NSViewController, SlackConnectionDelegate {
         webView?.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:response.URL);
     }
     
-//    func authorizationComplete() -> (){
-//        webView?.hidden = true;
-//        self.presentSmileViewWithText("Authorized!");
-//        connection?.Connect();
-//    }
-    
+
     func didConnect() -> () {
         smileView?.SetTextToDisplay("Nexus running...");
         smileView!.setNeedsDisplayInRect(smileView!.frame)
         
         //send test message
-        connection?.SendMessageToChannelWithName("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
+     //   connection?.SendMessageToChannelWithName("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
     }
     
     override func webView(webView: WebView!,

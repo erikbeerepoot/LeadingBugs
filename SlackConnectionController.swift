@@ -9,104 +9,139 @@
 import AppKit
 import Foundation
 
-protocol SlackConnectionDelegate {
-    func didReceiveURLResponseWithData(response : NSURLResponse,data : NSData) -> ();
-    func didConnect() -> ();
+//MARK: Protocol: SlackConnectionControllerDelegate
+protocol SlackConnectionControllerDelegate {
+    func connectionFailedWithIdentifier(identifier : String, error: NSError) -> ();
+    func didCreateConnectionWithIdentifier(identifier : String) -> ();
+    func didDestroyConnectionWithIdentifier(identifier : String) -> ();
 }
 
-class SlackConnection {
+class SlackConnectionController : SlackConnectionDelegate {
+    //MARK: Member variables
+    var connections : Dictionary<String,SlackConnection>? = nil;
+    var delegate : SlackConnectionControllerDelegate? = nil;
     
-    var authorizationInProgress : Bool = false;
-    var isAuthorized : Bool = false;
-    var isConnected : Bool = false;
-    var delegate : SlackConnectionDelegate? = nil;
-    var token : NSString? = nil;
-    /**
-        @name: Init
-        @brief: Class initialization
-    */
+    //MARK: Construction/Destruction
     init() {
-        Connect();
+        connections = Dictionary();
+    }
+    
+    //MARK: Main logic
+    func createConnection() -> (){
+        let newConnection = SlackConnection();
+        let identifier = NSUUID().UUIDString;
+
+        connections?.updateValue(newConnection, forKey: identifier);
     }
 
-    func SetDelegate(aDelegate : SlackConnectionDelegate){
+    /**
+     @name: destroyConnectionWithIdentifier
+     @brief: Disconnects and destroys the connection with the given identifier
+     @param: the identifier of the connection
+     @returns: true, if the connection was found, false if not found
+    */
+    func destroyConnectionWithIdentifier(identifier : String) -> (Bool){
+        let connection = connections?[identifier];
+        if(connection != nil){
+            connection?.disconnect();
+        } else {
+            return false;
+        }
+        return true;
+    }
+    
+    //MARK: Delegate methods
+    func setDelegate(aDelegate : SlackConnectionControllerDelegate){
         delegate = aDelegate;
     }
     
     /**
-        @name: Connect
-        @brief: Connects to slack (authenticated)
-        @returns: Success (true) or failure (false)
+     @name: connectionDidFinishWithError
+     @brief: Method called when the connection attempt has finished
+     @param: error - The error object (if present)
+     @param: sender - The connection object invoking the method
     */
-    func Connect() -> (Bool){
-        if(!isAuthorized){ return false; }
+    func connectionDidFinishWithError(error : NSError?, sender : SlackConnection) -> (){
+
+        //find key for the connection
+        let identifier = keyForConnection(sender);
+        if(identifier==nil){
+            //uh-oh
+            return;
+        }
         
-        //we are authorized, attempt a connection
-        println("Connecting...");
-        
-        let tokenDict = NSDictionary(object: token!, forKey: "token");
-        let URL : NSURL = NSURL(string: SlackEndpoints.kConnectEndpoint)!;
-        return false;
+        //we've found the connection, notify delegate of results
+        if(error==nil){
+            self.delegate?.didCreateConnectionWithIdentifier(identifier!);
+        } else {
+            self.delegate?.connectionFailedWithIdentifier(identifier!,error:error!);
+        }
     }
     
     /**
-    @name: Disconnect
-    @brief: Disconnects from Slack
-    @returns: Success (true) or failure (false)
+    @name: connectionDidDisconnectWithError
+    @brief: Method called when the connection has been disconnected
+    @param: error - The error object (if present)
+    @param: sender - The connection object invoking the method
     */
-    func Disconnect() -> (Bool){
-        return false;
-    }
-    
-    
-    
-    
-    func ConnectionHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> () {
-        if(data != nil){
-            NSLog("Connection attempt result: %@", data!);
-            let result = data!.objectForKey(kOKKey) as Int;
-            if(result==1){
-                //success!
-                isConnected = true;
-                delegate?.didConnect()
-            } else {
-                NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
-                isConnected = false;
-            }
-        } else {
-            //bad stuff happened
+    func connectionDidDisconnectWithError(error: NSError?, sender : SlackConnection) {
+        //find key for the connection
+        let identifier = keyForConnection(sender);
+        if(identifier==nil){
+            //uh-oh
+            return;
         }
+        //delete the connection
+        connections?[identifier!] = nil;
+        
+        //notify the delegate this connection has now been destroyed
+        self.delegate?.didDestroyConnectionWithIdentifier(identifier!);
     }
+    
+    //MARK: Helper functions
+    /**
+    @name: keyForConnection
+    @brief: Finds the key for the connection passed to the method (if it exists)
+    @param: theConnection - the connection we want to find
+    @returns: the key if it exists, nil otherwise
+    */
+    func keyForConnection(theConnection : SlackConnection) -> (String?) {
+        var connectionIdentifier : String? = nil;
+        for (identifier,connection) in connections! {
+            if(connection===theConnection){
+                connectionIdentifier = identifier;
+                break;
+            }
+        }
+        return connectionIdentifier;
+    }
+}
+
 
     
-    
-    
-    //    func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
-    func SendMessageToChannelWithName(message : NSString, channelName : NSString) -> Bool {
-        if(!isConnected) { return false; }
-        
-        //set values
-        var paramDict = NSDictionary(objectsAndKeys: NSString(string: token!),"token",NSString(string: kBotName),"username",channelName,"channel",message.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!,"text");
-    //    PerformRequestWithURLAndJSONData(NSURL(string: SlackEndpoints.kSendMessageEndpoint)!, jsonDict: paramDict, aCompletionHandler: MessageSentHandler);
-        
-        return true;
-    }
-    
-    func MessageSentHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> (){
-        if(data != nil){
-            NSLog("Connection attempt result: %@", data!);
-            let result = data!.objectForKey(kOKKey) as Int;
-            if(result==1){
-                //success!
-                isConnected = true;
-            } else {
-                NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
-                isConnected = false;
-            }
-        } else {
-            //bad stuff happened
-        }
-    }
-    
-    
-}
+//    //    func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
+//    func SendMessageToChannelWithName(message : NSString, channelName : NSString) -> Bool {
+//        if(!isConnected) { return false; }
+//        
+//        //set values
+//        var paramDict = NSDictionary(objectsAndKeys: NSString(string: token!),"token",NSString(string: kBotName),"username",channelName,"channel",message.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!,"text");
+//    //    PerformRequestWithURLAndJSONData(NSURL(string: SlackEndpoints.kSendMessageEndpoint)!, jsonDict: paramDict, aCompletionHandler: MessageSentHandler);
+//        
+//        return true;
+//    }
+//    
+//    func MessageSentHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> (){
+//        if(data != nil){
+//            NSLog("Connection attempt result: %@", data!);
+//            let result = data!.objectForKey(kOKKey) as Int;
+//            if(result==1){
+//                //success!
+//                isConnected = true;
+//            } else {
+//                NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
+//                isConnected = false;
+//            }
+//        } else {
+//            //bad stuff happened
+//        }
+//    }
