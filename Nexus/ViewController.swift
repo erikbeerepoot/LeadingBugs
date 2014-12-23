@@ -19,6 +19,8 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
     //controllers
     var connectionController : SlackConnectionController? = nil;
     
+    var connectionID : String? = nil;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +50,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         authorizationController.setWebView(authorizationView!);
         connectionController = SlackConnectionController(authController: authorizationController);
         connectionController?.delegate = self;
-        let connectionID : String? = connectionController?.createConnection();
+        connectionID = connectionController?.createConnection();
     }
 
     override var representedObject: AnyObject? {
@@ -56,11 +58,6 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         // Update the view, if already loaded.
         }
     }
-    
-        
-    //send test message
-    //   connection?.SendMessageToChannelWithName("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
-    
     
     //MARK: Delegate methods
     func connectionFailedWithIdentifier(identifier : String, andError: NSError) -> (){
@@ -72,6 +69,15 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         smileView?.SetTextToDisplay("Nexus running...");
         authorizationView?.hidden = true;
         smileView?.hidden = false;
+        
+        //send test message
+        let connection = connectionController?.connectionForIdentifier(connectionID!);
+        let msg = Message(aChannel: kTestChannelID, messageText: "Hello, world!");
+        let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
+        connection?.send(url, sendObject: msg, callback: nil);
+        
+        
+        //connection?.s("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
     }
     func didDestroyConnectionWithIdentifier(identifier : String) -> (){
         smileView?.SetTextToDisplay("Nexus stopped.");

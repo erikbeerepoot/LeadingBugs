@@ -14,20 +14,11 @@ protocol SlackConnectionDelegate {
 }
 
 class SlackConnection {
+    var sentCallback : ((Bool,NSError?) -> ())? = nil;
     var delegate : SlackConnectionDelegate? = nil;
     var connected : Bool = false;
     var authorized : Bool = false;
     var token : NSString? = nil;
-    
-    /**
-    @name: Init
-    @brief: Class initialization
-    */
-    init() {}
-    
-    func SetDelegate(aDelegate : SlackConnectionDelegate){
-        delegate = aDelegate;
-    }
     
     /**
     @name: Connect
@@ -42,7 +33,7 @@ class SlackConnection {
         
         let tokenDict = NSDictionary(object: token!, forKey: "token");
         let URL : NSURL = NSURL(string: SlackEndpoints.kConnectEndpoint)!;
-        PerformRequestWithURLAndQueryParameters(URL,tokenDict,connectionHandler);
+        performRequestWithURL(URL, queryParams:tokenDict,andCompletionHandler:connectionHandler);
         return true;
     }
     
@@ -55,6 +46,19 @@ class SlackConnection {
         return false;
     }
     
+    func send(url : NSURL,sendObject : SerializableParameterObject, callback : ((result : Bool, error : NSError?) -> ())?) -> (){
+        sentCallback = callback;
+        performRequestWithURL(url,token!, serializableObject: sendObject, andCompletionHandler:sentHandler);
+    }
+    
+    
+    /**
+     * @name: connectionHandler
+     * @brief: Callback invoked when connection attempt completes
+     * @param: data - data received
+     * @param: urlResponse - URL response received
+     * @param: error (optional) - Error received, nil if no error
+     */
     func connectionHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
             NSLog("Connection attempt result: %@", data!);
@@ -70,6 +74,22 @@ class SlackConnection {
             }
         } else {
             //bad stuff happened
+        }
+    }
+    
+    /**
+    * @name: sentHandler
+    * @brief: Callback invoked when send completed
+    * @param: data - data received
+    * @param: urlResponse - URL response received
+    * @param: error (optional) - Error received, nil if no error
+    */
+    func sentHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> () {
+        if(data != nil){
+            let result = data!.objectForKey(kOKKey) as Bool;
+            sentCallback?(result,error);
+        } else {
+            sentCallback?(false,error);
         }
     }
     

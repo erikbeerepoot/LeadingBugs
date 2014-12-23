@@ -10,30 +10,24 @@ import Foundation
 
 //the optional fields go in a mutable dictionary
 //the required fields don't because we don't want to have someone remove them
-class Message {
-    //mandatory fields
-    var token : String;
-    var channel : String;
-    var text : String;
-
-    //dict of keys and values
-    var parameters = NSMutableDictionary();
-    
-    init(aToken : String, aChannel : String, messageText : String) {
-        token = aToken;
-        channel = aChannel;
-        text = messageText;
+class Message : SerializableParameterObject {
+    init(aChannel : String, messageText : String) {
+        super.init();
+        
+        //put in dict
+        requiredParameters["channel"] = aChannel;
+        requiredParameters["text"] = messageText;
     }
     
     func updateArgument(argumentName : String, withValue value : String) -> (){
-        parameters[argumentName] = value;
+        optionalParameters[argumentName] = value;
     }
     
     func removeArgumentWithName(argumentName : String) -> (Bool){
-        if(parameters[argumentName]==nil){
+        if(optionalParameters[argumentName]==nil){
             return false;
         } else {
-            parameters[argumentName]=nil;
+            optionalParameters[argumentName]=nil;
         }
         return true;
     }
