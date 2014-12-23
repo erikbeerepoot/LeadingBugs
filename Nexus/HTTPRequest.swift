@@ -8,29 +8,7 @@
 
 import Foundation
 
-func PerformAuthRequestWithURLAndParameters(url : NSURL, parameters : NSDictionary, aCompletionHandler : (NSDictionary?,NSURLResponse!,NSError?) -> ()) -> (){
-    var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
-    var urlSession = NSURLSession(configuration: sessionConfiguration);
-    
-    //append parameters
-    var urlString = NSMutableString(string : url.absoluteString!);
-    urlString.appendString("?");
-    for parameter in parameters {
-        urlString.appendString((parameter.key as String) + "=" + (parameter.value as String) + "&");
-    }
-    
-    //create task & start it
-    let newUrl = NSURL(string: urlString)!;
-    var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
-        { (data : NSData!, response: NSURLResponse!,error: NSError!) in
-            //parse JSON back to dictionary
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
-            aCompletionHandler(jsonDict,response,nil);
-    });
-    task.resume();
-}
-
-func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
+func PerformRequestWithURLAndQueryParameters(url : NSURL, queryParams : NSDictionary, aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
     
     var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
     var urlSession = NSURLSession(configuration: sessionConfiguration);
@@ -38,7 +16,7 @@ func PerformRequestWithURLAndJSONData(url : NSURL, jsonDict : NSDictionary, aCom
     //append parameters
     var urlString = NSMutableString(string : url.absoluteString!);
     urlString.appendString("?");
-    for parameter in jsonDict {
+    for parameter in queryParams {
         urlString.appendString(NSString(string : parameter.key as String) + "=" + NSString(string : parameter.value as String)  + "&");
     }
     

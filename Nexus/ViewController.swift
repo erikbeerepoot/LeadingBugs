@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import WebKit
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, SlackConnectionControllerDelegate {
     
     //views
     var smileView : SmileView? = nil;
@@ -45,8 +45,9 @@ class ViewController: NSViewController {
         
         //Create controller objects
         let authorizationController = AuthorizationController();
-        authorizationController.setAuthorizationView(authorizationView!);
+        authorizationController.setWebView(authorizationView!);
         connectionController = SlackConnectionController(authController: authorizationController);
+        connectionController?.delegate = self;
         let connectionID : String? = connectionController?.createConnection();
     }
 
@@ -56,48 +57,30 @@ class ViewController: NSViewController {
         }
     }
     
-}
-   
+        
+    //send test message
+    //   connection?.SendMessageToChannelWithName("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
+    
+    
+    //MARK: Delegate methods
+    func connectionFailedWithIdentifier(identifier : String, andError: NSError) -> (){
+        smileView?.SetTextToDisplay("Connection failed.");
+        authorizationView?.hidden = true;
+        smileView?.hidden = false;
+    }
+    func didCreateConnectionWithIdentifier(identifier : String) -> (){
+        smileView?.SetTextToDisplay("Nexus running...");
+        authorizationView?.hidden = true;
+        smileView?.hidden = false;
+    }
+    func didDestroyConnectionWithIdentifier(identifier : String) -> (){
+        smileView?.SetTextToDisplay("Nexus stopped.");
+        authorizationView?.hidden = true;
+        smileView?.hidden = false;
+    }
 
     
-//
-//    func didConnect() -> () {
-//        smileView?.SetTextToDisplay("Nexus running...");
-//        smileView!.setNeedsDisplayInRect(smileView!.frame)
-//        
-//        //send test message
-//        //   connection?.SendMessageToChannelWithName("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
-//    }
-//    
-//    func presentAuthorizationView () -> () {
-//        //create webview
-//        webView = WebView(frame: self.view.frame);
-//        webView?.policyDelegate = self;
-//        self.view.addSubview(webView!);
-//        
-//    }
-//    
-//    func didReceiveURLResponseWithData(response : NSURLResponse, data : NSData){
-//        webView?.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:response.URL);
-//    }
-//    
-//    override func webView(webView: WebView!,
-//        decidePolicyForNavigationAction actionInformation: [NSObject : AnyObject]!,
-//        request: NSURLRequest!,
-//        frame: WebFrame!,
-//        decisionListener listener: WebPolicyDecisionListener!){
-//
-//        //interpret results
-////        let actInfo = actionInformation as NSDictionary;
-////        if(actInfo.objectForKey(WebActionNavigationTypeKey) as Int == WebNavigationType.FormSubmitted.rawValue){
-////            //tried to submit form, parse code
-////            var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
-////            connection?.CompleteAuthorizationWithURL(originalURL.absoluteString!);
-////        }
-//        listener.use();
-//    }
-//    
-//
-//
-//}
-//
+}
+
+
+

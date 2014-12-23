@@ -13,6 +13,9 @@ public let kClientSecret = "01ad48926afe592a28f8571ae80cc4e9"
 public let kAuthorizationKey = "access_token";
 public let kOKKey = "ok";
 public let kErrorKey = "error";
+public let kStateKey = "state";
+public let kCodeKey = "code";
+
 
 public let kGeneralChannelID = "C024G2VPX";
 public let kTestChannelID = "G033JS5T7";

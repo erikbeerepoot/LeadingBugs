@@ -11,7 +11,7 @@ import Foundation
 
 //MARK: Protocol: SlackConnectionControllerDelegate
 protocol SlackConnectionControllerDelegate {
-    func connectionFailedWithIdentifier(identifier : String, error: NSError) -> ();
+    func connectionFailedWithIdentifier(identifier : String,andError error: NSError) -> ();
     func didCreateConnectionWithIdentifier(identifier : String) -> ();
     func didDestroyConnectionWithIdentifier(identifier : String) -> ();
 }
@@ -26,7 +26,7 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
     init(authController : AuthorizationController ) {
         connections = Dictionary();
         authorizationController = authController;
-        
+        authorizationController?.delegate = self;
     }
     
     //MARK: Main logic
@@ -90,7 +90,7 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
         if(error==nil){
             self.delegate?.didCreateConnectionWithIdentifier(identifier!);
         } else {
-            self.delegate?.connectionFailedWithIdentifier(identifier!,error:error!);
+            self.delegate?.connectionFailedWithIdentifier(identifier!,andError:error!);
             connections?[identifier!] = nil;
         }
     }
@@ -137,9 +137,26 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
     func authorizationDidFinishWithError(error : NSError?) -> (){
         if(error == nil){
             //if we have connections in our dict, connect them
-            
+            for connection in connections!.values {
+                connection.authorized = true;
+                connection.token = authorizationController!.authorizationToken;
+                connection.connect();
+            }
         } else {
+            //create error
+            let userInfo = [
+                NSLocalizedDescriptionKey : String("Could not connect: not authorized."),
+                NSLocalizedFailureReasonErrorKey : String("Could not authorize with Slack!"),
+                NSLocalizedRecoverySuggestionErrorKey : String("Unknown")
+            ];
+            let err = NSError(domain: kAuthorizationErrorDomain, code: -1, userInfo: userInfo);
+            
             //not authorized, cannot connect
+            for id in connections!.keys {
+                self.delegate?.connectionFailedWithIdentifier(id, andError:err);
+            }
+            //destroy all connections
+            connections = nil;
         }
     }
 

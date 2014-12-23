@@ -42,7 +42,8 @@ class SlackConnection {
         
         let tokenDict = NSDictionary(object: token!, forKey: "token");
         let URL : NSURL = NSURL(string: SlackEndpoints.kConnectEndpoint)!;
-        return false;
+        PerformRequestWithURLAndQueryParameters(URL,tokenDict,connectionHandler);
+        return true;
     }
     
     /**
@@ -64,6 +65,7 @@ class SlackConnection {
                 delegate?.connectionDidFinishWithError(nil,sender:self);
             } else {
                 NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
+                delegate?.connectionDidFinishWithError(error,sender:self);
                 connected = false;
             }
         } else {

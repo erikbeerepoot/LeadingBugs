@@ -14,18 +14,19 @@ protocol AuthorizationControllerDelegate {
     func authorizationDidFinishWithError(error : NSError?) -> ();
 }
 
-class AuthorizationController {
+class AuthorizationController : NSObject {
     //member variables
     var delegate : AuthorizationControllerDelegate? = nil;
     var authorized : Bool = false;
     var authorizationToken : String = String();
+    var state : String = NSString(format: "%d", arc4random());
     
     //auth view
     private var m_authorizationView : WebView? = nil;
     
-    func setAuthorizationView(authorizationView : WebView) -> (){
+    func setWebView(authorizationView : WebView) -> (){
         m_authorizationView = authorizationView;
-        m_authorizationView?.policyDelegate = self;
+        m_authorizationView!.policyDelegate = self;
     }
     
     //MARK: Authorization methods
@@ -45,7 +46,7 @@ class AuthorizationController {
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
         //create authorization request
-        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=" + SlackIDs.kClientID +  "&team=" + SlackIDs.kTeamID + "&scope=read,post,client");
+        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=" + SlackIDs.kClientID +  "&team=" + SlackIDs.kTeamID + "&scope=read,post,client&" + kStateKey + "=" + state);
         
         //send auth GET request
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
@@ -58,7 +59,7 @@ class AuthorizationController {
                         dispatch_async(dispatch_get_main_queue(),{
                             let url : NSURL = response.URL!
                             self.m_authorizationView?.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:url);
-                            self.m_authorizationView?.hidden = false;
+                            self.m_authorizationView?.hidden = false;                           
                         });
                     }
                 } else {
@@ -75,41 +76,6 @@ class AuthorizationController {
         return true;
     }
     
-
-    func processAuthorizationResponseWithURL(urlString : NSString) -> () {
-        if(authorized) { return };
-        
-        //setup session
-        var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
-        var urlSession = NSURLSession(configuration: sessionConfiguration);
-        
-        //update url to perform authorization
-        var url = NSURL(string: urlString);
-        
-        var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
-            { (data : NSData!, response: NSURLResponse!,error: NSError!) in
-                
-                if(error != nil){
-                    //grab the code from the error dict
-                    let errorDict : NSDictionary = error.userInfo!;
-                    let failingString : NSString = errorDict.objectForKey("NSErrorFailingURLStringKey") as NSString;
-                    
-                    //create a dictionary of parameter values
-                    var queryStringDict = NSMutableDictionary()
-                    let urlComponents : NSArray = failingString.componentsSeparatedByString("?");
-                    let urlParameters : NSArray = urlComponents.objectAtIndex(1).componentsSeparatedByString("&")
-                    let codeComponents : NSArray = urlParameters.objectAtIndex(0).componentsSeparatedByString("=");
-                    let code  : NSString = codeComponents.objectAtIndex(1) as NSString;
-                    self.completeAuthorizationWithCode(code);
-
-                } else {
-                    var httpResponse = response as NSHTTPURLResponse;
-                    NSLog("URL: %@", httpResponse.URL!);
-                }
-        });
-        authTask.resume();
-    }
-
     func completeAuthorizationWithCode(theCode : NSString) -> (){
         if(authorized) { return };
         
@@ -160,19 +126,76 @@ class AuthorizationController {
     }
     
     //MARK: WebView & Co delegate methods
-    func webView(webView: WebView!,
+    override func webView(webView: WebView!,
         decidePolicyForNavigationAction actionInformation: [NSObject : AnyObject]!,
         request: NSURLRequest!,
         frame: WebFrame!,
         decisionListener listener: WebPolicyDecisionListener!){
-
-        //interpret results
+        
         let actInfo = actionInformation as NSDictionary;
+            
+        //check if the user pressed a form submitted button
         if(actInfo.objectForKey(WebActionNavigationTypeKey) as Int == WebNavigationType.FormSubmitted.rawValue){
-            //tried to submit form, parse code
+            //tried to submit form, check request validity
             var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
-            self.processAuthorizationResponseWithURL(originalURL.absoluteString!);
+            if originalURL.absoluteString != request.URL.absoluteString {
+                let code = parseQueryParametersForURL(request.URL);
+                self.completeAuthorizationWithCode(code!);
+            }
         }
         listener.use();
     }
+    
+    /**
+     * @name: parseQueryParametersForURL
+     * @brief: Parses the query string in the given URL, looking for "state" and "code", which are values needed for authorization
+     * @param: url - the url to parse
+     * @returns: String - the resulting code, nil if an error occurred
+    */
+    func parseQueryParametersForURL(url : NSURL) -> (String?){
+        //parse string, get code & state
+        let queryParameters = (url.query!).componentsSeparatedByString("&") ;
+        var aCode : String? = nil;
+        var aState : String? = nil;
+        
+        //for each parameter, check if it matches state or code
+        for parameter in queryParameters {
+            if parameter.rangeOfString(kCodeKey) != nil {
+                aCode = parameter.componentsSeparatedByString("=")[1];
+                continue;
+            } else if parameter.rangeOfString(kStateKey) != nil {
+                aState = parameter.componentsSeparatedByString("=")[1];
+            }
+        }
+        
+        //verify state received is the same as sent
+        if state != aState {
+            //uh-oh, man in the middle attack? Notify delegate!
+            let userInfo = [
+                NSLocalizedDescriptionKey : String("Failed to authorize."),
+                NSLocalizedFailureReasonErrorKey : String("Suspicious behaviour: state mismatch!"),
+                NSLocalizedRecoverySuggestionErrorKey : String("Verify security of your system.")
+            ];
+            
+            let err = NSError(domain: kAuthorizationErrorDomain, code: -1, userInfo: userInfo);
+            self.delegate?.authorizationDidFinishWithError(err);
+            return nil;
+        }
+        
+        if(aCode==nil){
+            let userInfo = [
+                NSLocalizedDescriptionKey : String("Failed to authorize."),
+                NSLocalizedFailureReasonErrorKey : String("Did not receive a code from Slack server!"),
+                NSLocalizedRecoverySuggestionErrorKey : String("Please try authorizing again.")
+            ];
+            
+            let err = NSError(domain: kAuthorizationErrorDomain, code: -1, userInfo: userInfo);
+            self.delegate?.authorizationDidFinishWithError(err);
+            return nil;
+        }
+        return aCode!;
+    }
 }
+
+
+

@@ -8,6 +8,8 @@
 
 import Foundation
 
+let kAuthorizationErrorDomain = "authorizationErrorDomain";
+
 let kBotName = "Nexus";
 let kStatusCodeOK = 200;
 
