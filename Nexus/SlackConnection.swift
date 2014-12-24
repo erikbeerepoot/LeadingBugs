@@ -88,8 +88,6 @@ class SlackConnection {
         if(data != nil){
             let result = data!.objectForKey(kOKKey) as Bool;
             sentCallback?(result,error);
-        } else {
-            sentCallback?(false,error);
         }
     }
     

@@ -9,6 +9,8 @@
 import Foundation
 import AppKit
 import WebKit
+import StarscreamOSX
+
 
 class ViewController: NSViewController, SlackConnectionControllerDelegate {
     
@@ -50,7 +52,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         authorizationController.setWebView(authorizationView!);
         connectionController = SlackConnectionController(authController: authorizationController);
         connectionController?.delegate = self;
-        connectionID = connectionController?.createConnection();
+        connectionID = connectionController?.createConnection();    
     }
 
     override var representedObject: AnyObject? {
@@ -71,13 +73,11 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         smileView?.hidden = false;
         
         //send test message
-        let connection = connectionController?.connectionForIdentifier(connectionID!);
-        let msg = Message(aChannel: kTestChannelID, messageText: "Hello, world!");
         let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
+        let connection = connectionController?.connectionForIdentifier(connectionID!);
+        let msg = Message(aChannel: kTestChannelID, messageText: "Ahhh. What a beautiful day to be alive!");
+        msg.updateArgument("username", withValue: "nexus");
         connection?.send(url, sendObject: msg, callback: nil);
-        
-        
-        //connection?.s("Hello, everyone. My name is Nexus. Erik is my Master", channelName: NSString(string:kTestChannelID));
     }
     func didDestroyConnectionWithIdentifier(identifier : String) -> (){
         smileView?.SetTextToDisplay("Nexus stopped.");
