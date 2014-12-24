@@ -7,19 +7,31 @@
 //
 
 import Foundation
+import StarscreamOSX
 
 protocol SlackConnectionDelegate {
     func connectionDidFinishWithError(error : NSError?, sender: SlackConnection) -> ();
     func connectionDidDisconnectWithError(error : NSError?, sender : SlackConnection) -> ();
 }
 
-class SlackConnection {
-    var sentCallback : ((Bool,NSError?) -> ())? = nil;
+protocol SlackRealTimeConnectionDelegate {
+    func didReceiveEvent(eventData : JSON) -> ();
+}
+
+class SlackConnection : WebSocketDelegate {
+    //notification mechanisms
     var delegate : SlackConnectionDelegate? = nil;
+    var rtDelegate : SlackRealTimeConnectionDelegate? = nil;
+    var sentCallback : ((Bool,NSError?) -> ())? = nil;
+    
+    //state
+    var enableRealTimeEvents : Bool = false;
     var connected : Bool = false;
     var authorized : Bool = false;
     var token : NSString? = nil;
     
+    //websocket connection 
+    var socket : WebSocket? = nil;
     /**
     @name: Connect
     @brief: Connects to slack (authenticated)
@@ -36,6 +48,12 @@ class SlackConnection {
         performRequestWithURL(URL, queryParams:tokenDict,andCompletionHandler:connectionHandler);
         return true;
     }
+    
+    func connect(enableRealTimeEvents realTimeEvents : Bool) -> (Bool) {
+        enableRealTimeEvents = realTimeEvents;
+        return connect();
+    }
+    
     
     /**
     @name: Disconnect
@@ -59,16 +77,29 @@ class SlackConnection {
      * @param: urlResponse - URL response received
      * @param: error (optional) - Error received, nil if no error
      */
-    func connectionHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> () {
+    func connectionHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
-            NSLog("Connection attempt result: %@", data!);
-            let result = data!.objectForKey(kOKKey) as Int;
+            let jsonObject = JSON.parse(data!);
+            let result = jsonObject[kOKKey]?.int;
             if(result==1){
                 //success!
                 connected = true;
+                
+                //if we want real time events, we must connect to the websocket API now
+                if(enableRealTimeEvents){
+                    //create URL
+                    let theUrl = jsonObject[kURLKey]?.string;
+                    let url = NSURL(string: theUrl!)!;
+                    
+                    //connect to websocket
+                    socket = WebSocket(url : url);
+                    socket?.delegate = self;
+                    socket?.connect();
+                }
+                
+                //notify delegate we connected
                 delegate?.connectionDidFinishWithError(nil,sender:self);
             } else {
-                NSLog("Failed to connect to Slack. Error: %@", data!.objectForKey(kErrorKey) as NSString);
                 delegate?.connectionDidFinishWithError(error,sender:self);
                 connected = false;
             }
@@ -77,6 +108,7 @@ class SlackConnection {
         }
     }
     
+    
     /**
     * @name: sentHandler
     * @brief: Callback invoked when send completed
@@ -84,11 +116,35 @@ class SlackConnection {
     * @param: urlResponse - URL response received
     * @param: error (optional) - Error received, nil if no error
     */
-    func sentHandler(data : NSDictionary?, urlResponse : NSURLResponse!, error : NSError?) -> () {
+    func sentHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
-            let result = data!.objectForKey(kOKKey) as Bool;
-            sentCallback?(result,error);
+            let jsonObject = JSON.parse(data!);
+            let result = jsonObject[kOKKey]?.bool;
+            sentCallback?(result!,error);
         }
     }
+    
+    //MARK: WebSocket delegate methods
+    func websocketDidConnect() -> (){
+        println("Websocket connected!");
+    }
+    
+    func websocketDidDisconnect(error : NSError?) -> (){
+        println("Websocket disconnected!");
+    }
+    
+    func websocketDidWriteError(error : NSError?) -> (){
+         println("Websocket writerror!");   
+    }
+    
+    func websocketDidReceiveMessage(text : String) -> (){
+        println("got some text: \(text)");
+    }
+    
+    func websocketDidReceiveData(data : NSData){
+        println("got some data: \(data.length)");
+    }
+    
+
     
 }

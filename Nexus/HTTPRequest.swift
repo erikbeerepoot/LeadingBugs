@@ -8,7 +8,7 @@
 
 import Foundation
 
-func performRequestWithURL(url : NSURL,#queryParams : NSDictionary,andCompletionHandler aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
+func performRequestWithURL(url : NSURL,#queryParams : NSDictionary,andCompletionHandler aCompletionHandler : (NSData!,NSURLResponse!,NSError?) -> ()) -> (){
     
     var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
     var urlSession = NSURLSession(configuration: sessionConfiguration);
@@ -25,13 +25,13 @@ func performRequestWithURL(url : NSURL,#queryParams : NSDictionary,andCompletion
     var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
         { (data : NSData!, response: NSURLResponse!,error: NSError!) in
             //parse JSON back to dictionary
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
-            aCompletionHandler(jsonDict,response,nil);
+//            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
+            aCompletionHandler(data,response,nil);
     });
     task.resume();
 }
 
-func performRequestWithURL(url : NSURL,token : String, #serializableObject : SerializableParameterObject , andCompletionHandler aCompletionHandler : (NSDictionary!,NSURLResponse!,NSError?) -> ()) -> (){
+func performRequestWithURL(url : NSURL,token : String, #serializableObject : SerializableParameterObject , andCompletionHandler aCompletionHandler : (NSData!,NSURLResponse!,NSError?) -> ()) -> (){
     
     var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
     var urlSession = NSURLSession(configuration: sessionConfiguration);
@@ -44,8 +44,8 @@ func performRequestWithURL(url : NSURL,token : String, #serializableObject : Ser
     var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
         { (data : NSData!, response: NSURLResponse!,error: NSError!) in
             //parse JSON back to dictionary
-            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
-            aCompletionHandler(jsonDict,response,nil);
+//            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
+            aCompletionHandler(data,response,nil);
     });
     task.resume();
 }

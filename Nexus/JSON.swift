@@ -48,7 +48,7 @@ public enum JSON  {
     public var string : Swift.String? {
         switch self {
         case .String(let s):
-            return s;
+            return Swift.String(s);
         default:
             return nil;
         }
@@ -58,6 +58,15 @@ public enum JSON  {
         switch self {
         case .Number(let s):
             return Int(s);
+        default:
+            return nil;
+        }
+    }
+    
+    public var bool : Bool? {
+        switch self {
+        case .Number(let b):
+            return Bool(b != 0)
         default:
             return nil;
         }

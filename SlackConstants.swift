@@ -15,7 +15,7 @@ public let kOKKey = "ok";
 public let kErrorKey = "error";
 public let kStateKey = "state";
 public let kCodeKey = "code";
-
+public let kURLKey = "url";
 
 public let kGeneralChannelID = "C024G2VPX";
 public let kTestChannelID = "G033JS5T7";

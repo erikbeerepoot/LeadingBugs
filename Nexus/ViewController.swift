@@ -52,7 +52,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         authorizationController.setWebView(authorizationView!);
         connectionController = SlackConnectionController(authController: authorizationController);
         connectionController?.delegate = self;
-        connectionID = connectionController?.createConnection();    
+        connectionID = connectionController?.createConnection();
     }
 
     override var representedObject: AnyObject? {

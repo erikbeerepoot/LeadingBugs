@@ -140,7 +140,7 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
             for connection in connections!.values {
                 connection.authorized = true;
                 connection.token = authorizationController!.authorizationToken;
-                connection.connect();
+                connection.connect(enableRealTimeEvents:true);
             }
         } else {
             //create error
