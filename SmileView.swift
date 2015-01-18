@@ -9,6 +9,10 @@
 import Foundation
 import AppKit
 
+protocol SmileViewDelegate {
+    func animationHasCompleted() -> ();
+}
+
 class SmileView : NSView {
     let kCircleDiameter : CGFloat = 100;
     let kSmileDiameter : CGFloat = 70;
@@ -20,9 +24,14 @@ class SmileView : NSView {
     //animation properties
     let kAnimationDuration : CFTimeInterval = 1.2;
     let kTextUpdateInterval : NSTimeInterval = 2;
+    var animationDone : Bool = false;
     
     //store text for display
     var uitext : NSString? = nil;
+    
+    //delegate 
+    var delegate : SmileViewDelegate? = nil;
+    
     
     required init?(coder: NSCoder) {
         super.init(coder : coder);
@@ -35,13 +44,20 @@ class SmileView : NSView {
     }
     
     override func drawRect(dirtyRect: NSRect) {
+        if hidden {
+            return;
+        }
+        
         //make a pretty background
         NSColor.blueColor().set();
         NSRectFill(dirtyRect);
         
         NSColor.whiteColor().set();
         
-        DrawSmileInRect(dirtyRect);
+        if(!animationDone){
+            DrawSmileInRect(dirtyRect);
+            animationDone = true;
+        }
 
         //display text if we have some
         if(uitext != nil){
@@ -53,7 +69,6 @@ class SmileView : NSView {
     
     func SetTextToDisplay(text : NSString){
         uitext = text;
-        self.setNeedsDisplayInRect(self.bounds);
     }
     
     func GetTextSize(text : NSString) -> (CGSize) {
@@ -81,6 +96,16 @@ class SmileView : NSView {
     func DrawSmileInRect(rect : NSRect) -> () {
         let rotRect = CGRectMake(CGRectGetMidX(rect)-(kCircleDiameter/2),CGRectGetMidY(rect)-(kCircleDiameter/2),kCircleDiameter,kCircleDiameter);
         
+        CATransaction.begin();
+
+        //send the delegate a message when the animation is done
+        if(delegate != nil){
+            CATransaction.setCompletionBlock( {
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.delegate!.animationHasCompleted();
+                });
+            })
+        }
         
         //****** Outside Circle ******///
         //create shapelayer for path
@@ -134,5 +159,6 @@ class SmileView : NSView {
         animation2.toValue = NSNumber(double:1.0);
         animation2.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn);
         smileShape.addAnimation(animation, forKey: "animation");
+        CATransaction.commit();
     }
 }

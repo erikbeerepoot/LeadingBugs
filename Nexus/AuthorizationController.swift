@@ -107,14 +107,21 @@ class AuthorizationController : NSObject {
                                     NSLog("Failed with error: %@", jsonDict.objectForKey("error") as NSString);
                                 } else {
                                     NSLog("Success!");
-
+                                    //update state
                                     self.authorizationToken = jsonDict.objectForKey(kAuthorizationKey) as String;
                                     self.authorized = true;
-                                    self.delegate?.authorizationDidFinishWithError(nil);
-                                    
+
                                     //hide webview
-                                    self.m_authorizationView?.hidden = true;
+                                    dispatch_async(dispatch_get_main_queue(),{
+                                        self.m_authorizationView!.hidden = true;
+                                        self.m_authorizationView!.removeFromSuperview();
+                                        self.m_authorizationView = nil;               
+                                    });
+                 
                                 }
+                                
+                                //notify delegate
+                                self.delegate?.authorizationDidFinishWithError(nil);
                             }
                         } else {
                             //error

@@ -32,6 +32,7 @@ class SlackConnection : WebSocketDelegate {
     
     //websocket connection 
     var socket : WebSocket? = nil;
+    
     /**
     @name: Connect
     @brief: Connects to slack (authenticated)
@@ -138,13 +139,13 @@ class SlackConnection : WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(text : String) -> (){
-        println("got some text: \(text)");
+        let jsonObject = JSON.parse(text.dataUsingEncoding(NSUTF8StringEncoding)!);
+        let msgType = jsonObject["type"]?.string;
+        println("Message type: \(msgType)")
+        self.rtDelegate?.didReceiveEvent(jsonObject);
     }
     
     func websocketDidReceiveData(data : NSData){
         println("got some data: \(data.length)");
     }
-    
-
-    
 }

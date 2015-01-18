@@ -12,7 +12,7 @@ import WebKit
 import StarscreamOSX
 
 
-class ViewController: NSViewController, SlackConnectionControllerDelegate {
+class ViewController: NSViewController, SlackConnectionControllerDelegate, SmileViewDelegate {
     
     //views
     var smileView : SmileView? = nil;
@@ -35,6 +35,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         //add views to the view hierarchy
         if smileView != nil {
             self.view.addSubview(smileView!);
+            smileView?.delegate = self;
         }
         
         //we *need* an authorizationView to be able to use this app
@@ -52,7 +53,17 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         authorizationController.setWebView(authorizationView!);
         connectionController = SlackConnectionController(authController: authorizationController);
         connectionController?.delegate = self;
+        
+        //create new connection
         connectionID = connectionController?.createConnection();
+
+        
+        let date = NSDate.init(timeIntervalSinceNow:10);
+        TaskScheduler.ScheduleTask(PrintMessage,date:date);
+    }
+
+    func PrintMessage() -> () {
+        println("Make coffee");
     }
 
     override var representedObject: AnyObject? {
@@ -62,15 +73,20 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
     }
     
     //MARK: Delegate methods
+    func connectionAttemptForIdentfier(identifier : String) -> (){
+        smileView?.SetTextToDisplay("Connecting...");
+        smileView?.setNeedsDisplayInRect(self.view.frame);
+    }
+    
     func connectionFailedWithIdentifier(identifier : String, andError: NSError) -> (){
-        smileView?.SetTextToDisplay("Connection failed.");
-        authorizationView?.hidden = true;
+        smileView?.SetTextToDisplay("Connection failed!");
         smileView?.hidden = false;
+        smileView?.setNeedsDisplayInRect(self.view.frame);
     }
     func didCreateConnectionWithIdentifier(identifier : String) -> (){
         smileView?.SetTextToDisplay("Nexus running...");
-        authorizationView?.hidden = true;
         smileView?.hidden = false;
+        smileView?.setNeedsDisplayInRect(self.view.frame);
         
         //send test message
         let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
@@ -83,6 +99,12 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate {
         smileView?.SetTextToDisplay("Nexus stopped.");
         authorizationView?.hidden = true;
         smileView?.hidden = false;
+    }
+    
+    func animationHasCompleted() {
+        if(connectionID != nil){
+            connectionID = connectionController?.createConnection();
+        }
     }
 
     

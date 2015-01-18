@@ -14,6 +14,7 @@ protocol SlackConnectionControllerDelegate {
     func connectionFailedWithIdentifier(identifier : String,andError error: NSError) -> ();
     func didCreateConnectionWithIdentifier(identifier : String) -> ();
     func didDestroyConnectionWithIdentifier(identifier : String) -> ();
+    func connectionAttemptForIdentfier(identifier : String) -> ();
 }
 
 class SlackConnectionController : SlackConnectionDelegate,AuthorizationControllerDelegate {
@@ -35,10 +36,13 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
         let identifier = NSUUID().UUIDString;
         newConnection.delegate = self;
      
-        //attempt
+        //attemp authorization
         if(!authorizationController!.authorized){
             authorizationController!.startAuthorization();
         }
+
+        //update delegate
+        delegate?.connectionAttemptForIdentfier(identifier);
         
         //new connection in dict
         connections?.updateValue(newConnection, forKey: identifier);

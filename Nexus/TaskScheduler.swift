@@ -10,36 +10,24 @@
 *   \  \:\/:/        /  /:/      |  |:|\/     \  \:\_\/        \  \:\     \  \:\/:/     \  \:\/:/     /__/:/
 *    \__\::/        /__/:/       |__|:|~       \  \:\           \__\/      \  \::/       \  \::/      \__\/
 *        ~~         \__\/         \__\|         \__\/                       \__\/         \__\/
-* @name: Message.swift
+* @name: TaskScheduler.swift
 * @author: Erik E. Beerepoot
 * @company: Barefoot Inc.
-* @brief: Message class
+* @brief: Generic task (closure) scheduling facility.
 */
 
 import Foundation
 
-//the optional fields go in a mutable dictionary
-//the required fields don't because we don't want to have someone remove them
-class Message : SerializableParameterObject {
-    init(aChannel : String, messageText : String) {
-        super.init();
-        
-        //put in dict
-        requiredParameters["channel"] = aChannel;
-        requiredParameters["text"] = messageText;
+class TaskScheduler {
+    class func ScheduleTask( task : ()->(), date : NSDate) -> () {
+        //first, compute the offset from the current date in seconds
+        let currentDate  = NSDate();
+        let interval = currentDate.timeIntervalSinceDate(date);
+
+        //convert to nanoseconds & schedule closure
+        let startTime = dispatch_time(DISPATCH_TIME_NOW, Int64(interval * Double(NSEC_PER_SEC)));
+        dispatch_after(startTime, dispatch_get_main_queue(),task);
     }
-    
-    func updateArgument(argumentName : String, withValue value : String) -> (){
-        optionalParameters[argumentName] = value;
-    }
-    
-    func removeArgumentWithName(argumentName : String) -> (Bool){
-        if(optionalParameters[argumentName]==nil){
-            return false;
-        } else {
-            optionalParameters[argumentName]=nil;
-        }
-        return true;
-    }
+  
     
 };
