@@ -55,11 +55,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
         connectionController?.delegate = self;
         
         //create new connection
-        connectionID = connectionController?.createConnection();
-
-        
-        let date = NSDate.init(timeIntervalSinceNow:10);
-        TaskScheduler.ScheduleTask(PrintMessage,date:date);
+        connectionID = connectionController?.createConnection();               
     }
 
     func PrintMessage() -> () {
