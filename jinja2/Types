@@ -1,0 +1,138 @@
+[
+    "channel" :
+    {
+        "id": "C024BE91L",
+        "name": "fun",
+        "is_channel": "true",
+        "created": 1360782804,
+        "creator": "U024BE7LH",
+        "is_archived": false,
+        "is_general": false,
+
+        "members": [
+            "U024BE7LH",
+            …
+        ],
+
+        "topic": {
+            "value": "Fun times",
+            "creator": "U024BE7LV",
+            "last_set": 1369677212
+        },
+        "purpose": {
+            "value": "This channel is for fun",
+            "creator": "U024BE7LH",
+            "last_set": 1360782804
+        }
+
+        "is_member": true,
+
+        "last_read": "1401383885.000061",
+        "latest": { … }
+        "unread_count": 0
+    },
+    "file" :
+    {
+        "id" : "F2147483862",
+        "created" : 1356032811,
+        "timestamp" : 1356032811,
+
+        "name" : "file.htm",
+        "title" : "My HTML file",
+        "mimetype" : "text\/plain",
+        "filetype" : "text",
+        "pretty_type": "Text",
+        "user" : "U2147483697",
+
+        "mode" : "hosted",
+        "editable" : true,
+        "is_external": false,
+        "external_type": "",
+
+        "size" : 12345,
+
+        "url": "https:\/\/slack-files.com\/files-pub\/T024BE7LD-F024BERPE-09acb6\/1.png",
+        "url_download": "https:\/\/slack-files.com\/files-pub\/T024BE7LD-F024BERPE-09acb6\/download\/1.png",
+        "url_private": "https:\/\/slack.com\/files-pri\/T024BE7LD-F024BERPE\/1.png",
+        "url_private_download": "https:\/\/slack.com\/files-pri\/T024BE7LD-F024BERPE\/download\/1.png",
+
+        "thumb_64": "https:\/\/slack-files.com\/files-tmb\/T024BE7LD-F024BERPE-c66246\/1_64.png",
+        "thumb_80": "https:\/\/slack-files.com\/files-tmb\/T024BE7LD-F024BERPE-c66246\/1_80.png",
+        "thumb_360": "https:\/\/slack-files.com\/files-tmb\/T024BE7LD-F024BERPE-c66246\/1_360.png",
+        "thumb_360_gif": "https:\/\/slack-files.com\/files-tmb\/T024BE7LD-F024BERPE-c66246\/1_360.gif",
+        "thumb_360_w": "100",
+        "thumb_360_h": "100",
+
+        "permalink" : "https:\/\/tinyspeck.slack.com\/files\/cal\/F024BERPE\/1.png",
+        "edit_link" : "https:\/\/tinyspeck.slack.com\/files\/cal\/F024BERPE\/1.png/edit",
+        "preview" : "&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;meta charset='utf-8'&gt;",
+        "preview_highlight" : &lt;div class=\"sssh-code\"&gt;&lt;div class=\"sssh-line\"&gt;&lt;pre&gt;&lt;!DOCTYPE html...",
+        "lines" : 123,
+        "lines_more": 118,
+
+        "is_public": true,
+        "public_url_shared": false,
+        "channels": ["C024BE7LT", ...],
+        "groups": ["G12345", ...],
+        "initial_comment": {...},
+        "num_stars": 7,
+        "is_starred": true
+    },
+    "group" :
+    {
+        {
+        "id": "G024BE91L",
+        "name": "secretplans",
+        "is_group": "true",
+        "created": 1360782804,
+        "creator": "U024BE7LH",
+        "is_archived": false,
+        "members": [
+            "U024BE7LH"
+        ],
+        "topic": {
+            "value": "Secret plans on hold",
+            "creator": "U024BE7LV",
+            "last_set": 1369677212
+        },
+        "purpose": {
+            "value": "Discuss secret plans that no-one else should know",
+            "creator": "U024BE7LH",
+            "last_set": 1360782804
+        }
+
+    },
+    "im" :
+    {
+        "id": "D024BFF1M",
+        "is_im": true,
+        "user": "U024BE7LH",
+        "created": 1360782804,
+        "is_user_deleted": false
+    },
+    {
+        "id": "U023BECGF",
+        "name": "bobby",
+        "deleted": false,
+        "color": "9f69e7",
+        "profile": {
+            "first_name": "Bobby",
+            "last_name": "Tables",
+            "real_name": "Bobby Tables",
+            "email": "bobby@slack.com",
+            "skype": "my-skype-name",
+            "phone": "+1 (123) 456 7890",
+            "image_24": "https:\/\/...",
+            "image_32": "https:\/\/...",
+            "image_48": "https:\/\/...",
+            "image_72": "https:\/\/...",
+            "image_192": "https:\/\/..."
+        },
+        "is_admin": true,
+        "is_owner": true,
+        "is_primary_owner": true,
+        "is_restricted": false,
+        "is_ultra_restricted": false,
+        "has_files": true
+    },
+]
