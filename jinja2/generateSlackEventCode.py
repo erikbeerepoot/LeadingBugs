@@ -44,11 +44,11 @@ def load_template():
             elif type(value) is unicode:
                 newVar.varType = "String"
             elif type(value) is int:
-                newVar.varType = "int"
+                newVar.varType = "Int"
             elif type(value) is dict:
-                newVar.varType = "Dictionary"
+                newVar.varType = "NSMutableDictionary"
             elif type(value) is list:
-                newVar.varType = "Array"
+                newVar.varType = "NSMutableArray"
             else:
                 print("Error: Unknown type encountered. Skipping field!")
                 continue
@@ -66,26 +66,6 @@ def load_template():
         outputFile.close()
         print outputFilePath 
     #Done!
-
-                
-
-    # v1 = Variable()
-    # v1.varName = "id";
-    # v1.varType = "String"
-    # v1.varOptional = True
-
-    # v2 = Variable()
-    # v2.varName = "var2";
-    # v2.varType = "String"
-    # v2.varOptional = False
-
-    # varList = []
-    # varList.append(v1);
-    # varList.append(v2);
-    # print(varList)
-
-   
-
 
 if __name__ == '__main__':
 	load_template();

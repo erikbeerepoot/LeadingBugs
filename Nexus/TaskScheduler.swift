@@ -31,7 +31,7 @@ class TaskScheduler {
     }
 };
 
-//this protocl defines a schedulable task; a combination of a date and a function
+//this protocol defines a schedulable task; a combination of a date and a function
 protocol SchedulableTask {
     func Task()->();
     var taskDate : NSDate { get set };

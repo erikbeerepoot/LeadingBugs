@@ -9,8 +9,6 @@
 import Foundation
 import AppKit
 import WebKit
-import StarscreamOSX
-
 
 class ViewController: NSViewController, SlackConnectionControllerDelegate, SmileViewDelegate {
     
