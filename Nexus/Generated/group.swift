@@ -7,14 +7,62 @@
 
 import Foundation
 
- class group {
+class topic {
+ 	var last_set : Int? = nil;
+ 	var value : String? = nil;
+ 	var creator : String? = nil;
+ 	
+ 	func packObject(jsonData : NSData) {
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	last_set = jsonObject?["last_set"]?.int;
+	 	value = jsonObject?["value"]?.string;
+	 	creator = jsonObject?["creator"]?.string;
+	 		
+ 	}
+
+ 	func unpackObject() -> (NSData) {
+ 		var jsonDict : Dictionary = Dictionary();
+	 	jsonDict["last_set"] = last_set;
+	 	jsonDict["value"] = value;
+	 	jsonDict["creator"] = creator;
+	 		
+		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+ 	}
+}
+
+class purpose {
+ 	var last_set : Int? = nil;
+ 	var value : String? = nil;
+ 	var creator : String? = nil;
+ 	
+ 	func packObject(jsonData : NSData) {
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	last_set = jsonObject?["last_set"]?.int;
+	 	value = jsonObject?["value"]?.string;
+	 	creator = jsonObject?["creator"]?.string;
+	 		
+ 	}
+
+ 	func unpackObject() -> (NSData) {
+ 		var jsonDict : Dictionary = Dictionary();
+	 	jsonDict["last_set"] = last_set;
+	 	jsonDict["value"] = value;
+	 	jsonDict["creator"] = creator;
+	 		
+		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+ 	}
+}
+
+class group {
  	var name : String? = nil;
  	var creator : String? = nil;
  	var is_archived : Bool? = nil;
  	var created : Int? = nil;
  	var is_group : String? = nil;
- 	var topic : Dictionary? = nil;
- 	var purpose : Dictionary? = nil;
+ 	var topicInstance : topic? = nil;
+ 	var purposeInstance : purpose? = nil;
  	var members : Array? = nil;
  	var id : String? = nil;
  	
@@ -26,8 +74,8 @@ import Foundation
 	 	is_archived = jsonObject?["is_archived"]?.bool;
 	 	created = jsonObject?["created"]?.int;
 	 	is_group = jsonObject?["is_group"]?.string;
-	 	topic = jsonObject?["topic"]?.dictionary;
-	 	purpose = jsonObject?["purpose"]?.dictionary;
+	 	topicInstance = jsonObject?["topicInstance"]?.topic;
+	 	purposeInstance = jsonObject?["purposeInstance"]?.purpose;
 	 	members = jsonObject?["members"]?.array;
 	 	id = jsonObject?["id"]?.string;
 	 		
@@ -40,11 +88,12 @@ import Foundation
 	 	jsonDict["is_archived"] = is_archived;
 	 	jsonDict["created"] = created;
 	 	jsonDict["is_group"] = is_group;
-	 	jsonDict["topic"] = topic;
-	 	jsonDict["purpose"] = purpose;
+	 	jsonDict["topicInstance"] = topicInstance;
+	 	jsonDict["purposeInstance"] = purposeInstance;
 	 	jsonDict["members"] = members;
 	 	jsonDict["id"] = id;
 	 		
 		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
- }
+}
+

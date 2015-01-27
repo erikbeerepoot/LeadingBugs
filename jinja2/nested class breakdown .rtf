@@ -1,0 +1,38 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww11100\viewh8700\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 \'93className\'94 : \
+\{\
+	\'93className2\'94 :\
+	\{\
+		\'93className3\'94 :\
+		\{\
+			\'93someField\'94 : \'93someValue\'94,\
+			\'93someField2\'94 : \'93someValue2\'94\
+		\}\
+	\}\
+\}\
+\
+Should come out to be:\
+\
+class className3 \{\
+	var someField : typeof(\'93someValue\'94)? = nil;\
+	var someField2 : typeof(\'93someValue2\'94)? = nil;\
+\
+	//encode\
+\
+	//decode\
+\}\
+\
+class className2 \{\
+	var varName: className3? = nil;\
+\}\
+\
+class className \{\
+	var varName1 : className2? = nil;\
+\}\
+\
+Does it make sense to want to parse any JSON object into an object?}

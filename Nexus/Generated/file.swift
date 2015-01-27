@@ -7,7 +7,7 @@
 
 import Foundation
 
- class file {
+class file {
  	var initial_comment : String? = nil;
  	var filetype : String? = nil;
  	var lines_more : Int? = nil;
@@ -131,4 +131,5 @@ import Foundation
 	 		
 		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
- }
+}
+

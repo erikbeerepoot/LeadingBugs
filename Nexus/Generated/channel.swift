@@ -7,7 +7,55 @@
 
 import Foundation
 
- class channel {
+class topic {
+ 	var last_set : Int? = nil;
+ 	var value : String? = nil;
+ 	var creator : String? = nil;
+ 	
+ 	func packObject(jsonData : NSData) {
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	last_set = jsonObject?["last_set"]?.int;
+	 	value = jsonObject?["value"]?.string;
+	 	creator = jsonObject?["creator"]?.string;
+	 		
+ 	}
+
+ 	func unpackObject() -> (NSData) {
+ 		var jsonDict : Dictionary = Dictionary();
+	 	jsonDict["last_set"] = last_set;
+	 	jsonDict["value"] = value;
+	 	jsonDict["creator"] = creator;
+	 		
+		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+ 	}
+}
+
+class purpose {
+ 	var last_set : Int? = nil;
+ 	var value : String? = nil;
+ 	var creator : String? = nil;
+ 	
+ 	func packObject(jsonData : NSData) {
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	last_set = jsonObject?["last_set"]?.int;
+	 	value = jsonObject?["value"]?.string;
+	 	creator = jsonObject?["creator"]?.string;
+	 		
+ 	}
+
+ 	func unpackObject() -> (NSData) {
+ 		var jsonDict : Dictionary = Dictionary();
+	 	jsonDict["last_set"] = last_set;
+	 	jsonDict["value"] = value;
+	 	jsonDict["creator"] = creator;
+	 		
+		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+ 	}
+}
+
+class channel {
  	var is_general : Bool? = nil;
  	var name : String? = nil;
  	var is_channel : String? = nil;
@@ -15,9 +63,9 @@ import Foundation
  	var is_member : Bool? = nil;
  	var is_archived : Bool? = nil;
  	var creator : String? = nil;
- 	var topic : Dictionary? = nil;
+ 	var topicInstance : topic? = nil;
  	var unread_count : Int? = nil;
- 	var purpose : Dictionary? = nil;
+ 	var purposeInstance : purpose? = nil;
  	var members : Array? = nil;
  	var last_read : String? = nil;
  	var id : String? = nil;
@@ -32,9 +80,9 @@ import Foundation
 	 	is_member = jsonObject?["is_member"]?.bool;
 	 	is_archived = jsonObject?["is_archived"]?.bool;
 	 	creator = jsonObject?["creator"]?.string;
-	 	topic = jsonObject?["topic"]?.dictionary;
+	 	topicInstance = jsonObject?["topicInstance"]?.topic;
 	 	unread_count = jsonObject?["unread_count"]?.int;
-	 	purpose = jsonObject?["purpose"]?.dictionary;
+	 	purposeInstance = jsonObject?["purposeInstance"]?.purpose;
 	 	members = jsonObject?["members"]?.array;
 	 	last_read = jsonObject?["last_read"]?.string;
 	 	id = jsonObject?["id"]?.string;
@@ -50,13 +98,14 @@ import Foundation
 	 	jsonDict["is_member"] = is_member;
 	 	jsonDict["is_archived"] = is_archived;
 	 	jsonDict["creator"] = creator;
-	 	jsonDict["topic"] = topic;
+	 	jsonDict["topicInstance"] = topicInstance;
 	 	jsonDict["unread_count"] = unread_count;
-	 	jsonDict["purpose"] = purpose;
+	 	jsonDict["purposeInstance"] = purposeInstance;
 	 	jsonDict["members"] = members;
 	 	jsonDict["last_read"] = last_read;
 	 	jsonDict["id"] = id;
 	 		
 		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
- }
+}
+

@@ -18,48 +18,27 @@ kThisDir = os.path.dirname(os.path.abspath(__file__))
 #Other magic values
 kTypesFilepath = "./Types"
 kOutputPath = "../Nexus/Generated/"
+j2_env = Environment(loader=FileSystemLoader(kThisDir), trim_blocks=True);
 
 def load_template():
-    j2_env = Environment(loader=FileSystemLoader(kThisDir), trim_blocks=True)
-
     #Load class configuration file (TEMP: manual input)
     typeListFile = open(kTypesFilepath)
     jsonData = json.load(typeListFile)
 
+
+
     #Iterate over dict of types in Slack API
-    for className,classFields in jsonData.iteritems():
+    for className,classDict in jsonData.iteritems():
         print "Generating swift class for type: " + className
 
-        #iterate over key/value pairs in type dict
-        varList = []
-        for key,value in classFields.iteritems():
-            
-            #Most attributes are the same, just set type seperately 
-            newVar = Variable()
-            newVar.varName = key;
-            newVar.varOptional = True
+        #Recursively create model classes
+        classString = "";
+        classString = parse_dict(classDict,className,classString)
 
-            if type(value) is bool:
-                newVar.varType = "Bool"
-            elif type(value) is unicode:
-                newVar.varType = "String"
-            elif type(value) is int:
-                newVar.varType = "Int"
-            elif type(value) is dict:
-                newVar.varType = "Dictionary" 
-
-
-            elif type(value) is list:
-                newVar.varType = "Array"
-            else:
-                print("Error: Unknown type encountered. Skipping field!")
-                continue
-            varList.append(newVar)
- 
-        #Now generate code for this class       
-        classString = j2_env.get_template('modelTemplate.swift').render(
-            className=className, variables=varList,classDescription="None provided."
-        )
+        #Added header and imports
+        classString = j2_env.get_template('classTemplate.swift').render(
+            className=className, variables=[],classDescription="None provided."
+        ) + classString
 
         #Save to file
         outputFilePath  = kOutputPath + className + ".swift"
@@ -69,11 +48,11 @@ def load_template():
         print outputFilePath 
     #Done!
 
-#Parse a dict    
-def parse_dict(dict,forKey):
+#Parse a dict (recursively)
+def parse_dict(inDict,forKey,classString):
 
     varList = [];
-    for key,value in dict.iteritems():
+    for key,value in inDict.iteritems():
          #Most attributes are the same, just set type seperately 
         newVar = Variable()
         newVar.varName = key;
@@ -86,15 +65,25 @@ def parse_dict(dict,forKey):
         elif type(value) is int:
             newVar.varType = "Int"
         elif type(value) is dict:
-            newVar.varType = "Dictionary" 
+            #Update output file string            
+            classString = parse_dict(value,key,classString)             
+            newVar.varType = key;
+            newVar.varName = key + "Instance" 
         elif type(value) is list:
             newVar.varType = "Array"
         else:
             print("Error: Unknown type encountered. Skipping field!")
+            print(key)
+            print(type(value))
             continue
         varList.append(newVar)
 
-    return collections.namedtuple(forKey,varList)
+
+    classString += j2_env.get_template('modelTemplate.swift').render(
+            className=forKey, variables=varList,classDescription="None provided."
+    )
+    return classString
+
                 
 if __name__ == '__main__':
 	load_template();

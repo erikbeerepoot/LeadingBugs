@@ -7,7 +7,7 @@
 
 import Foundation
 
- class im {
+class im {
  	var is_user_deleted : Bool? = nil;
  	var created : Int? = nil;
  	var is_im : Bool? = nil;
@@ -35,4 +35,5 @@ import Foundation
 	 		
 		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
- }
+}
+
