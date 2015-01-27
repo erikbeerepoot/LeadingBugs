@@ -12,11 +12,11 @@ var {{var.varName}} : {{var.varType}}{% if var.varOptional %}?{% endif %} = nil;
  	}
 
  	func unpack{{classname}}Object() -> (NSData) {
- 		var jsonDict : Dictionary = Dictionary();
+ 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
 	{% for var in variables %}
  	jsonDict["{{var.varName}}"] = {{var.varName}};
 	{% endfor %} 		
-		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
 }
 

@@ -90,7 +90,7 @@ class file {
  	}
 
  	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary = Dictionary();
+ 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
 	 	jsonDict["initial_comment"] = initial_comment;
 	 	jsonDict["filetype"] = filetype;
 	 	jsonDict["lines_more"] = lines_more;
@@ -129,7 +129,7 @@ class file {
 	 	jsonDict["mode"] = mode;
 	 	jsonDict["preview_highlight"] = preview_highlight;
 	 		
-		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
 }
 

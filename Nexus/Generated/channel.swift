@@ -7,54 +7,6 @@
 
 import Foundation
 
-class topic {
- 	var last_set : Int? = nil;
- 	var value : String? = nil;
- 	var creator : String? = nil;
- 	
- 	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
- 		 		
- 	 	last_set = jsonObject?["last_set"]?.int;
-	 	value = jsonObject?["value"]?.string;
-	 	creator = jsonObject?["creator"]?.string;
-	 		
- 	}
-
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary = Dictionary();
-	 	jsonDict["last_set"] = last_set;
-	 	jsonDict["value"] = value;
-	 	jsonDict["creator"] = creator;
-	 		
-		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
- 	}
-}
-
-class purpose {
- 	var last_set : Int? = nil;
- 	var value : String? = nil;
- 	var creator : String? = nil;
- 	
- 	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
- 		 		
- 	 	last_set = jsonObject?["last_set"]?.int;
-	 	value = jsonObject?["value"]?.string;
-	 	creator = jsonObject?["creator"]?.string;
-	 		
- 	}
-
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary = Dictionary();
-	 	jsonDict["last_set"] = last_set;
-	 	jsonDict["value"] = value;
-	 	jsonDict["creator"] = creator;
-	 		
-		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
- 	}
-}
-
 class channel {
  	var is_general : Bool? = nil;
  	var name : String? = nil;
@@ -90,7 +42,7 @@ class channel {
  	}
 
  	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary = Dictionary();
+ 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
 	 	jsonDict["is_general"] = is_general;
 	 	jsonDict["name"] = name;
 	 	jsonDict["is_channel"] = is_channel;
@@ -105,7 +57,7 @@ class channel {
 	 	jsonDict["last_read"] = last_read;
 	 	jsonDict["id"] = id;
 	 		
-		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
 }
 

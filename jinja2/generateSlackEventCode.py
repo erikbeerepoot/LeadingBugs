@@ -19,29 +19,30 @@ kThisDir = os.path.dirname(os.path.abspath(__file__))
 kTypesFilepath = "./Types"
 kOutputPath = "../Nexus/Generated/"
 j2_env = Environment(loader=FileSystemLoader(kThisDir), trim_blocks=True);
+classOutDict = {};
 
 def load_template():
     #Load class configuration file (TEMP: manual input)
     typeListFile = open(kTypesFilepath)
     jsonData = json.load(typeListFile)
 
-
+    classString = "";
 
     #Iterate over dict of types in Slack API
-    for className,classDict in jsonData.iteritems():
-        print "Generating swift class for type: " + className
-
+    for className,classDict in jsonData.iteritems():        
         #Recursively create model classes
-        classString = "";
         classString = parse_dict(classDict,className,classString)
 
-        #Added header and imports
+    for key,value in classOutDict.iteritems():
+        
+        #Add class header and imports
         classString = j2_env.get_template('classTemplate.swift').render(
-            className=className, variables=[],classDescription="None provided."
-        ) + classString
-
+            className=key, variables=[],classDescription="None provided."
+        ) + value
+            
         #Save to file
-        outputFilePath  = kOutputPath + className + ".swift"
+        print "Generating swift class for type: " + key
+        outputFilePath  = kOutputPath + key + ".swift"
         outputFile = open(outputFilePath,'w+')
         outputFile.write(classString)
         outputFile.close()
@@ -66,9 +67,15 @@ def parse_dict(inDict,forKey,classString):
             newVar.varType = "Int"
         elif type(value) is dict:
             #Update output file string            
-            classString = parse_dict(value,key,classString)             
+            classString += parse_dict(value,key,classString) 
+
             newVar.varType = key;
             newVar.varName = key + "Instance" 
+
+            if(key not in classOutDict):                
+                classOutDict[key] = classString;
+
+
         elif type(value) is list:
             newVar.varType = "Array"
         else:
@@ -79,9 +86,14 @@ def parse_dict(inDict,forKey,classString):
         varList.append(newVar)
 
 
-    classString += j2_env.get_template('modelTemplate.swift').render(
+    classString = j2_env.get_template('modelTemplate.swift').render(
             className=forKey, variables=varList,classDescription="None provided."
-    )
+    )  
+
+
+    if(forKey not in classOutDict):        
+        classOutDict[forKey] = classString;
+  
     return classString
 
                 

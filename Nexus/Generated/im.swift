@@ -26,14 +26,14 @@ class im {
  	}
 
  	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary = Dictionary();
+ 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
 	 	jsonDict["is_user_deleted"] = is_user_deleted;
 	 	jsonDict["created"] = created;
 	 	jsonDict["is_im"] = is_im;
 	 	jsonDict["id"] = id;
 	 	jsonDict["user"] = user;
 	 		
-		return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
  	}
 }
 

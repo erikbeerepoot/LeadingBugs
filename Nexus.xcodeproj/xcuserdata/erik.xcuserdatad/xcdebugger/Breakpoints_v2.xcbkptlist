@@ -30,9 +30,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "unpackObject()"
-            landmarkType = "5">
+            endingLineNumber = "45">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
