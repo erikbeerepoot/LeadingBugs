@@ -15,34 +15,29 @@ import Foundation
  	var is_member : Bool? = nil;
  	var is_archived : Bool? = nil;
  	var creator : String? = nil;
- 	var topic : NSMutableDictionary? = nil;
+ 	var topic : Dictionary? = nil;
  	var unread_count : Int? = nil;
- 	var purpose : NSMutableDictionary? = nil;
- 	var members : NSMutableArray? = nil;
+ 	var purpose : Dictionary? = nil;
+ 	var members : Array? = nil;
  	var last_read : String? = nil;
  	var id : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonOptional : JSON? = JSON.parse(jsonData);
- 		if(jsonOptional==nil){
- 			return;
- 		}
-
- 		//get our variables out of the object
- 		let jsonObject : JSON = jsonOptional!;
- 	 	is_general = jsonObject["is_general"].Bool;
-	 	name = jsonObject["name"].String;
-	 	is_channel = jsonObject["is_channel"].String;
-	 	created = jsonObject["created"].Int;
-	 	is_member = jsonObject["is_member"].Bool;
-	 	is_archived = jsonObject["is_archived"].Bool;
-	 	creator = jsonObject["creator"].String;
-	 	topic = jsonObject["topic"].NSMutableDictionary;
-	 	unread_count = jsonObject["unread_count"].Int;
-	 	purpose = jsonObject["purpose"].NSMutableDictionary;
-	 	members = jsonObject["members"].NSMutableArray;
-	 	last_read = jsonObject["last_read"].String;
-	 	id = jsonObject["id"].String;
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	is_general = jsonObject?["is_general"]?.bool;
+	 	name = jsonObject?["name"]?.string;
+	 	is_channel = jsonObject?["is_channel"]?.string;
+	 	created = jsonObject?["created"]?.int;
+	 	is_member = jsonObject?["is_member"]?.bool;
+	 	is_archived = jsonObject?["is_archived"]?.bool;
+	 	creator = jsonObject?["creator"]?.string;
+	 	topic = jsonObject?["topic"]?.dictionary;
+	 	unread_count = jsonObject?["unread_count"]?.int;
+	 	purpose = jsonObject?["purpose"]?.dictionary;
+	 	members = jsonObject?["members"]?.array;
+	 	last_read = jsonObject?["last_read"]?.string;
+	 	id = jsonObject?["id"]?.string;
 	 		
  	}
 

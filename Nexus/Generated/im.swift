@@ -15,18 +15,13 @@ import Foundation
  	var user : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonOptional : JSON? = JSON.parse(jsonData);
- 		if(jsonOptional==nil){
- 			return;
- 		}
-
- 		//get our variables out of the object
- 		let jsonObject : JSON = jsonOptional!;
- 	 	is_user_deleted = jsonObject["is_user_deleted"].Bool;
-	 	created = jsonObject["created"].Int;
-	 	is_im = jsonObject["is_im"].Bool;
-	 	id = jsonObject["id"].String;
-	 	user = jsonObject["user"].String;
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	is_user_deleted = jsonObject?["is_user_deleted"]?.bool;
+	 	created = jsonObject?["created"]?.int;
+	 	is_im = jsonObject?["is_im"]?.bool;
+	 	id = jsonObject?["id"]?.string;
+	 	user = jsonObject?["user"]?.string;
 	 		
  	}
 

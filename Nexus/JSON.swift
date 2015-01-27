@@ -1,4 +1,4 @@
-/* 
+/*
  *      ___           ___           ___           ___                         ___           ___
  *     /  /\         /  /\         /  /\         /  /\          ___          /  /\         /  /\          ___
  *    /  /::\       /  /::\       /  /::\       /  /::\        /  /\        /  /::\       /  /::\        /__/\
@@ -56,7 +56,7 @@ public enum JSON  {
         return .Null;
     }
     
-    public var String : Swift.String? {
+    public var string : Swift.String? {
         switch self {
         case .String(let s):
             return Swift.String(s);
@@ -65,7 +65,7 @@ public enum JSON  {
         }
     }
     
-    public var Int : Int? {
+    public var int : Int? {
         switch self {
         case .Number(let s):
             return Int(s);
@@ -74,7 +74,7 @@ public enum JSON  {
         }
     }
     
-    public var Bool : Bool? {
+    public var bool : Bool? {
         switch self {
         case .Number(let b):
             return Bool(b != 0)
@@ -83,7 +83,7 @@ public enum JSON  {
         }
     }
     
-    public var Dictionary : [Swift.String : JSON]? {
+    public var dictionary : [Swift.String : JSON]? {
         switch self {
         case .Dictionary(let dict):
             var jsonObject : [Swift.String : JSON] = [:];
@@ -96,7 +96,7 @@ public enum JSON  {
         }
     }
     
-    public var Array : [JSON]? {
+    public var array : [JSON]? {
         switch self {
         case .Array(let array):
             let jsonArray = array.map({JSON.wrap($0)});

@@ -11,7 +11,7 @@ import Foundation
  	var initial_comment : String? = nil;
  	var filetype : String? = nil;
  	var lines_more : Int? = nil;
- 	var channels : NSMutableArray? = nil;
+ 	var channels : Array? = nil;
  	var thumb_64 : String? = nil;
  	var size : Int? = nil;
  	var url_download : String? = nil;
@@ -31,7 +31,7 @@ import Foundation
  	var editable : Bool? = nil;
  	var thumb_360_gif : String? = nil;
  	var user : String? = nil;
- 	var groups : NSMutableArray? = nil;
+ 	var groups : Array? = nil;
  	var is_public : Bool? = nil;
  	var is_starred : Bool? = nil;
  	var pretty_type : String? = nil;
@@ -47,50 +47,45 @@ import Foundation
  	var preview_highlight : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonOptional : JSON? = JSON.parse(jsonData);
- 		if(jsonOptional==nil){
- 			return;
- 		}
-
- 		//get our variables out of the object
- 		let jsonObject : JSON = jsonOptional!;
- 	 	initial_comment = jsonObject["initial_comment"].String;
-	 	filetype = jsonObject["filetype"].String;
-	 	lines_more = jsonObject["lines_more"].Int;
-	 	channels = jsonObject["channels"].NSMutableArray;
-	 	thumb_64 = jsonObject["thumb_64"].String;
-	 	size = jsonObject["size"].Int;
-	 	url_download = jsonObject["url_download"].String;
-	 	thumb_360_w = jsonObject["thumb_360_w"].String;
-	 	title = jsonObject["title"].String;
-	 	url_private = jsonObject["url_private"].String;
-	 	thumb_360 = jsonObject["thumb_360"].String;
-	 	id = jsonObject["id"].String;
-	 	thumb_80 = jsonObject["thumb_80"].String;
-	 	thumb_360_h = jsonObject["thumb_360_h"].String;
-	 	preview = jsonObject["preview"].String;
-	 	external_type = jsonObject["external_type"].String;
-	 	edit_link = jsonObject["edit_link"].String;
-	 	num_stars = jsonObject["num_stars"].Int;
-	 	timestamp = jsonObject["timestamp"].Int;
-	 	public_url_shared = jsonObject["public_url_shared"].Bool;
-	 	editable = jsonObject["editable"].Bool;
-	 	thumb_360_gif = jsonObject["thumb_360_gif"].String;
-	 	user = jsonObject["user"].String;
-	 	groups = jsonObject["groups"].NSMutableArray;
-	 	is_public = jsonObject["is_public"].Bool;
-	 	is_starred = jsonObject["is_starred"].Bool;
-	 	pretty_type = jsonObject["pretty_type"].String;
-	 	name = jsonObject["name"].String;
-	 	mimetype = jsonObject["mimetype"].String;
-	 	permalink = jsonObject["permalink"].String;
-	 	is_external = jsonObject["is_external"].Bool;
-	 	created = jsonObject["created"].Int;
-	 	url = jsonObject["url"].String;
-	 	lines = jsonObject["lines"].Int;
-	 	url_private_download = jsonObject["url_private_download"].String;
-	 	mode = jsonObject["mode"].String;
-	 	preview_highlight = jsonObject["preview_highlight"].String;
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	initial_comment = jsonObject?["initial_comment"]?.string;
+	 	filetype = jsonObject?["filetype"]?.string;
+	 	lines_more = jsonObject?["lines_more"]?.int;
+	 	channels = jsonObject?["channels"]?.array;
+	 	thumb_64 = jsonObject?["thumb_64"]?.string;
+	 	size = jsonObject?["size"]?.int;
+	 	url_download = jsonObject?["url_download"]?.string;
+	 	thumb_360_w = jsonObject?["thumb_360_w"]?.string;
+	 	title = jsonObject?["title"]?.string;
+	 	url_private = jsonObject?["url_private"]?.string;
+	 	thumb_360 = jsonObject?["thumb_360"]?.string;
+	 	id = jsonObject?["id"]?.string;
+	 	thumb_80 = jsonObject?["thumb_80"]?.string;
+	 	thumb_360_h = jsonObject?["thumb_360_h"]?.string;
+	 	preview = jsonObject?["preview"]?.string;
+	 	external_type = jsonObject?["external_type"]?.string;
+	 	edit_link = jsonObject?["edit_link"]?.string;
+	 	num_stars = jsonObject?["num_stars"]?.int;
+	 	timestamp = jsonObject?["timestamp"]?.int;
+	 	public_url_shared = jsonObject?["public_url_shared"]?.bool;
+	 	editable = jsonObject?["editable"]?.bool;
+	 	thumb_360_gif = jsonObject?["thumb_360_gif"]?.string;
+	 	user = jsonObject?["user"]?.string;
+	 	groups = jsonObject?["groups"]?.array;
+	 	is_public = jsonObject?["is_public"]?.bool;
+	 	is_starred = jsonObject?["is_starred"]?.bool;
+	 	pretty_type = jsonObject?["pretty_type"]?.string;
+	 	name = jsonObject?["name"]?.string;
+	 	mimetype = jsonObject?["mimetype"]?.string;
+	 	permalink = jsonObject?["permalink"]?.string;
+	 	is_external = jsonObject?["is_external"]?.bool;
+	 	created = jsonObject?["created"]?.int;
+	 	url = jsonObject?["url"]?.string;
+	 	lines = jsonObject?["lines"]?.int;
+	 	url_private_download = jsonObject?["url_private_download"]?.string;
+	 	mode = jsonObject?["mode"]?.string;
+	 	preview_highlight = jsonObject?["preview_highlight"]?.string;
 	 		
  	}
 

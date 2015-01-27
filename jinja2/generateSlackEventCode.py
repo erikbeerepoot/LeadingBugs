@@ -46,9 +46,11 @@ def load_template():
             elif type(value) is int:
                 newVar.varType = "Int"
             elif type(value) is dict:
-                newVar.varType = "NSMutableDictionary"
+                newVar.varType = "Dictionary" 
+
+
             elif type(value) is list:
-                newVar.varType = "NSMutableArray"
+                newVar.varType = "Array"
             else:
                 print("Error: Unknown type encountered. Skipping field!")
                 continue
@@ -67,5 +69,32 @@ def load_template():
         print outputFilePath 
     #Done!
 
+#Parse a dict    
+def parse_dict(dict,forKey):
+
+    varList = [];
+    for key,value in dict.iteritems():
+         #Most attributes are the same, just set type seperately 
+        newVar = Variable()
+        newVar.varName = key;
+        newVar.varOptional = True
+
+        if type(value) is bool:
+            newVar.varType = "Bool"
+        elif type(value) is unicode:
+            newVar.varType = "String"
+        elif type(value) is int:
+            newVar.varType = "Int"
+        elif type(value) is dict:
+            newVar.varType = "Dictionary" 
+        elif type(value) is list:
+            newVar.varType = "Array"
+        else:
+            print("Error: Unknown type encountered. Skipping field!")
+            continue
+        varList.append(newVar)
+
+    return collections.namedtuple(forKey,varList)
+                
 if __name__ == '__main__':
 	load_template();

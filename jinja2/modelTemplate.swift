@@ -13,15 +13,10 @@ var {{var.varName}} : {{var.varType}}{% if var.varOptional %}?{% endif %} = nil;
  	{% endfor %}
 
  	func pack{{classname}}Object(jsonData : NSData) {
- 		let jsonOptional : JSON? = JSON.parse(jsonData);
- 		if(jsonOptional==nil){
- 			return;
- 		}
-
- 		//get our variables out of the object
- 		let jsonObject : JSON = jsonOptional!;
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
  	{% for var in variables %}
- 	{{var.varName}} = jsonObject["{{var.varName}}"].{{var.varType}};
+ 	{{var.varName}} = jsonObject?["{{var.varName}}"]?.{{var.varType.lower()}};
 	{% endfor %} 		
  	}
 

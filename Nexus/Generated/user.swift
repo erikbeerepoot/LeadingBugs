@@ -8,7 +8,7 @@
 import Foundation
 
  class user {
- 	var profile : NSMutableDictionary? = nil;
+ 	var profile : Dictionary? = nil;
  	var is_owner : Bool? = nil;
  	var name : String? = nil;
  	var deleted : Bool? = nil;
@@ -21,24 +21,19 @@ import Foundation
  	var is_primary_owner : Bool? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonOptional : JSON? = JSON.parse(jsonData);
- 		if(jsonOptional==nil){
- 			return;
- 		}
-
- 		//get our variables out of the object
- 		let jsonObject : JSON = jsonOptional!;
- 	 	profile = jsonObject["profile"].NSMutableDictionary;
-	 	is_owner = jsonObject["is_owner"].Bool;
-	 	name = jsonObject["name"].String;
-	 	deleted = jsonObject["deleted"].Bool;
-	 	color = jsonObject["color"].String;
-	 	is_admin = jsonObject["is_admin"].Bool;
-	 	is_ultra_restricted = jsonObject["is_ultra_restricted"].Bool;
-	 	has_files = jsonObject["has_files"].Bool;
-	 	is_restricted = jsonObject["is_restricted"].Bool;
-	 	id = jsonObject["id"].String;
-	 	is_primary_owner = jsonObject["is_primary_owner"].Bool;
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	profile = jsonObject?["profile"]?.dictionary;
+	 	is_owner = jsonObject?["is_owner"]?.bool;
+	 	name = jsonObject?["name"]?.string;
+	 	deleted = jsonObject?["deleted"]?.bool;
+	 	color = jsonObject?["color"]?.string;
+	 	is_admin = jsonObject?["is_admin"]?.bool;
+	 	is_ultra_restricted = jsonObject?["is_ultra_restricted"]?.bool;
+	 	has_files = jsonObject?["has_files"]?.bool;
+	 	is_restricted = jsonObject?["is_restricted"]?.bool;
+	 	id = jsonObject?["id"]?.string;
+	 	is_primary_owner = jsonObject?["is_primary_owner"]?.bool;
 	 		
  	}
 

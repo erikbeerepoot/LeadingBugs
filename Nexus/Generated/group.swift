@@ -13,28 +13,23 @@ import Foundation
  	var is_archived : Bool? = nil;
  	var created : Int? = nil;
  	var is_group : String? = nil;
- 	var topic : NSMutableDictionary? = nil;
- 	var purpose : NSMutableDictionary? = nil;
- 	var members : NSMutableArray? = nil;
+ 	var topic : Dictionary? = nil;
+ 	var purpose : Dictionary? = nil;
+ 	var members : Array? = nil;
  	var id : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonOptional : JSON? = JSON.parse(jsonData);
- 		if(jsonOptional==nil){
- 			return;
- 		}
-
- 		//get our variables out of the object
- 		let jsonObject : JSON = jsonOptional!;
- 	 	name = jsonObject["name"].String;
-	 	creator = jsonObject["creator"].String;
-	 	is_archived = jsonObject["is_archived"].Bool;
-	 	created = jsonObject["created"].Int;
-	 	is_group = jsonObject["is_group"].String;
-	 	topic = jsonObject["topic"].NSMutableDictionary;
-	 	purpose = jsonObject["purpose"].NSMutableDictionary;
-	 	members = jsonObject["members"].NSMutableArray;
-	 	id = jsonObject["id"].String;
+ 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		 		
+ 	 	name = jsonObject?["name"]?.string;
+	 	creator = jsonObject?["creator"]?.string;
+	 	is_archived = jsonObject?["is_archived"]?.bool;
+	 	created = jsonObject?["created"]?.int;
+	 	is_group = jsonObject?["is_group"]?.string;
+	 	topic = jsonObject?["topic"]?.dictionary;
+	 	purpose = jsonObject?["purpose"]?.dictionary;
+	 	members = jsonObject?["members"]?.array;
+	 	id = jsonObject?["id"]?.string;
 	 		
  	}
 
