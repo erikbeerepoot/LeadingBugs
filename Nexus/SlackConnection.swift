@@ -80,8 +80,8 @@ class SlackConnection : WebSocketDelegate {
      */
     func connectionHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
-            let jsonObject = JSON.parse(data!);
-            let result = jsonObject[kOKKey]?.int;
+            let jsonObject = JSON(data!);
+            let result = jsonObject[kOKKey].int;
             if(result==1){
                 //success!
                 connected = true;
@@ -89,7 +89,7 @@ class SlackConnection : WebSocketDelegate {
                 //if we want real time events, we must connect to the websocket API now
                 if(enableRealTimeEvents){
                     //create URL
-                    let theUrl = jsonObject[kURLKey]?.string;
+                    let theUrl = jsonObject[kURLKey].string;
                     let url = NSURL(string: theUrl!)!;
                     
                     //connect to websocket
@@ -119,8 +119,8 @@ class SlackConnection : WebSocketDelegate {
     */
     func sentHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
-            let jsonObject = JSON.parse(data!);
-            let result = jsonObject[kOKKey]?.bool;
+            let jsonObject = JSON(data!);
+            let result = jsonObject[kOKKey].bool;
             sentCallback?(result!,error);
         }
     }
@@ -139,8 +139,8 @@ class SlackConnection : WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(text : String) -> (){
-        let jsonObject = JSON.parse(text.dataUsingEncoding(NSUTF8StringEncoding)!);
-        let msgType = jsonObject["type"]?.string;
+        let jsonObject = JSON(text.dataUsingEncoding(NSUTF8StringEncoding)!);
+        let msgType = jsonObject["type"].string;
         println("Message type: \(msgType)")
         self.rtDelegate?.didReceiveEvent(jsonObject);
     }
