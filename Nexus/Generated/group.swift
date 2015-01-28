@@ -15,7 +15,7 @@ class group {
  	var is_group : String? = nil;
  	var topicInstance : topic? = nil;
  	var purposeInstance : purpose? = nil;
- 	var members : Array? = nil;
+// 	var members : Array? = nil;
  	var id : String? = nil;
  	
  	func packObject(jsonData : NSData) {
@@ -26,9 +26,18 @@ class group {
 	 	is_archived = jsonObject?["is_archived"].bool;
 	 	created = jsonObject?["created"].int;
 	 	is_group = jsonObject?["is_group"].string;
-	 	topicInstance = jsonObject?["topicInstance"].topic;
-	 	purposeInstance = jsonObject?["purposeInstance"].purpose;
-	 	members = jsonObject?["members"].array;
+
+        
+        //how to put this in code?
+        topicInstance = topic();
+        let object : AnyObject? = jsonObject?["topicInstance"].object;
+        let data = NSKeyedArchiver.archivedDataWithRootObject(object!);
+        topicInstance?.packObject(data);
+        
+//        topic.packObject(  );
+//  jsonObject?["topicInstance"].dictionary;
+//	 	purposeInstance = jsonObject?["purposeInstance"].purpose;
+//	 	members = jsonObject?["members"].array;
 	 	id = jsonObject?["id"].string;
 	 		
  	}
@@ -40,9 +49,12 @@ class group {
 	 	json?["is_archived"].bool = is_archived;
 	 	json?["created"].int = created;
 	 	json?["is_group"].string = is_group;
-	 	json?["topicInstance"].topic = topicInstance;
-	 	json?["purposeInstance"].purpose = purposeInstance;
-	 	json?["members"].array = members;
+
+        let data = topicInstance?.unpackObject();
+//        JSON(
+        //	 	json?["topicInstance"].dictionary = JSON(topicInstance).dictionary;
+//	 	json?["purposeInstance"].purpose = purposeInstance;
+//	 	json?["members"].array = members;
 	 	json?["id"].string = id;
 	 		
 
