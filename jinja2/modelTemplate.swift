@@ -12,8 +12,8 @@ class {{className}} {
 		//Custom class, must call its packing code
 		{{var.varName}} = {{var.varType}}();
 		let {{var.varType}}Object : AnyObject? = jsonObject?["{{var.varName}}"].object;
-		let {{var.varType}}Data : NSKeyedArchiver.archiveDataWithRootObject({{var.varType}}Object!);
-		{{var.varName}}?.packObject(data);
+		let {{var.varType}}Data : NSData = NSKeyedArchiver.archivedDataWithRootObject({{var.varType}}Object!);
+		{{var.varName}}?.packObject({{var.varType}}Data);
 {% else %}
 		{{var.varName}} = jsonObject?["{{var.varName}}"].{{var.varType.lower()}}; 
 {% endif %}
@@ -23,7 +23,7 @@ class {{className}} {
 
 	func unpack{{classname}}Object() -> (NSData?) {
 		var json : JSON? = nil;
-		
+
 {% for var in variables %}
 {% if var.customClass %}
 		//Custom class, must call its unpacking code (placeholder)
