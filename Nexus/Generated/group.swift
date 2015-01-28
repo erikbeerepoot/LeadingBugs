@@ -19,33 +19,43 @@ class group {
  	var id : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		let jsonObject : JSON? = JSON(jsonData);
  		 		
- 	 	name = jsonObject?["name"]?.string;
-	 	creator = jsonObject?["creator"]?.string;
-	 	is_archived = jsonObject?["is_archived"]?.bool;
-	 	created = jsonObject?["created"]?.int;
-	 	is_group = jsonObject?["is_group"]?.string;
-	 	topicInstance = jsonObject?["topicInstance"]?.topic;
-	 	purposeInstance = jsonObject?["purposeInstance"]?.purpose;
-	 	members = jsonObject?["members"]?.array;
-	 	id = jsonObject?["id"]?.string;
+ 	 	name = jsonObject?["name"].string;
+	 	creator = jsonObject?["creator"].string;
+	 	is_archived = jsonObject?["is_archived"].bool;
+	 	created = jsonObject?["created"].int;
+	 	is_group = jsonObject?["is_group"].string;
+	 	topicInstance = jsonObject?["topicInstance"].topic;
+	 	purposeInstance = jsonObject?["purposeInstance"].purpose;
+	 	members = jsonObject?["members"].array;
+	 	id = jsonObject?["id"].string;
 	 		
  	}
 
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
-	 	jsonDict["name"] = name;
-	 	jsonDict["creator"] = creator;
-	 	jsonDict["is_archived"] = is_archived;
-	 	jsonDict["created"] = created;
-	 	jsonDict["is_group"] = is_group;
-	 	jsonDict["topicInstance"] = topicInstance;
-	 	jsonDict["purposeInstance"] = purposeInstance;
-	 	jsonDict["members"] = members;
-	 	jsonDict["id"] = id;
+ 	func unpackObject() -> (NSData?) {
+    var json : JSON? = nil;
+	 	json?["name"].string = name;
+	 	json?["creator"].string = creator;
+	 	json?["is_archived"].bool = is_archived;
+	 	json?["created"].int = created;
+	 	json?["is_group"].string = is_group;
+	 	json?["topicInstance"].topic = topicInstance;
+	 	json?["purposeInstance"].purpose = purposeInstance;
+	 	json?["members"].array = members;
+	 	json?["id"].string = id;
 	 		
-		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+
+		//Now create data object
+		var error : NSError? = nil;
+		let object : AnyObject? = json?.object;
+		if let data = NSJSONSerialization.dataWithJSONObject(object!, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+	        //post your data to server
+	        return data;
+	    } else {
+	        //error
+	        return nil;
+	    }
  	}
 }
 

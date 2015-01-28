@@ -23,41 +23,51 @@ class channel {
  	var id : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		let jsonObject : JSON? = JSON(jsonData);
  		 		
- 	 	is_general = jsonObject?["is_general"]?.bool;
-	 	name = jsonObject?["name"]?.string;
-	 	is_channel = jsonObject?["is_channel"]?.string;
-	 	created = jsonObject?["created"]?.int;
-	 	is_member = jsonObject?["is_member"]?.bool;
-	 	is_archived = jsonObject?["is_archived"]?.bool;
-	 	creator = jsonObject?["creator"]?.string;
-	 	topicInstance = jsonObject?["topicInstance"]?.topic;
-	 	unread_count = jsonObject?["unread_count"]?.int;
-	 	purposeInstance = jsonObject?["purposeInstance"]?.purpose;
-	 	members = jsonObject?["members"]?.array;
-	 	last_read = jsonObject?["last_read"]?.string;
-	 	id = jsonObject?["id"]?.string;
+ 	 	is_general = jsonObject?["is_general"].bool;
+	 	name = jsonObject?["name"].string;
+	 	is_channel = jsonObject?["is_channel"].string;
+	 	created = jsonObject?["created"].int;
+	 	is_member = jsonObject?["is_member"].bool;
+	 	is_archived = jsonObject?["is_archived"].bool;
+	 	creator = jsonObject?["creator"].string;
+	 	topicInstance = jsonObject?["topicInstance"].topic;
+	 	unread_count = jsonObject?["unread_count"].int;
+	 	purposeInstance = jsonObject?["purposeInstance"].purpose;
+	 	members = jsonObject?["members"].array;
+	 	last_read = jsonObject?["last_read"].string;
+	 	id = jsonObject?["id"].string;
 	 		
  	}
 
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
-	 	jsonDict["is_general"] = is_general;
-	 	jsonDict["name"] = name;
-	 	jsonDict["is_channel"] = is_channel;
-	 	jsonDict["created"] = created;
-	 	jsonDict["is_member"] = is_member;
-	 	jsonDict["is_archived"] = is_archived;
-	 	jsonDict["creator"] = creator;
-	 	jsonDict["topicInstance"] = topicInstance;
-	 	jsonDict["unread_count"] = unread_count;
-	 	jsonDict["purposeInstance"] = purposeInstance;
-	 	jsonDict["members"] = members;
-	 	jsonDict["last_read"] = last_read;
-	 	jsonDict["id"] = id;
+ 	func unpackObject() -> (NSData?) {
+    var json : JSON? = nil;
+	 	json?["is_general"].bool = is_general;
+	 	json?["name"].string = name;
+	 	json?["is_channel"].string = is_channel;
+	 	json?["created"].int = created;
+	 	json?["is_member"].bool = is_member;
+	 	json?["is_archived"].bool = is_archived;
+	 	json?["creator"].string = creator;
+	 	json?["topicInstance"].topic = topicInstance;
+	 	json?["unread_count"].int = unread_count;
+	 	json?["purposeInstance"].purpose = purposeInstance;
+	 	json?["members"].array = members;
+	 	json?["last_read"].string = last_read;
+	 	json?["id"].string = id;
 	 		
-		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+
+		//Now create data object
+		var error : NSError? = nil;
+		let object : AnyObject? = json?.object;
+		if let data = NSJSONSerialization.dataWithJSONObject(object!, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+	        //post your data to server
+	        return data;
+	    } else {
+	        //error
+	        return nil;
+	    }
  	}
 }
 

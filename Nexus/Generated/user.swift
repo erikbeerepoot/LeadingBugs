@@ -21,37 +21,47 @@ class user {
  	var is_primary_owner : Bool? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		let jsonObject : JSON? = JSON(jsonData);
  		 		
- 	 	profileInstance = jsonObject?["profileInstance"]?.profile;
-	 	is_owner = jsonObject?["is_owner"]?.bool;
-	 	name = jsonObject?["name"]?.string;
-	 	deleted = jsonObject?["deleted"]?.bool;
-	 	color = jsonObject?["color"]?.string;
-	 	is_admin = jsonObject?["is_admin"]?.bool;
-	 	is_ultra_restricted = jsonObject?["is_ultra_restricted"]?.bool;
-	 	has_files = jsonObject?["has_files"]?.bool;
-	 	is_restricted = jsonObject?["is_restricted"]?.bool;
-	 	id = jsonObject?["id"]?.string;
-	 	is_primary_owner = jsonObject?["is_primary_owner"]?.bool;
+ 	 	profileInstance = jsonObject?["profileInstance"].profile;
+	 	is_owner = jsonObject?["is_owner"].bool;
+	 	name = jsonObject?["name"].string;
+	 	deleted = jsonObject?["deleted"].bool;
+	 	color = jsonObject?["color"].string;
+	 	is_admin = jsonObject?["is_admin"].bool;
+	 	is_ultra_restricted = jsonObject?["is_ultra_restricted"].bool;
+	 	has_files = jsonObject?["has_files"].bool;
+	 	is_restricted = jsonObject?["is_restricted"].bool;
+	 	id = jsonObject?["id"].string;
+	 	is_primary_owner = jsonObject?["is_primary_owner"].bool;
 	 		
  	}
 
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
-	 	jsonDict["profileInstance"] = profileInstance;
-	 	jsonDict["is_owner"] = is_owner;
-	 	jsonDict["name"] = name;
-	 	jsonDict["deleted"] = deleted;
-	 	jsonDict["color"] = color;
-	 	jsonDict["is_admin"] = is_admin;
-	 	jsonDict["is_ultra_restricted"] = is_ultra_restricted;
-	 	jsonDict["has_files"] = has_files;
-	 	jsonDict["is_restricted"] = is_restricted;
-	 	jsonDict["id"] = id;
-	 	jsonDict["is_primary_owner"] = is_primary_owner;
+ 	func unpackObject() -> (NSData?) {
+    var json : JSON? = nil;
+	 	json?["profileInstance"].profile = profileInstance;
+	 	json?["is_owner"].bool = is_owner;
+	 	json?["name"].string = name;
+	 	json?["deleted"].bool = deleted;
+	 	json?["color"].string = color;
+	 	json?["is_admin"].bool = is_admin;
+	 	json?["is_ultra_restricted"].bool = is_ultra_restricted;
+	 	json?["has_files"].bool = has_files;
+	 	json?["is_restricted"].bool = is_restricted;
+	 	json?["id"].string = id;
+	 	json?["is_primary_owner"].bool = is_primary_owner;
 	 		
-		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+
+		//Now create data object
+		var error : NSError? = nil;
+		let object : AnyObject? = json?.object;
+		if let data = NSJSONSerialization.dataWithJSONObject(object!, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+	        //post your data to server
+	        return data;
+	    } else {
+	        //error
+	        return nil;
+	    }
  	}
 }
 

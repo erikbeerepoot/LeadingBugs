@@ -16,15 +16,12 @@
 		031D32A41A4605AA00A6E271 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A11A4605AA00A6E271 /* Constants.swift */; };
 		031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A21A4605AA00A6E271 /* SlackConstants.swift */; };
 		031D32A61A4605AA00A6E271 /* SlackConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */; };
-		034897FD1A7680CF00A97623 /* channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897F81A7680CF00A97623 /* channel.swift */; };
-		034897FE1A7680CF00A97623 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897F91A7680CF00A97623 /* file.swift */; };
 		034897FF1A7680CF00A97623 /* group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897FA1A7680CF00A97623 /* group.swift */; };
-		034898001A7680CF00A97623 /* im.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897FB1A7680CF00A97623 /* im.swift */; };
-		034898011A7680CF00A97623 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897FC1A7680CF00A97623 /* user.swift */; };
 		035DE9BC1A49EA0A00C067F4 /* StarscreamOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035DE9B91A49E9DD00C067F4 /* StarscreamOSX.framework */; };
-		035DE9BE1A4A5D9000C067F4 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035DE9BD1A4A5D9000C067F4 /* JSON.swift */; };
 		035DE9C01A4BA57100C067F4 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035DE9BF1A4BA57100C067F4 /* Event.swift */; };
 		035DE9C21A4E08F500C067F4 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035DE9C11A4E08F500C067F4 /* Channel.swift */; };
+		039730391A7892FD00CC1F1E /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039730381A7892FD00CC1F1E /* SwiftyJSON.swift */; };
+		0397303B1A789F5F00CC1F1E /* channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0397303A1A789F5F00CC1F1E /* channel.swift */; };
 		03BB72941A47D8E4007DFB1D /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BB72931A47D8E4007DFB1D /* SlackConnection.swift */; };
 		03D69FD01A491390000F644F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D69FCF1A491390000F644F /* Message.swift */; };
 		03D69FD21A491A28000F644F /* Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D69FD11A491A28000F644F /* Serialization.swift */; };
@@ -86,15 +83,12 @@
 		031D32A11A4605AA00A6E271 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
 		031D32A21A4605AA00A6E271 /* SlackConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackConstants.swift; path = ../SlackConstants.swift; sourceTree = "<group>"; };
 		031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackConnectionController.swift; path = ../SlackConnectionController.swift; sourceTree = "<group>"; };
-		034897F81A7680CF00A97623 /* channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = channel.swift; sourceTree = "<group>"; };
-		034897F91A7680CF00A97623 /* file.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
 		034897FA1A7680CF00A97623 /* group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = group.swift; sourceTree = "<group>"; };
-		034897FB1A7680CF00A97623 /* im.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = im.swift; sourceTree = "<group>"; };
-		034897FC1A7680CF00A97623 /* user.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
 		035DE9AD1A49E9DC00C067F4 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = ../../../../../Documents/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
-		035DE9BD1A4A5D9000C067F4 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		035DE9BF1A4BA57100C067F4 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		035DE9C11A4E08F500C067F4 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		039730381A7892FD00CC1F1E /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		0397303A1A789F5F00CC1F1E /* channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = channel.swift; sourceTree = "<group>"; };
 		03BB72931A47D8E4007DFB1D /* SlackConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnection.swift; sourceTree = "<group>"; };
 		03D69FCF1A491390000F644F /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		03D69FD11A491A28000F644F /* Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialization.swift; sourceTree = "<group>"; };
@@ -187,11 +181,8 @@
 		034897F71A7680CF00A97623 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				034897F81A7680CF00A97623 /* channel.swift */,
-				034897F91A7680CF00A97623 /* file.swift */,
+				0397303A1A789F5F00CC1F1E /* channel.swift */,
 				034897FA1A7680CF00A97623 /* group.swift */,
-				034897FB1A7680CF00A97623 /* im.swift */,
-				034897FC1A7680CF00A97623 /* user.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -239,10 +230,10 @@
 				03DAB32F1A47CCC7001E3866 /* HTTPRequest.swift */,
 				03D69FD31A491E8C000F644F /* SerializableParameterObject.swift */,
 				03BB72931A47D8E4007DFB1D /* SlackConnection.swift */,
-				035DE9BD1A4A5D9000C067F4 /* JSON.swift */,
 				035DE9BF1A4BA57100C067F4 /* Event.swift */,
 				035DE9C11A4E08F500C067F4 /* Channel.swift */,
 				031373C41A6C6263006BAE3C /* TaskScheduler.swift */,
+				039730381A7892FD00CC1F1E /* SwiftyJSON.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -397,22 +388,19 @@
 				031373C51A6C6263006BAE3C /* TaskScheduler.swift in Sources */,
 				031D32871A46058D00A6E271 /* ViewController.swift in Sources */,
 				035DE9C21A4E08F500C067F4 /* Channel.swift in Sources */,
-				035DE9BE1A4A5D9000C067F4 /* JSON.swift in Sources */,
 				03D69FD41A491E8C000F644F /* SerializableParameterObject.swift in Sources */,
 				03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */,
 				031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */,
-				034897FE1A7680CF00A97623 /* file.swift in Sources */,
 				03D69FD01A491390000F644F /* Message.swift in Sources */,
 				031D32A61A4605AA00A6E271 /* SlackConnectionController.swift in Sources */,
-				034898011A7680CF00A97623 /* user.swift in Sources */,
+				0397303B1A789F5F00CC1F1E /* channel.swift in Sources */,
 				03BB72941A47D8E4007DFB1D /* SlackConnection.swift in Sources */,
 				03D69FD21A491A28000F644F /* Serialization.swift in Sources */,
+				039730391A7892FD00CC1F1E /* SwiftyJSON.swift in Sources */,
 				03DAB3301A47CCC7001E3866 /* HTTPRequest.swift in Sources */,
 				03DAB3321A47CDAA001E3866 /* AuthorizationController.swift in Sources */,
 				031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */,
 				035DE9C01A4BA57100C067F4 /* Event.swift in Sources */,
-				034898001A7680CF00A97623 /* im.swift in Sources */,
-				034897FD1A7680CF00A97623 /* channel.swift in Sources */,
 				031D32A41A4605AA00A6E271 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

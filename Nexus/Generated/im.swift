@@ -15,25 +15,35 @@ class im {
  	var user : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		let jsonObject : JSON? = JSON(jsonData);
  		 		
- 	 	is_user_deleted = jsonObject?["is_user_deleted"]?.bool;
-	 	created = jsonObject?["created"]?.int;
-	 	is_im = jsonObject?["is_im"]?.bool;
-	 	id = jsonObject?["id"]?.string;
-	 	user = jsonObject?["user"]?.string;
+ 	 	is_user_deleted = jsonObject?["is_user_deleted"].bool;
+	 	created = jsonObject?["created"].int;
+	 	is_im = jsonObject?["is_im"].bool;
+	 	id = jsonObject?["id"].string;
+	 	user = jsonObject?["user"].string;
 	 		
  	}
 
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
-	 	jsonDict["is_user_deleted"] = is_user_deleted;
-	 	jsonDict["created"] = created;
-	 	jsonDict["is_im"] = is_im;
-	 	jsonDict["id"] = id;
-	 	jsonDict["user"] = user;
+ 	func unpackObject() -> (NSData?) {
+    var json : JSON? = nil;
+	 	json?["is_user_deleted"].bool = is_user_deleted;
+	 	json?["created"].int = created;
+	 	json?["is_im"].bool = is_im;
+	 	json?["id"].string = id;
+	 	json?["user"].string = user;
 	 		
-		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+
+		//Now create data object
+		var error : NSError? = nil;
+		let object : AnyObject? = json?.object;
+		if let data = NSJSONSerialization.dataWithJSONObject(object!, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+	        //post your data to server
+	        return data;
+	    } else {
+	        //error
+	        return nil;
+	    }
  	}
 }
 

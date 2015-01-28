@@ -13,21 +13,31 @@ class purpose {
  	var creator : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		let jsonObject : JSON? = JSON(jsonData);
  		 		
- 	 	last_set = jsonObject?["last_set"]?.int;
-	 	value = jsonObject?["value"]?.string;
-	 	creator = jsonObject?["creator"]?.string;
+ 	 	last_set = jsonObject?["last_set"].int;
+	 	value = jsonObject?["value"].string;
+	 	creator = jsonObject?["creator"].string;
 	 		
  	}
 
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
-	 	jsonDict["last_set"] = last_set;
-	 	jsonDict["value"] = value;
-	 	jsonDict["creator"] = creator;
+ 	func unpackObject() -> (NSData?) {
+    var json : JSON? = nil;
+	 	json?["last_set"].int = last_set;
+	 	json?["value"].string = value;
+	 	json?["creator"].string = creator;
 	 		
-		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+
+		//Now create data object
+		var error : NSError? = nil;
+		let object : AnyObject? = json?.object;
+		if let data = NSJSONSerialization.dataWithJSONObject(object!, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+	        //post your data to server
+	        return data;
+	    } else {
+	        //error
+	        return nil;
+	    }
  	}
 }
 

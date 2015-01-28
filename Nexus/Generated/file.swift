@@ -47,89 +47,99 @@ class file {
  	var preview_highlight : String? = nil;
  	
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON.parse(jsonData);
+ 		let jsonObject : JSON? = JSON(jsonData);
  		 		
- 	 	initial_comment = jsonObject?["initial_comment"]?.string;
-	 	filetype = jsonObject?["filetype"]?.string;
-	 	lines_more = jsonObject?["lines_more"]?.int;
-	 	channels = jsonObject?["channels"]?.array;
-	 	thumb_64 = jsonObject?["thumb_64"]?.string;
-	 	size = jsonObject?["size"]?.int;
-	 	url_download = jsonObject?["url_download"]?.string;
-	 	thumb_360_w = jsonObject?["thumb_360_w"]?.string;
-	 	title = jsonObject?["title"]?.string;
-	 	url_private = jsonObject?["url_private"]?.string;
-	 	thumb_360 = jsonObject?["thumb_360"]?.string;
-	 	id = jsonObject?["id"]?.string;
-	 	thumb_80 = jsonObject?["thumb_80"]?.string;
-	 	thumb_360_h = jsonObject?["thumb_360_h"]?.string;
-	 	preview = jsonObject?["preview"]?.string;
-	 	external_type = jsonObject?["external_type"]?.string;
-	 	edit_link = jsonObject?["edit_link"]?.string;
-	 	num_stars = jsonObject?["num_stars"]?.int;
-	 	timestamp = jsonObject?["timestamp"]?.int;
-	 	public_url_shared = jsonObject?["public_url_shared"]?.bool;
-	 	editable = jsonObject?["editable"]?.bool;
-	 	thumb_360_gif = jsonObject?["thumb_360_gif"]?.string;
-	 	user = jsonObject?["user"]?.string;
-	 	groups = jsonObject?["groups"]?.array;
-	 	is_public = jsonObject?["is_public"]?.bool;
-	 	is_starred = jsonObject?["is_starred"]?.bool;
-	 	pretty_type = jsonObject?["pretty_type"]?.string;
-	 	name = jsonObject?["name"]?.string;
-	 	mimetype = jsonObject?["mimetype"]?.string;
-	 	permalink = jsonObject?["permalink"]?.string;
-	 	is_external = jsonObject?["is_external"]?.bool;
-	 	created = jsonObject?["created"]?.int;
-	 	url = jsonObject?["url"]?.string;
-	 	lines = jsonObject?["lines"]?.int;
-	 	url_private_download = jsonObject?["url_private_download"]?.string;
-	 	mode = jsonObject?["mode"]?.string;
-	 	preview_highlight = jsonObject?["preview_highlight"]?.string;
+ 	 	initial_comment = jsonObject?["initial_comment"].string;
+	 	filetype = jsonObject?["filetype"].string;
+	 	lines_more = jsonObject?["lines_more"].int;
+	 	channels = jsonObject?["channels"].array;
+	 	thumb_64 = jsonObject?["thumb_64"].string;
+	 	size = jsonObject?["size"].int;
+	 	url_download = jsonObject?["url_download"].string;
+	 	thumb_360_w = jsonObject?["thumb_360_w"].string;
+	 	title = jsonObject?["title"].string;
+	 	url_private = jsonObject?["url_private"].string;
+	 	thumb_360 = jsonObject?["thumb_360"].string;
+	 	id = jsonObject?["id"].string;
+	 	thumb_80 = jsonObject?["thumb_80"].string;
+	 	thumb_360_h = jsonObject?["thumb_360_h"].string;
+	 	preview = jsonObject?["preview"].string;
+	 	external_type = jsonObject?["external_type"].string;
+	 	edit_link = jsonObject?["edit_link"].string;
+	 	num_stars = jsonObject?["num_stars"].int;
+	 	timestamp = jsonObject?["timestamp"].int;
+	 	public_url_shared = jsonObject?["public_url_shared"].bool;
+	 	editable = jsonObject?["editable"].bool;
+	 	thumb_360_gif = jsonObject?["thumb_360_gif"].string;
+	 	user = jsonObject?["user"].string;
+	 	groups = jsonObject?["groups"].array;
+	 	is_public = jsonObject?["is_public"].bool;
+	 	is_starred = jsonObject?["is_starred"].bool;
+	 	pretty_type = jsonObject?["pretty_type"].string;
+	 	name = jsonObject?["name"].string;
+	 	mimetype = jsonObject?["mimetype"].string;
+	 	permalink = jsonObject?["permalink"].string;
+	 	is_external = jsonObject?["is_external"].bool;
+	 	created = jsonObject?["created"].int;
+	 	url = jsonObject?["url"].string;
+	 	lines = jsonObject?["lines"].int;
+	 	url_private_download = jsonObject?["url_private_download"].string;
+	 	mode = jsonObject?["mode"].string;
+	 	preview_highlight = jsonObject?["preview_highlight"].string;
 	 		
  	}
 
- 	func unpackObject() -> (NSData) {
- 		var jsonDict : Dictionary<String,AnyObject> = Dictionary();
-	 	jsonDict["initial_comment"] = initial_comment;
-	 	jsonDict["filetype"] = filetype;
-	 	jsonDict["lines_more"] = lines_more;
-	 	jsonDict["channels"] = channels;
-	 	jsonDict["thumb_64"] = thumb_64;
-	 	jsonDict["size"] = size;
-	 	jsonDict["url_download"] = url_download;
-	 	jsonDict["thumb_360_w"] = thumb_360_w;
-	 	jsonDict["title"] = title;
-	 	jsonDict["url_private"] = url_private;
-	 	jsonDict["thumb_360"] = thumb_360;
-	 	jsonDict["id"] = id;
-	 	jsonDict["thumb_80"] = thumb_80;
-	 	jsonDict["thumb_360_h"] = thumb_360_h;
-	 	jsonDict["preview"] = preview;
-	 	jsonDict["external_type"] = external_type;
-	 	jsonDict["edit_link"] = edit_link;
-	 	jsonDict["num_stars"] = num_stars;
-	 	jsonDict["timestamp"] = timestamp;
-	 	jsonDict["public_url_shared"] = public_url_shared;
-	 	jsonDict["editable"] = editable;
-	 	jsonDict["thumb_360_gif"] = thumb_360_gif;
-	 	jsonDict["user"] = user;
-	 	jsonDict["groups"] = groups;
-	 	jsonDict["is_public"] = is_public;
-	 	jsonDict["is_starred"] = is_starred;
-	 	jsonDict["pretty_type"] = pretty_type;
-	 	jsonDict["name"] = name;
-	 	jsonDict["mimetype"] = mimetype;
-	 	jsonDict["permalink"] = permalink;
-	 	jsonDict["is_external"] = is_external;
-	 	jsonDict["created"] = created;
-	 	jsonDict["url"] = url;
-	 	jsonDict["lines"] = lines;
-	 	jsonDict["url_private_download"] = url_private_download;
-	 	jsonDict["mode"] = mode;
-	 	jsonDict["preview_highlight"] = preview_highlight;
+ 	func unpackObject() -> (NSData?) {
+    var json : JSON? = nil;
+	 	json?["initial_comment"].string = initial_comment;
+	 	json?["filetype"].string = filetype;
+	 	json?["lines_more"].int = lines_more;
+	 	json?["channels"].array = channels;
+	 	json?["thumb_64"].string = thumb_64;
+	 	json?["size"].int = size;
+	 	json?["url_download"].string = url_download;
+	 	json?["thumb_360_w"].string = thumb_360_w;
+	 	json?["title"].string = title;
+	 	json?["url_private"].string = url_private;
+	 	json?["thumb_360"].string = thumb_360;
+	 	json?["id"].string = id;
+	 	json?["thumb_80"].string = thumb_80;
+	 	json?["thumb_360_h"].string = thumb_360_h;
+	 	json?["preview"].string = preview;
+	 	json?["external_type"].string = external_type;
+	 	json?["edit_link"].string = edit_link;
+	 	json?["num_stars"].int = num_stars;
+	 	json?["timestamp"].int = timestamp;
+	 	json?["public_url_shared"].bool = public_url_shared;
+	 	json?["editable"].bool = editable;
+	 	json?["thumb_360_gif"].string = thumb_360_gif;
+	 	json?["user"].string = user;
+	 	json?["groups"].array = groups;
+	 	json?["is_public"].bool = is_public;
+	 	json?["is_starred"].bool = is_starred;
+	 	json?["pretty_type"].string = pretty_type;
+	 	json?["name"].string = name;
+	 	json?["mimetype"].string = mimetype;
+	 	json?["permalink"].string = permalink;
+	 	json?["is_external"].bool = is_external;
+	 	json?["created"].int = created;
+	 	json?["url"].string = url;
+	 	json?["lines"].int = lines;
+	 	json?["url_private_download"].string = url_private_download;
+	 	json?["mode"].string = mode;
+	 	json?["preview_highlight"].string = preview_highlight;
 	 		
-		//return NSJSONSerialization.dataWithJSONObject(jsonDict,0,nil);
+
+		//Now create data object
+		var error : NSError? = nil;
+		let object : AnyObject? = json?.object;
+		if let data = NSJSONSerialization.dataWithJSONObject(object!, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+	        //post your data to server
+	        return data;
+	    } else {
+	        //error
+	        return nil;
+	    }
  	}
 }
 
