@@ -8,9 +8,10 @@ import json
 import os
 
 class Variable:
-	varName = ''
-	varType = ''
-	varOptional = True
+    varName = ''
+    varType = ''    
+    customClass = False
+    varOptional = True
 
 #Get pwd
 kThisDir = os.path.dirname(os.path.abspath(__file__))
@@ -70,18 +71,16 @@ def parse_dict(inDict,forKey,classString):
             classString += parse_dict(value,key,classString) 
 
             newVar.varType = key;
+            newVar.customClass = True;
             newVar.varName = key + "Instance" 
 
             if(key not in classOutDict):                
                 classOutDict[key] = classString;
 
-
         elif type(value) is list:
             newVar.varType = "Array"
         else:
-            print("Error: Unknown type encountered. Skipping field!")
-            print(key)
-            print(type(value))
+            print("Error: Unknown type encountered. Skipping field! Key: " + key)            
             continue
         varList.append(newVar)
 

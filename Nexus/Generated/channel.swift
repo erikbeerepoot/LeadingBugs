@@ -8,56 +8,76 @@
 import Foundation
 
 class channel {
- 	var is_general : Bool? = nil;
- 	var name : String? = nil;
- 	var is_channel : String? = nil;
- 	var created : Int? = nil;
- 	var is_member : Bool? = nil;
- 	var is_archived : Bool? = nil;
- 	var creator : String? = nil;
- 	var topicInstance : topic? = nil;
- 	var unread_count : Int? = nil;
- 	var purposeInstance : purpose? = nil;
- 	var members : Array? = nil;
- 	var last_read : String? = nil;
- 	var id : String? = nil;
- 	
+	var is_general : Bool? = nil;
+	var name : String? = nil;
+	var is_channel : String? = nil;
+	var created : Int? = nil;
+	var is_member : Bool? = nil;
+	var is_archived : Bool? = nil;
+	var creator : String? = nil;
+	var topicInstance : topic? = nil;
+	var unread_count : Int? = nil;
+	var purposeInstance : purpose? = nil;
+	var members : Array? = nil;
+	var last_read : String? = nil;
+	var id : String? = nil;
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON(jsonData);
- 		 		
- 	 	is_general = jsonObject?["is_general"].bool;
-	 	name = jsonObject?["name"].string;
-	 	is_channel = jsonObject?["is_channel"].string;
-	 	created = jsonObject?["created"].int;
-	 	is_member = jsonObject?["is_member"].bool;
-	 	is_archived = jsonObject?["is_archived"].bool;
-	 	creator = jsonObject?["creator"].string;
-	 	topicInstance = jsonObject?["topicInstance"].topic;
-	 	unread_count = jsonObject?["unread_count"].int;
-	 	purposeInstance = jsonObject?["purposeInstance"].purpose;
-	 	members = jsonObject?["members"].array;
-	 	last_read = jsonObject?["last_read"].string;
-	 	id = jsonObject?["id"].string;
-	 		
+		let jsonObject : JSON? = JSON(jsonData);
+ 
+		is_general = jsonObject?["is_general"].bool; 	 
+		name = jsonObject?["name"].string; 	 
+		is_channel = jsonObject?["is_channel"].string; 	 
+		created = jsonObject?["created"].int; 	 
+		is_member = jsonObject?["is_member"].bool; 	 
+		is_archived = jsonObject?["is_archived"].bool; 	 
+		creator = jsonObject?["creator"].string; 	
+
+		//Custom class, must call its packing code
+		topicInstance = topic();
+		let topicObject : AnyObject? = jsonObject?["topicInstance"].object;
+		let topicData : NSKeyedArchiver.archiveDataWithRootObject(topicObject!);
+		topicInstance?.packObject(data);
+		 
+		unread_count = jsonObject?["unread_count"].int; 	
+
+		//Custom class, must call its packing code
+		purposeInstance = purpose();
+		let purposeObject : AnyObject? = jsonObject?["purposeInstance"].object;
+		let purposeData : NSKeyedArchiver.archiveDataWithRootObject(purposeObject!);
+		purposeInstance?.packObject(data);
+		 
+		members = jsonObject?["members"].array; 	 
+		last_read = jsonObject?["last_read"].string; 	 
+		id = jsonObject?["id"].string; 	 		
+
  	}
 
  	func unpackObject() -> (NSData?) {
     var json : JSON? = nil;
-	 	json?["is_general"].bool = is_general;
-	 	json?["name"].string = name;
-	 	json?["is_channel"].string = is_channel;
-	 	json?["created"].int = created;
-	 	json?["is_member"].bool = is_member;
-	 	json?["is_archived"].bool = is_archived;
-	 	json?["creator"].string = creator;
-	 	json?["topicInstance"].topic = topicInstance;
-	 	json?["unread_count"].int = unread_count;
-	 	json?["purposeInstance"].purpose = purposeInstance;
-	 	json?["members"].array = members;
-	 	json?["last_read"].string = last_read;
-	 	json?["id"].string = id;
-	 		
-
+json?["is_general"].bool = is_general;		
+		json?["name"].string = name;		
+		json?["is_channel"].string = is_channel;		
+		json?["created"].int = created;		
+		json?["is_member"].bool = is_member;		
+		json?["is_archived"].bool = is_archived;		
+		json?["creator"].string = creator;		
+		
+		//Custom class, must call its packing code
+		topicInstance = topic();
+		let topicObject : AnyObject? = jsonObject?["topicInstance"].object;
+		let topicData : NSKeyedArchiver.archiveDataWithRootObject(topicObject!);
+		topicInstance?.packObject(data);
+		json?["unread_count"].int = unread_count;		
+		
+		//Custom class, must call its packing code
+		purposeInstance = purpose();
+		let purposeObject : AnyObject? = jsonObject?["purposeInstance"].object;
+		let purposeData : NSKeyedArchiver.archiveDataWithRootObject(purposeObject!);
+		purposeInstance?.packObject(data);
+		json?["members"].array = members;		
+		json?["last_read"].string = last_read;		
+		json?["id"].string = id;		
+		 		
 		//Now create data object
 		var error : NSError? = nil;
 		let object : AnyObject? = json?.object;

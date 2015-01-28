@@ -8,32 +8,30 @@
 import Foundation
 
 class im {
- 	var is_user_deleted : Bool? = nil;
- 	var created : Int? = nil;
- 	var is_im : Bool? = nil;
- 	var id : String? = nil;
- 	var user : String? = nil;
- 	
+	var is_user_deleted : Bool? = nil;
+	var created : Int? = nil;
+	var is_im : Bool? = nil;
+	var id : String? = nil;
+	var user : String? = nil;
  	func packObject(jsonData : NSData) {
- 		let jsonObject : JSON? = JSON(jsonData);
- 		 		
- 	 	is_user_deleted = jsonObject?["is_user_deleted"].bool;
-	 	created = jsonObject?["created"].int;
-	 	is_im = jsonObject?["is_im"].bool;
-	 	id = jsonObject?["id"].string;
-	 	user = jsonObject?["user"].string;
-	 		
+		let jsonObject : JSON? = JSON(jsonData);
+ 
+		is_user_deleted = jsonObject?["is_user_deleted"].bool; 	 
+		created = jsonObject?["created"].int; 	 
+		is_im = jsonObject?["is_im"].bool; 	 
+		id = jsonObject?["id"].string; 	 
+		user = jsonObject?["user"].string; 	 		
+
  	}
 
  	func unpackObject() -> (NSData?) {
     var json : JSON? = nil;
-	 	json?["is_user_deleted"].bool = is_user_deleted;
-	 	json?["created"].int = created;
-	 	json?["is_im"].bool = is_im;
-	 	json?["id"].string = id;
-	 	json?["user"].string = user;
-	 		
-
+json?["is_user_deleted"].bool = is_user_deleted;		
+		json?["created"].int = created;		
+		json?["is_im"].bool = is_im;		
+		json?["id"].string = id;		
+		json?["user"].string = user;		
+		 		
 		//Now create data object
 		var error : NSError? = nil;
 		let object : AnyObject? = json?.object;
