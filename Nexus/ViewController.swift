@@ -46,6 +46,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
         
+        //****** This logic should go elsewhere. Probably in the AppDelegate. 
         //Create controller objects
         let authorizationController = AuthorizationController();
         authorizationController.setWebView(authorizationView!);
@@ -53,7 +54,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
         connectionController?.delegate = self;
         
         //create new connection
-        connectionID = connectionController?.createConnection();               
+        connectionID = connectionController?.createConnection();
     }
 
     func PrintMessage() -> () {
@@ -80,14 +81,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
     func didCreateConnectionWithIdentifier(identifier : String) -> (){
         smileView?.SetTextToDisplay("Nexus running...");
         smileView?.hidden = false;
-        smileView?.setNeedsDisplayInRect(self.view.frame);
-        
-        //send test message
-        let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
-        let connection = connectionController?.connectionForIdentifier(connectionID!);
-        let msg = Message(aChannel: kTestChannelID, messageText: "Ahhh. What a beautiful day to be alive!");
-        msg.updateArgument("username", withValue: "nexus");
-        connection?.send(url, sendObject: msg, callback: nil);
+        smileView?.setNeedsDisplayInRect(self.view.frame);        
     }
     func didDestroyConnectionWithIdentifier(identifier : String) -> (){
         smileView?.SetTextToDisplay("Nexus stopped.");

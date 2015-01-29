@@ -57,6 +57,22 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
     func connectionForIdentifier(id : String) -> SlackConnection? {
         return connections?[id];
     }
+    
+    /**
+     * @name: getConnection
+     * @brief: Returns an arbitrary connection 
+     * @returns: a SlackConnection instance
+     */
+    func getConnection() -> SlackConnection? {
+        if(connections?.count<1){
+            return nil;
+        } else {
+            for (connKey,connValue) in connections! {
+                return connValue;
+            }
+        }
+        return nil;
+    }
 
     /**
      @name: destroyConnectionWithIdentifier

@@ -142,7 +142,7 @@ class SlackConnection : WebSocketDelegate {
         let jsonObject = JSON(text.dataUsingEncoding(NSUTF8StringEncoding)!);
         let msgType = jsonObject["type"].string;
         println("Message type: \(msgType)")
-        self.rtDelegate?.didReceiveEvent(jsonObject);
+        self.rtDelegate?.didReceiveEvent(jsonObject,self);
     }
     
     func websocketDidReceiveData(data : NSData){

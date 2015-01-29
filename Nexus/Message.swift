@@ -27,6 +27,8 @@ class Message : SerializableParameterObject {
         //put in dict
         requiredParameters["channel"] = aChannel;
         requiredParameters["text"] = messageText;
+        requiredParameters["type"] = "message";
+//        requiredParameters
     }
     
     func updateArgument(argumentName : String, withValue value : String) -> (){
@@ -43,3 +45,23 @@ class Message : SerializableParameterObject {
     }
     
 };
+
+class MessageController {
+    var messageCount : Int = 0;
+    
+    func sendMessage(message : Message) -> (Bool){
+        
+        //send test message
+        let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
+        let connection = connectionController?.connectionForIdentifier(connectionID!);
+        let msg = Message(aChannel: kTestChannelID, messageText: "Ahhh. What a beautiful day to be alive!");
+        msg.updateArgument("username", withValue: "nexus");
+        connection?.send(url, sendObject: msg, callback: nil);
+        
+        messageCount++;
+        return true;
+    }
+
+
+    
+}
