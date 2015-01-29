@@ -11,7 +11,7 @@ class file {
 	var initial_comment : String? = nil;
 	var filetype : String? = nil;
 	var lines_more : Int? = nil;
-	var channels : Array? = nil;
+	var channels : Array<String>? = nil;
 	var thumb_64 : String? = nil;
 	var size : Int? = nil;
 	var url_download : String? = nil;
@@ -31,7 +31,7 @@ class file {
 	var editable : Bool? = nil;
 	var thumb_360_gif : String? = nil;
 	var user : String? = nil;
-	var groups : Array? = nil;
+	var groups : Array<String>? = nil;
 	var is_public : Bool? = nil;
 	var is_starred : Bool? = nil;
 	var pretty_type : String? = nil;
@@ -45,55 +45,57 @@ class file {
 	var url_private_download : String? = nil;
 	var mode : String? = nil;
 	var preview_highlight : String? = nil;
- 	func packObject(jsonData : NSData) {
+
+	func packObject(jsonData : NSData) {
 		let jsonObject : JSON? = JSON(jsonData);
- 
-		initial_comment = jsonObject?["initial_comment"].string; 	 
-		filetype = jsonObject?["filetype"].string; 	 
-		lines_more = jsonObject?["lines_more"].int; 	 
-		channels = jsonObject?["channels"].array; 	 
-		thumb_64 = jsonObject?["thumb_64"].string; 	 
-		size = jsonObject?["size"].int; 	 
-		url_download = jsonObject?["url_download"].string; 	 
-		thumb_360_w = jsonObject?["thumb_360_w"].string; 	 
-		title = jsonObject?["title"].string; 	 
-		url_private = jsonObject?["url_private"].string; 	 
-		thumb_360 = jsonObject?["thumb_360"].string; 	 
-		id = jsonObject?["id"].string; 	 
-		thumb_80 = jsonObject?["thumb_80"].string; 	 
-		thumb_360_h = jsonObject?["thumb_360_h"].string; 	 
-		preview = jsonObject?["preview"].string; 	 
-		external_type = jsonObject?["external_type"].string; 	 
-		edit_link = jsonObject?["edit_link"].string; 	 
-		num_stars = jsonObject?["num_stars"].int; 	 
-		timestamp = jsonObject?["timestamp"].int; 	 
-		public_url_shared = jsonObject?["public_url_shared"].bool; 	 
-		editable = jsonObject?["editable"].bool; 	 
-		thumb_360_gif = jsonObject?["thumb_360_gif"].string; 	 
-		user = jsonObject?["user"].string; 	 
-		groups = jsonObject?["groups"].array; 	 
-		is_public = jsonObject?["is_public"].bool; 	 
-		is_starred = jsonObject?["is_starred"].bool; 	 
-		pretty_type = jsonObject?["pretty_type"].string; 	 
-		name = jsonObject?["name"].string; 	 
-		mimetype = jsonObject?["mimetype"].string; 	 
-		permalink = jsonObject?["permalink"].string; 	 
-		is_external = jsonObject?["is_external"].bool; 	 
-		created = jsonObject?["created"].int; 	 
-		url = jsonObject?["url"].string; 	 
-		lines = jsonObject?["lines"].int; 	 
-		url_private_download = jsonObject?["url_private_download"].string; 	 
-		mode = jsonObject?["mode"].string; 	 
-		preview_highlight = jsonObject?["preview_highlight"].string; 	 		
 
- 	}
+		initial_comment = jsonObject?["initial_comment"].string; 
+		filetype = jsonObject?["filetype"].string; 
+		lines_more = jsonObject?["lines_more"].int; 
+		//Array
+		thumb_64 = jsonObject?["thumb_64"].string; 
+		size = jsonObject?["size"].int; 
+		url_download = jsonObject?["url_download"].string; 
+		thumb_360_w = jsonObject?["thumb_360_w"].string; 
+		title = jsonObject?["title"].string; 
+		url_private = jsonObject?["url_private"].string; 
+		thumb_360 = jsonObject?["thumb_360"].string; 
+		id = jsonObject?["id"].string; 
+		thumb_80 = jsonObject?["thumb_80"].string; 
+		thumb_360_h = jsonObject?["thumb_360_h"].string; 
+		preview = jsonObject?["preview"].string; 
+		external_type = jsonObject?["external_type"].string; 
+		edit_link = jsonObject?["edit_link"].string; 
+		num_stars = jsonObject?["num_stars"].int; 
+		timestamp = jsonObject?["timestamp"].int; 
+		public_url_shared = jsonObject?["public_url_shared"].bool; 
+		editable = jsonObject?["editable"].bool; 
+		thumb_360_gif = jsonObject?["thumb_360_gif"].string; 
+		user = jsonObject?["user"].string; 
+		//Array
+		is_public = jsonObject?["is_public"].bool; 
+		is_starred = jsonObject?["is_starred"].bool; 
+		pretty_type = jsonObject?["pretty_type"].string; 
+		name = jsonObject?["name"].string; 
+		mimetype = jsonObject?["mimetype"].string; 
+		permalink = jsonObject?["permalink"].string; 
+		is_external = jsonObject?["is_external"].bool; 
+		created = jsonObject?["created"].int; 
+		url = jsonObject?["url"].string; 
+		lines = jsonObject?["lines"].int; 
+		url_private_download = jsonObject?["url_private_download"].string; 
+		mode = jsonObject?["mode"].string; 
+		preview_highlight = jsonObject?["preview_highlight"].string; 
 
- 	func unpackObject() -> (NSData?) {
-    var json : JSON? = nil;
-json?["initial_comment"].string = initial_comment;		
+	}
+
+	func unpackObject() -> (NSData?) {
+		var json : JSON? = nil;
+
+		json?["initial_comment"].string = initial_comment;		
 		json?["filetype"].string = filetype;		
 		json?["lines_more"].int = lines_more;		
-		json?["channels"].array = channels;		
+		//Array
 		json?["thumb_64"].string = thumb_64;		
 		json?["size"].int = size;		
 		json?["url_download"].string = url_download;		
@@ -113,7 +115,7 @@ json?["initial_comment"].string = initial_comment;
 		json?["editable"].bool = editable;		
 		json?["thumb_360_gif"].string = thumb_360_gif;		
 		json?["user"].string = user;		
-		json?["groups"].array = groups;		
+		//Array
 		json?["is_public"].bool = is_public;		
 		json?["is_starred"].bool = is_starred;		
 		json?["pretty_type"].string = pretty_type;		
@@ -127,7 +129,7 @@ json?["initial_comment"].string = initial_comment;
 		json?["url_private_download"].string = url_private_download;		
 		json?["mode"].string = mode;		
 		json?["preview_highlight"].string = preview_highlight;		
-		 		
+
 		//Now create data object
 		var error : NSError? = nil;
 		let object : AnyObject? = json?.object;
@@ -138,6 +140,5 @@ json?["initial_comment"].string = initial_comment;
 	        //error
 	        return nil;
 	    }
- 	}
+	}
 }
-

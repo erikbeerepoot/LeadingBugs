@@ -13,25 +13,27 @@ class im {
 	var is_im : Bool? = nil;
 	var id : String? = nil;
 	var user : String? = nil;
- 	func packObject(jsonData : NSData) {
+
+	func packObject(jsonData : NSData) {
 		let jsonObject : JSON? = JSON(jsonData);
- 
-		is_user_deleted = jsonObject?["is_user_deleted"].bool; 	 
-		created = jsonObject?["created"].int; 	 
-		is_im = jsonObject?["is_im"].bool; 	 
-		id = jsonObject?["id"].string; 	 
-		user = jsonObject?["user"].string; 	 		
 
- 	}
+		is_user_deleted = jsonObject?["is_user_deleted"].bool; 
+		created = jsonObject?["created"].int; 
+		is_im = jsonObject?["is_im"].bool; 
+		id = jsonObject?["id"].string; 
+		user = jsonObject?["user"].string; 
 
- 	func unpackObject() -> (NSData?) {
-    var json : JSON? = nil;
-json?["is_user_deleted"].bool = is_user_deleted;		
+	}
+
+	func unpackObject() -> (NSData?) {
+		var json : JSON? = nil;
+
+		json?["is_user_deleted"].bool = is_user_deleted;		
 		json?["created"].int = created;		
 		json?["is_im"].bool = is_im;		
 		json?["id"].string = id;		
 		json?["user"].string = user;		
-		 		
+
 		//Now create data object
 		var error : NSError? = nil;
 		let object : AnyObject? = json?.object;
@@ -42,6 +44,5 @@ json?["is_user_deleted"].bool = is_user_deleted;
 	        //error
 	        return nil;
 	    }
- 	}
+	}
 }
-

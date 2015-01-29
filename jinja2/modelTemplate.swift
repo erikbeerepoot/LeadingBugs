@@ -1,6 +1,10 @@
 class {{className}} {
 {% for var in variables %}
+{% if var.varSubType %}
+	var {{var.varName}} : {{var.varType}}<{{var.varSubType}}>{% if var.varOptional %}?{% endif %} = nil;
+{% else %}
 	var {{var.varName}} : {{var.varType}}{% if var.varOptional %}?{% endif %} = nil;
+{% endif %}
 {% endfor %}
 
 	func pack{{classname}}Object(jsonData : NSData) {
@@ -14,6 +18,8 @@ class {{className}} {
 		let {{var.varType}}Object : AnyObject? = jsonObject?["{{var.varName}}"].object;
 		let {{var.varType}}Data : NSData = NSKeyedArchiver.archivedDataWithRootObject({{var.varType}}Object!);
 		{{var.varName}}?.packObject({{var.varType}}Data);
+{% elif var.varSubType %}
+		//Array
 {% else %}
 		{{var.varName}} = jsonObject?["{{var.varName}}"].{{var.varType.lower()}}; 
 {% endif %}
@@ -27,6 +33,8 @@ class {{className}} {
 {% for var in variables %}
 {% if var.customClass %}
 		//Custom class, must call its unpacking code (placeholder)
+{% elif var.varSubType %}
+		//Array
 {% else %}
 		json?["{{var.varName}}"].{{var.varType.lower()}} = {{var.varName}};		
 {% endif %}

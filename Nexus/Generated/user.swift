@@ -19,37 +19,33 @@ class user {
 	var is_restricted : Bool? = nil;
 	var id : String? = nil;
 	var is_primary_owner : Bool? = nil;
- 	func packObject(jsonData : NSData) {
+
+	func packObject(jsonData : NSData) {
 		let jsonObject : JSON? = JSON(jsonData);
 
 
 		//Custom class, must call its packing code
 		profileInstance = profile();
 		let profileObject : AnyObject? = jsonObject?["profileInstance"].object;
-		let profileData : NSKeyedArchiver.archiveDataWithRootObject(profileObject!);
-		profileInstance?.packObject(data);
-		 
-		is_owner = jsonObject?["is_owner"].bool; 	 
-		name = jsonObject?["name"].string; 	 
-		deleted = jsonObject?["deleted"].bool; 	 
-		color = jsonObject?["color"].string; 	 
-		is_admin = jsonObject?["is_admin"].bool; 	 
-		is_ultra_restricted = jsonObject?["is_ultra_restricted"].bool; 	 
-		has_files = jsonObject?["has_files"].bool; 	 
-		is_restricted = jsonObject?["is_restricted"].bool; 	 
-		id = jsonObject?["id"].string; 	 
-		is_primary_owner = jsonObject?["is_primary_owner"].bool; 	 		
+		let profileData : NSData = NSKeyedArchiver.archivedDataWithRootObject(profileObject!);
+		profileInstance?.packObject(profileData);
+		is_owner = jsonObject?["is_owner"].bool; 
+		name = jsonObject?["name"].string; 
+		deleted = jsonObject?["deleted"].bool; 
+		color = jsonObject?["color"].string; 
+		is_admin = jsonObject?["is_admin"].bool; 
+		is_ultra_restricted = jsonObject?["is_ultra_restricted"].bool; 
+		has_files = jsonObject?["has_files"].bool; 
+		is_restricted = jsonObject?["is_restricted"].bool; 
+		id = jsonObject?["id"].string; 
+		is_primary_owner = jsonObject?["is_primary_owner"].bool; 
 
- 	}
+	}
 
- 	func unpackObject() -> (NSData?) {
-    var json : JSON? = nil;
+	func unpackObject() -> (NSData?) {
+		var json : JSON? = nil;
 
-		//Custom class, must call its packing code
-		profileInstance = profile();
-		let profileObject : AnyObject? = jsonObject?["profileInstance"].object;
-		let profileData : NSKeyedArchiver.archiveDataWithRootObject(profileObject!);
-		profileInstance?.packObject(data);
+		//Custom class, must call its unpacking code (placeholder)
 		json?["is_owner"].bool = is_owner;		
 		json?["name"].string = name;		
 		json?["deleted"].bool = deleted;		
@@ -60,7 +56,7 @@ class user {
 		json?["is_restricted"].bool = is_restricted;		
 		json?["id"].string = id;		
 		json?["is_primary_owner"].bool = is_primary_owner;		
-		 		
+
 		//Now create data object
 		var error : NSError? = nil;
 		let object : AnyObject? = json?.object;
@@ -71,6 +67,5 @@ class user {
 	        //error
 	        return nil;
 	    }
- 	}
+	}
 }
-

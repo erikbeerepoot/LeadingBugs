@@ -7,9 +7,14 @@ from jinja2 import Environment, PackageLoader,FileSystemLoader
 import json
 import os
 
+from array import *
+from types import *
+
+
 class Variable:
     varName = ''
-    varType = ''    
+    varType = '' 
+    varSubType = ''   
     customClass = False
     varOptional = True
 
@@ -78,7 +83,9 @@ def parse_dict(inDict,forKey,classString):
                 classOutDict[key] = classString;
 
         elif type(value) is list:
-            newVar.varType = "Array"
+            #Convert to array     
+            newVar.varType = "Array"       
+            newVar.varSubType = get_array_subtype(value)
         else:
             print("Error: Unknown type encountered. Skipping field! Key: " + key)            
             continue
@@ -94,6 +101,24 @@ def parse_dict(inDict,forKey,classString):
         classOutDict[forKey] = classString;
   
     return classString
+
+def get_array_subtype(value):
+    if(type(value) is not list):
+        return "Not List!"
+
+    dataType = type(value[0])
+
+    if(dataType==UnicodeType):
+        return "String"
+    elif(dataType==IntType | dataType==LongType):
+        return "Int"
+    elif(dataType==FloatType):
+        return "Float"
+    elif(dataType==DoubleType):
+        return "Double"
+    else:
+        return "Unknown"
+
 
                 
 if __name__ == '__main__':
