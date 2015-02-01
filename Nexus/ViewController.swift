@@ -49,7 +49,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
         //****** This logic should go elsewhere. Probably in the AppDelegate. 
         //Create controller objects
         let authorizationController = AuthorizationController();
-        authorizationController.setWebView(authorizationView!);
+        authorizationController.setWebView(&authorizationView!);
         connectionController = SlackConnectionController(authController: authorizationController);
         connectionController?.delegate = self;
         
@@ -90,9 +90,9 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
     }
     
     func animationHasCompleted() {
-        if(connectionID != nil){
-            connectionID = connectionController?.createConnection();
-        }
+//        if(connectionID != nil){
+//            connectionID = connectionController?.createConnection();
+//        }
     }
 
     

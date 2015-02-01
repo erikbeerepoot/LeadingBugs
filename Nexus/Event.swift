@@ -11,27 +11,30 @@ import Foundation
 
 let event_hello : String = "hello";
 let event_presenceChange : String = "presence_change";
-
+let event_manualPresenceChange : String = "manual_presence_change";
 
 
 enum Event : SlackRealTimeConnectionDelegate {
    
-    func didReceiveEvent(eventData: JSON, sourceConnection : SlackConnection) {
+    func didReceiveEvent(eventData: JSON, onConnection sourceConnection : SlackConnection) {
         //process event
         
-        switch(eventData["type"]){
+        switch(eventData["type"].string!){
             case event_hello:
                 println("Hello message was sent!");
             case event_presenceChange:
-                processEvent_presenceChange(eventData);
-            
+                fallthrough
+            case event_manualPresenceChange:
+                processEvent_presenceChange(eventData,withConnection :sourceConnection);
+            default:
+                println("Unknown event received!");
         }
         
     }
 }
 
-func processEvent_presenceChange(eventData : JSON, sourceConnection : SlackConnection) -> (){
-    if(eventData["type"] != event_presenceChange){
+func processEvent_presenceChange(eventData : JSON, withConnection sourceConnection : SlackConnection) -> (){
+    if(eventData["type"].string != event_presenceChange){
         return;
     }
     
@@ -40,18 +43,20 @@ func processEvent_presenceChange(eventData : JSON, sourceConnection : SlackConne
     switch(eventData["presence"]){
         case "active":
             //send hello message
-            message = Message(aChannel: eventData["channel"], messageText: "Hello");
+            message = Message(aChannel: eventData["channel"].string!, messageText: "Hello");
         case "offline":
             //taunt user
-            message = Message(aChannel: eventData["channel"], messageText: "Goodbye");
+            message = Message(aChannel: eventData["channel"].string!, messageText: "Goodbye");
         case "away":
             //do nothing?
-            message = Message(aChannel: eventData["channel"], messageText: eventData["user"] + "Went to take a nap.");
-        
+            message = Message(aChannel: eventData["channel"].string!, messageText: eventData["user"].string! + "Went to take a nap.");
+        default:
+            println("Unknown user presence. Not handling.");
     }
     
-    if(message){
-        sourceConnection.send(SlackEndpoints.kSendMessageEndpoint, sendObject: message, callback: nil);
+    //actually send the message
+    if(message != nil){
+        MessageController.sendMessage(message!, onConnection: sourceConnection);
     }
 }
 

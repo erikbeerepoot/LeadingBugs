@@ -46,18 +46,21 @@ class Message : SerializableParameterObject {
     
 };
 
-class MessageController {
-    var messageCount : Int = 0;
+struct MessageController {
+    static var messageCount : Int = 0;
     
-    func sendMessage(message : Message) -> (Bool){
+    static func sendMessage(message : Message, onConnection sourceConnection : SlackConnection) -> (Bool){
+
         
-        //send test message
+        //configure message parameters
         let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
-        let connection = connectionController?.connectionForIdentifier(connectionID!);
         let msg = Message(aChannel: kTestChannelID, messageText: "Ahhh. What a beautiful day to be alive!");
-        msg.updateArgument("username", withValue: "nexus");
-        connection?.send(url, sendObject: msg, callback: nil);
+        msg.updateArgument("username", withValue: kBotName);
         
+        //send it over the connection
+        sourceConnection.send(url, sendObject: msg, callback: nil);
+        
+        //increase "global" message count
         messageCount++;
         return true;
     }

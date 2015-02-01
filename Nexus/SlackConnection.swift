@@ -15,7 +15,7 @@ protocol SlackConnectionDelegate {
 }
 
 protocol SlackRealTimeConnectionDelegate {
-    func didReceiveEvent(eventData : JSON) -> ();
+    func didReceiveEvent(eventData : JSON, onConnection sourceConnect : SlackConnection) -> ();
 }
 
 class SlackConnection : WebSocketDelegate {
@@ -79,8 +79,10 @@ class SlackConnection : WebSocketDelegate {
      * @param: error (optional) - Error received, nil if no error
      */
     func connectionHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
-        if(data != nil){
-            let jsonObject = JSON(data!);
+        
+        let httpResponse = urlResponse as NSHTTPURLResponse;
+        if(data != nil && httpResponse.statusCode==200){
+            let jsonObject = JSON(data:data!,options:NSJSONReadingOptions.MutableContainers);
             let result = jsonObject[kOKKey].int;
             if(result==1){
                 //success!
@@ -119,7 +121,7 @@ class SlackConnection : WebSocketDelegate {
     */
     func sentHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
-            let jsonObject = JSON(data!);
+            let jsonObject = JSON(data:data!,options:NSJSONReadingOptions.MutableContainers);
             let result = jsonObject[kOKKey].bool;
             sentCallback?(result!,error);
         }
@@ -139,10 +141,11 @@ class SlackConnection : WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(text : String) -> (){
-        let jsonObject = JSON(text.dataUsingEncoding(NSUTF8StringEncoding)!);
+        println(text);
+        let jsonObject = JSON(data:text.dataUsingEncoding(NSASCIIStringEncoding)!,options:NSJSONReadingOptions.MutableContainers);
         let msgType = jsonObject["type"].string;
         println("Message type: \(msgType)")
-        self.rtDelegate?.didReceiveEvent(jsonObject,self);
+        self.rtDelegate?.didReceiveEvent(jsonObject,onConnection: self);
     }
     
     func websocketDidReceiveData(data : NSData){

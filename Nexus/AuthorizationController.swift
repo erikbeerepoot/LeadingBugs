@@ -24,7 +24,7 @@ class AuthorizationController : NSObject {
     //auth view
     private var m_authorizationView : WebView? = nil;
     
-    func setWebView(authorizationView : WebView) -> (){
+    func setWebView(inout authorizationView : WebView) -> (){
         m_authorizationView = authorizationView;
         m_authorizationView!.policyDelegate = self;
     }
