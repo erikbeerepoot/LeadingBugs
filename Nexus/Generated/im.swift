@@ -14,9 +14,7 @@ class im {
 	var id : String? = nil;
 	var user : String? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func packObject(jsonObject : JSON?) {
 		is_user_deleted = jsonObject?["is_user_deleted"].bool; 
 		created = jsonObject?["created"].int; 
 		is_im = jsonObject?["is_im"].bool; 
@@ -25,6 +23,7 @@ class im {
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 

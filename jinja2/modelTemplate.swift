@@ -14,7 +14,7 @@ class {{className}} {
 		{{var.varName}} = {{var.varType}}();
 		let {{var.varType}}Object : AnyObject? = jsonObject?["{{var.varName}}"].object;
 		let {{var.varType}}Data : NSData = NSKeyedArchiver.archivedDataWithRootObject({{var.varType}}Object!);
-		{{var.varName}}?.packObject({{var.varType}}Data);
+		{{var.varName}}?.packObject(JSON(data:{{var.varType}}Data));
 {% elif var.varSubType %}
 		//Array
 {% else %}

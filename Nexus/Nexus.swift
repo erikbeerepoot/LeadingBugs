@@ -35,8 +35,11 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
     //controllers
     var connectionController : SlackConnectionController? = nil;
     var connectionID : String? = nil;
-    var delegate : NexusDelegate? = nil;
     
+    //slack data controllers
+    var userController : UserController? = nil;
+
+    var delegate : NexusDelegate? = nil;
     
     func configureWithWebView(inout authorizationView : WebView, andDelegate aDelegate : NexusDelegate) -> (){
         //Create controller objects
@@ -47,8 +50,7 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
         //create new connection (if we haven't already created one)
         if(connectionID == nil || connectionID?.isEmpty==true){
             connectionID = connectionController?.createConnection(self);
-        }
-        
+        }        
         delegate = aDelegate;
     }
     
@@ -58,7 +60,8 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
         
         switch(eventData["type"].string!){
             case event_hello:
-                println("Hello message was sent!");
+                //We've connected, let's grab the users
+                userController = UserController(connection:connectionController!.connectionForIdentifier(connectionID!)!);
             case event_presenceChange:
                 fallthrough
             case event_manualPresenceChange:

@@ -12,15 +12,14 @@ class topic {
 	var value : String? = nil;
 	var creator : String? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func packObject(jsonObject : JSON?) {
 		last_set = jsonObject?["last_set"].int; 
 		value = jsonObject?["value"].string; 
 		creator = jsonObject?["creator"].string; 
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 

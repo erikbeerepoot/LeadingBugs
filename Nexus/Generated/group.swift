@@ -18,31 +18,28 @@ class group {
 	var members : Array<String>? = nil;
 	var id : String? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func packObject(jsonObject : JSON?) {
 		name = jsonObject?["name"].string; 
 		creator = jsonObject?["creator"].string; 
 		is_archived = jsonObject?["is_archived"].bool; 
 		created = jsonObject?["created"].int; 
 		is_group = jsonObject?["is_group"].string; 
-
 		//Custom class, must call its packing code
 		topicInstance = topic();
 		let topicObject : AnyObject? = jsonObject?["topicInstance"].object;
 		let topicData : NSData = NSKeyedArchiver.archivedDataWithRootObject(topicObject!);
-		topicInstance?.packObject(topicData);
-
+		topicInstance?.packObject(JSON(data:topicData));
 		//Custom class, must call its packing code
 		purposeInstance = purpose();
 		let purposeObject : AnyObject? = jsonObject?["purposeInstance"].object;
 		let purposeData : NSData = NSKeyedArchiver.archivedDataWithRootObject(purposeObject!);
-		purposeInstance?.packObject(purposeData);
+		purposeInstance?.packObject(JSON(data:purposeData));
 		//Array
 		id = jsonObject?["id"].string; 
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 

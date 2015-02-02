@@ -20,15 +20,12 @@ class user {
 	var id : String? = nil;
 	var is_primary_owner : Bool? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
-
+	func packObject(jsonObject : JSON?) {
 		//Custom class, must call its packing code
 		profileInstance = profile();
 		let profileObject : AnyObject? = jsonObject?["profileInstance"].object;
 		let profileData : NSData = NSKeyedArchiver.archivedDataWithRootObject(profileObject!);
-		profileInstance?.packObject(profileData);
+		profileInstance?.packObject(JSON(data:profileData));
 		is_owner = jsonObject?["is_owner"].bool; 
 		name = jsonObject?["name"].string; 
 		deleted = jsonObject?["deleted"].bool; 
@@ -42,6 +39,7 @@ class user {
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 

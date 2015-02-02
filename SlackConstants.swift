@@ -30,5 +30,6 @@ public struct SlackEndpoints {
     public static let oAuthAccess = "https://slack.com/api/oauth.access";
     public static let connect = "https://slack.com/api/rtm.start";
     public static let sendMessage = "https://slack.com/api/chat.postMessage";
+    public static let userList = "https://slack.com/api/users.list";
     public static let userInfo = "https://slack.com/api/users.info";
 }

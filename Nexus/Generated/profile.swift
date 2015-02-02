@@ -20,9 +20,7 @@ class profile {
 	var email : String? = nil;
 	var image_192 : String? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func packObject(jsonObject : JSON?) {
 		first_name = jsonObject?["first_name"].string; 
 		last_name = jsonObject?["last_name"].string; 
 		real_name = jsonObject?["real_name"].string; 
@@ -37,6 +35,7 @@ class profile {
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 

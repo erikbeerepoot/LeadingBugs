@@ -22,9 +22,7 @@ class channel {
 	var last_read : String? = nil;
 	var id : String? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func packObject(jsonObject : JSON?) {
 		is_general = jsonObject?["is_general"].bool; 
 		name = jsonObject?["name"].string; 
 		is_channel = jsonObject?["is_channel"].string; 
@@ -32,25 +30,24 @@ class channel {
 		is_member = jsonObject?["is_member"].bool; 
 		is_archived = jsonObject?["is_archived"].bool; 
 		creator = jsonObject?["creator"].string; 
-
 		//Custom class, must call its packing code
 		topicInstance = topic();
 		let topicObject : AnyObject? = jsonObject?["topicInstance"].object;
 		let topicData : NSData = NSKeyedArchiver.archivedDataWithRootObject(topicObject!);
-		topicInstance?.packObject(topicData);
+		topicInstance?.packObject(JSON(data:topicData));
 		unread_count = jsonObject?["unread_count"].int; 
-
 		//Custom class, must call its packing code
 		purposeInstance = purpose();
 		let purposeObject : AnyObject? = jsonObject?["purposeInstance"].object;
 		let purposeData : NSData = NSKeyedArchiver.archivedDataWithRootObject(purposeObject!);
-		purposeInstance?.packObject(purposeData);
+		purposeInstance?.packObject(JSON(data:purposeData));
 		//Array
 		last_read = jsonObject?["last_read"].string; 
 		id = jsonObject?["id"].string; 
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 

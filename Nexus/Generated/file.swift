@@ -46,9 +46,7 @@ class file {
 	var mode : String? = nil;
 	var preview_highlight : String? = nil;
 
-	func packObject(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func packObject(jsonObject : JSON?) {
 		initial_comment = jsonObject?["initial_comment"].string; 
 		filetype = jsonObject?["filetype"].string; 
 		lines_more = jsonObject?["lines_more"].int; 
@@ -89,6 +87,7 @@ class file {
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpackObject() -> (NSData?) {
 		var json : JSON? = nil;
 
