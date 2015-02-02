@@ -55,4 +55,22 @@ class UserController {
     func userWithUID(UID : String) -> (user?){
         return users[UID];
     }
+    
+    /**
+    Returns a random user from the user dictionary, or nil if no users are present.
+    @returns: a user, by value.
+    */
+    func getRandomUser() -> (user?){
+        let randomNum = Int(arc4random_uniform(UInt32(users.count)));
+
+        var index = 0;
+        for value in users.values {
+            if(index==randomNum){
+                return value;
+            }
+            index++;
+        }
+        return nil;
+        
+    }
 }

@@ -9,13 +9,165 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444551022.711582"
+            filePath = "Nexus/TaskScheduler.swift"
+            timestampString = "444552977.863647"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "processEvent_presenceChange(_:withConnection:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "init()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nexus.CoffeeTask.init (Nexus.CoffeeTask.Type)() -&gt; Nexus.CoffeeTask"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553103.632915"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "1749">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nexus.CoffeeTask.init (Nexus.CoffeeTask.Type)() -&gt; Nexus.CoffeeTask"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553103.633048"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "1809">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Nexus/TaskScheduler.swift"
+            timestampString = "444553100.535983"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "ScheduleTask(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nexus.TaskScheduler.ScheduleTask (Nexus.TaskScheduler.Type)(Nexus.SchedulableTask) -&gt; ()"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553103.667336"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "958">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nexus.TaskScheduler.(ScheduleTask (Nexus.TaskScheduler.Type) -&gt; (Nexus.SchedulableTask) -&gt; ()).(closure #1)"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553103.667489"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "reabstraction thunk helper from @callee_owned () -&gt; (@unowned ()) to @callee_unowned @objc_block () -&gt; (@unowned ())"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553103.667582"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Nexus/TaskScheduler.swift"
+            timestampString = "444553216.942934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "Task()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nexus.CoffeeTask.Task (Nexus.CoffeeTask)() -&gt; ()"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553317.472913"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "reabstraction thunk helper from @callee_owned (@in ()) -&gt; (@out ()) to @callee_owned () -&gt; (@unowned ())"
+                  moduleName = "Nexus"
+                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/TaskScheduler.swift"
+                  timestampString = "444553317.47304"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "8">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Nexus/Nexus.swift"
+            timestampString = "444553314.29643"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "coffeeTask()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,188 +178,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nexus/Nexus.swift"
-            timestampString = "444551022.711582"
+            timestampString = "444553348.687472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "processEvent_presenceChange(_:withConnection:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444551022.711582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "processEvent_presenceChange(_:withConnection:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444547731.201718"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "Nexus"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444551022.711582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "connectionAttemptForIdentfier(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444551022.711582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "didCreateConnectionWithIdentifier(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444547731.201718"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "configureWithWebView(_:andDelegate:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444547731.201718"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "configureWithWebView(_:andDelegate:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Nexus.swift"
-            timestampString = "444549462.318778"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "didReceiveEvent(_:onConnection:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/UserController.swift"
-            timestampString = "444551022.711582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "sentHandler(_:urlResponse:error:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/UserController.swift"
-            timestampString = "444549963.20834"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "sentHandler(_:urlResponse:error:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/UserController.swift"
-            timestampString = "444549964.241664"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "sentHandler(_:urlResponse:error:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Generated/user.swift"
-            timestampString = "444550055.914697"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "packObject(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

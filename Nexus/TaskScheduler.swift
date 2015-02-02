@@ -40,14 +40,15 @@ protocol SchedulableTask {
 //example task, the coffeetask: Selects a random slack user, and tells them to make coffee.
 class CoffeeTask : SchedulableTask {
     var taskDate : NSDate = NSDate.distantFuture() as NSDate;
+    var callback : (() -> ())? = nil;
     
     init() {
         //using the user's current calendar, create a date components pointing to 10:30am, today
         let calendar = NSCalendar.currentCalendar();
         let flags: NSCalendarUnit = .HourCalendarUnit | .DayCalendarUnit | .MonthCalendarUnit | .YearCalendarUnit;
         var components = calendar.components( flags, fromDate: NSDate());
-        components.hour = 10;
-        components.minute = 30;
+        components.hour = 23;
+        components.minute = 04;
         
         //create date from components
         var date = calendar.dateFromComponents(components)!;
@@ -57,9 +58,14 @@ class CoffeeTask : SchedulableTask {
             //in the past
             components.day += 1;
         }
+        taskDate = calendar.dateFromComponents(components)!;
+    }
+    
+    func setCallback(aCallback : (()->())) -> (){
+        callback = aCallback;
     }
     
     func Task()->(){
-        //select user from list, send instruction to make coffee
+        callback?();
     }
 }

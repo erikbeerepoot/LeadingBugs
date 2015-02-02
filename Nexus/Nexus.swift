@@ -62,6 +62,11 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
             case event_hello:
                 //We've connected, let's grab the users
                 userController = UserController(connection:connectionController!.connectionForIdentifier(connectionID!)!);
+            
+                //schedule the coffee task
+                let ct : CoffeeTask = CoffeeTask();
+                ct.callback = coffeeTask;
+                TaskScheduler.ScheduleTask(ct);
             case event_presenceChange:
                 fallthrough
             case event_manualPresenceChange:
@@ -72,7 +77,6 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
         
     }
 
-    
     /**********************************************************************
      *                      Event Processing Code                         *
      **********************************************************************/
@@ -113,6 +117,18 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
         //actually send the message
         if(message != nil){
             MessageController.sendMessage(message!, onConnection: sourceConnection);
+        }
+    }
+    
+    /**********************************************************************
+    *                          Task Callbacks                             *
+    **********************************************************************/
+    //MARK: Task callbacks
+    func coffeeTask() -> () {
+        let targetUser : user? = userController?.getRandomUser();
+        if(targetUser != nil){
+            //we've found a victim, send the unwitting participant a message
+            let message = Message(aChannel: kTestChannelID, messageText: "@" + targetUser!.name! + "! Go make coffee!");
         }
     }
     
