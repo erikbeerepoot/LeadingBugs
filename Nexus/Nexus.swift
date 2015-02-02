@@ -83,19 +83,29 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
             return;
         }
         
+        //Grab the user
+        let targetUser : user? = userController?.userWithUID(eventData["user"].string!);
+        if(targetUser == nil){
+            return;
+        }
+        
         //process presence change
         var message : Message? = nil;
         let channel : String = kTestChannelID;
         switch(eventData["presence"]){
             case "active":
                 //send hello message
-                message = Message(aChannel: channel, messageText: "Hello");
+                message = Message(aChannel: channel, messageText: "Hello "
+                        + targetUser!.name!
+                        + "!");
             case "offline":
                 //taunt user
-                message = Message(aChannel: channel, messageText: "Goodbye");
+                message = Message(aChannel: channel, messageText: "Goodbye"
+                    + targetUser!.name!
+                    + "!");
             case "away":
                 //do nothing?
-                message = Message(aChannel: channel, messageText: eventData["user"].string! + "Went to take a nap.");
+                message = Message(aChannel: channel, messageText: targetUser!.name! + " went to take a nap.");
             default:
                 println("Unknown user presence. Not handling.");
         }

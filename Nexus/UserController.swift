@@ -39,8 +39,12 @@ class UserController {
         for userJSON in userArrayJSON! {
             let currentUser : user = user();
             currentUser.packObject(userJSON);
+            
+            //now add to the user cache (if we have an id, which we definitely should!)
+            if(currentUser.id != nil){
+                users[currentUser.id!] = currentUser;
+            }
         }
-        
     }
     
     /**
