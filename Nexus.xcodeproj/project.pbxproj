@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		031373C51A6C6263006BAE3C /* TaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031373C41A6C6263006BAE3C /* TaskScheduler.swift */; };
 		031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32841A46058D00A6E271 /* AppDelegate.swift */; };
-		031D32871A46058D00A6E271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32861A46058D00A6E271 /* ViewController.swift */; };
+		031D32871A46058D00A6E271 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32861A46058D00A6E271 /* MainViewController.swift */; };
 		031D32891A46058D00A6E271 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031D32881A46058D00A6E271 /* Images.xcassets */; };
 		031D328C1A46058D00A6E271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031D328A1A46058D00A6E271 /* Main.storyboard */; };
 		031D32981A46058D00A6E271 /* NexusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32971A46058D00A6E271 /* NexusTests.swift */; };
@@ -80,7 +80,7 @@
 		031D327F1A46058D00A6E271 /* Nexus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nexus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		031D32831A46058D00A6E271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		031D32841A46058D00A6E271 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		031D32861A46058D00A6E271 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		031D32861A46058D00A6E271 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		031D32881A46058D00A6E271 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		031D328B1A46058D00A6E271 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		031D32911A46058D00A6E271 /* NexusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NexusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,12 +195,12 @@
 			children = (
 				039730421A79E19600CC1F1E /* channel.swift */,
 				039730431A79E19600CC1F1E /* file.swift */,
+				034897FA1A7680CF00A97623 /* group.swift */,
 				039730441A79E19600CC1F1E /* im.swift */,
 				039730451A79E19600CC1F1E /* profile.swift */,
-				039730461A79E19600CC1F1E /* user.swift */,
 				0397303E1A78B19400CC1F1E /* purpose.swift */,
 				0397303F1A78B19400CC1F1E /* topic.swift */,
-				034897FA1A7680CF00A97623 /* group.swift */,
+				039730461A79E19600CC1F1E /* user.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -234,10 +234,11 @@
 		03DAB32A1A462A07001E3866 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				038D8B7C1A7EF7F3006D89BD /* UserController.swift */,
 				03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */,
+				031D32861A46058D00A6E271 /* MainViewController.swift */,
+				035DE9BF1A4BA57100C067F4 /* Nexus.swift */,
 				031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */,
-				031D32861A46058D00A6E271 /* ViewController.swift */,
+				038D8B7C1A7EF7F3006D89BD /* UserController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -245,13 +246,12 @@
 		03DAB32B1A462A13001E3866 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				03D69FCF1A491390000F644F /* Message.swift */,
 				03DAB32F1A47CCC7001E3866 /* HTTPRequest.swift */,
+				03D69FCF1A491390000F644F /* Message.swift */,
 				03D69FD31A491E8C000F644F /* SerializableParameterObject.swift */,
 				03BB72931A47D8E4007DFB1D /* SlackConnection.swift */,
-				035DE9BF1A4BA57100C067F4 /* Nexus.swift */,
-				031373C41A6C6263006BAE3C /* TaskScheduler.swift */,
 				039730381A7892FD00CC1F1E /* SwiftyJSON.swift */,
+				031373C41A6C6263006BAE3C /* TaskScheduler.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 			files = (
 				034897FF1A7680CF00A97623 /* group.swift in Sources */,
 				031373C51A6C6263006BAE3C /* TaskScheduler.swift in Sources */,
-				031D32871A46058D00A6E271 /* ViewController.swift in Sources */,
+				031D32871A46058D00A6E271 /* MainViewController.swift in Sources */,
 				03D69FD41A491E8C000F644F /* SerializableParameterObject.swift in Sources */,
 				03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */,
 				031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */,

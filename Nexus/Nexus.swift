@@ -24,22 +24,32 @@ let event_presenceChange : String = "presence_change";
 let event_manualPresenceChange : String = "manual_presence_change";
 
 
+protocol NexusDelegate {
+    var authorizationView : WebView { get };
+    func shouldDisplayText(text : String) -> ();
+    func shouldDisplayAuthorizationView(shouldDisplayView : Bool) ->();
+}
+
 class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate {
    
     //controllers
     var connectionController : SlackConnectionController? = nil;
     var connectionID : String? = nil;
-
-    func initWithWebView(inout authorizationView : WebView) -> (){
-
+    var delegate : NexusDelegate? = nil;
+    
+    
+    func configureWithWebView(inout authorizationView : WebView, andDelegate aDelegate : NexusDelegate) -> (){
         //Create controller objects
-        let authorizationController = AuthorizationController();
-        authorizationController.setWebView(&authorizationView);
-        connectionController = SlackConnectionController(authController: authorizationController);
+        connectionController = SlackConnectionController();
+        connectionController?.authorizationController?.setWebView(&authorizationView);
         connectionController?.delegate = self;
         
-        //create new connection
-        connectionID = connectionController?.createConnection(self);
+        //create new connection (if we haven't already created one)
+        if(connectionID == nil || connectionID?.isEmpty==true){
+            connectionID = connectionController?.createConnection(self);
+        }
+        
+        delegate = aDelegate;
     }
     
     
@@ -98,22 +108,20 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
     **********************************************************************/
     //MARK: Delegate methods
     func connectionAttemptForIdentfier(identifier : String) -> (){
-
-//        smileView?.SetTextToDisplay("Connecting...");
-//        smileView?.setNeedsDisplayInRect(self.view.frame);
+        delegate?.shouldDisplayText("Connecting...");
+        delegate?.shouldDisplayAuthorizationView(false);
     }
     
     func connectionFailedWithIdentifier(identifier : String, andError: NSError) -> (){
-//        smileView?.SetTextToDisplay("Connection failed!");
+        delegate?.shouldDisplayText("Connection failed!");
+        delegate?.shouldDisplayAuthorizationView(false);
     }
     func didCreateConnectionWithIdentifier(identifier : String) -> (){
-//        smileView?.SetTextToDisplay("Nexus running...");
-//        smileView?.hidden = false;
-//        smileView?.setNeedsDisplayInRect(self.view.frame);
+        delegate?.shouldDisplayText("Running...");
+        delegate?.shouldDisplayAuthorizationView(false);
     }
     func didDestroyConnectionWithIdentifier(identifier : String) -> (){
-//        smileView?.SetTextToDisplay("Nexus stopped.");
-//        authorizationView?.hidden = true;
-//        smileView?.hidden = false;
+        delegate?.shouldDisplayText("Stopped...");
+        delegate?.shouldDisplayAuthorizationView(false);
     }
 }

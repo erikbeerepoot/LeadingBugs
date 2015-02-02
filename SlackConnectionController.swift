@@ -25,11 +25,11 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
 
     
     //MARK: Construction/Destruction
-    init(authController : AuthorizationController ) {
+    init() {
         connections = Dictionary();
         
         //configure authorization controller
-        authorizationController = authController;
+        authorizationController = AuthorizationController();
         authorizationController?.delegate = self;
     }
     
