@@ -1,10 +1,21 @@
-//
-//  SlackConnection.swift
-//  Nexus
-//
-//  Created by Erik E. Beerepoot on 2014-12-19.
-//  Copyright (c) 2014 Dactyl Studios. All rights reserved.
-//
+/*
+*      ___           ___           ___           ___                         ___           ___
+*     /  /\         /  /\         /  /\         /  /\          ___          /  /\         /  /\          ___
+*    /  /::\       /  /::\       /  /::\       /  /::\        /  /\        /  /::\       /  /::\        /__/\
+*   /  /:/\:\     /  /:/\:\     /  /:/\:\     /  /:/\:\      /  /::\      /  /:/\:\     /  /:/\:\       \  \:\
+*  /  /::\ \:\   /  /::\ \:\   /  /::\ \:\   /  /::\ \:\    /  /:/\:\    /  /:/  \:\   /  /:/  \:\       \__\:\
+* /__/:/\:\_\:| /__/:/\:\_\:\ /__/:/\:\_\:\ /__/:/\:\ \:\  /  /::\ \:\  /__/:/ \__\:\ /__/:/ \__\:\      /  /::\
+* \  \:\ \:\/:/ \__\/  \:\/:/ \__\/~|::\/:/ \  \:\ \:\_\/ /__/:/\:\ \:\ \  \:\ /  /:/ \  \:\ /  /:/     /  /:/\:\
+*  \  \:\_\::/       \__\::/     |  |:|::/   \  \:\ \:\   \__\/  \:\_\/  \  \:\  /:/   \  \:\  /:/     /  /:/__\/
+*   \  \:\/:/        /  /:/      |  |:|\/     \  \:\_\/        \  \:\     \  \:\/:/     \  \:\/:/     /__/:/
+*    \__\::/        /__/:/       |__|:|~       \  \:\           \__\/      \  \::/       \  \::/      \__\/
+*        ~~         \__\/         \__\|         \__\/                       \__\/         \__\/
+* @name: SlackConnectionController.swift
+* @author: Erik E. Beerepoot
+* @company: Barefoot Inc.
+* @brief: Controller object for SlackConnections. Essentially, it manages
+* the connection & authorization process, and keeps track of all the connections in flight.
+*/
 
 import AppKit
 import Foundation
@@ -34,6 +45,12 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
     }
     
     //MARK: Main logic
+    
+    /**
+    Creates a new connection, returning the unique identifier.    
+    @param: rtDelegate - The RealTime delegate. The delegate object that receives real-time event notifications.
+    @returns: The UID of this connection.
+    */
     func createConnection(rtDelegate : SlackRealTimeConnectionDelegate?) -> (String){
         let newConnection = SlackConnection();
         let identifier = NSUUID().UUIDString;

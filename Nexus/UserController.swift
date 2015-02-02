@@ -9,7 +9,7 @@
 import Foundation
 
 class UserController {
-    var users : Dictionary<String,user> = Dictionary();
+    var users : Dictionary<String,ExtendedUser> = Dictionary();
     
     init(connection : SlackConnection) {
         //query slack for users
@@ -42,7 +42,7 @@ class UserController {
             
             //now add to the user cache (if we have an id, which we definitely should!)
             if(currentUser.id != nil){
-                users[currentUser.id!] = currentUser;
+                users[currentUser.id!] = currentUser as ExtendedUser;
             }
         }
     }
@@ -57,8 +57,10 @@ class UserController {
     }
     
     /**
-    Returns a random user from the user dictionary, or nil if no users are present.
-    @returns: a user, by value.
+    * Returns a random user from the user dictionary, or nil if no users are present.
+    * @notes: Notices that it returns a random user, not necessarily and active user.
+    * for that, see getRandomActiveUser()
+    * @returns: a user, by value.
     */
     func getRandomUser() -> (user?){
         let randomNum = Int(arc4random_uniform(UInt32(users.count)));
@@ -71,6 +73,25 @@ class UserController {
             index++;
         }
         return nil;
+    }
+    
+    /**
+    Returns a random user from the user dictionary, or nil if no users are present.
+    @returns: a user, by value.
+    */
+    func getRandomActiveUser() -> (user?){
+        var userList : Array<ExtendedUser> = Array();
+
+        //Prune the user dict to only active users (& generate an array for indexing)
+        for value in users.values {
+            if(value.presence != "inactive"){
+                userList.append(value as ExtendedUser);
+            }
+        }
+        
+        //generate a random number for user selection
+        let randomNum = Int(arc4random_uniform(UInt32(userList.count)));
+        return userList[randomNum];
         
     }
 }
