@@ -18,7 +18,7 @@
 		031D32A61A4605AA00A6E271 /* SlackConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */; };
 		034897FF1A7680CF00A97623 /* group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897FA1A7680CF00A97623 /* group.swift */; };
 		035DE9BC1A49EA0A00C067F4 /* StarscreamOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035DE9B91A49E9DD00C067F4 /* StarscreamOSX.framework */; };
-		035DE9C01A4BA57100C067F4 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035DE9BF1A4BA57100C067F4 /* EventManager.swift */; };
+		035DE9C01A4BA57100C067F4 /* Nexus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035DE9BF1A4BA57100C067F4 /* Nexus.swift */; };
 		038D8B7D1A7EF7F3006D89BD /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038D8B7C1A7EF7F3006D89BD /* UserController.swift */; };
 		039730391A7892FD00CC1F1E /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039730381A7892FD00CC1F1E /* SwiftyJSON.swift */; };
 		039730401A78B19400CC1F1E /* purpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0397303E1A78B19400CC1F1E /* purpose.swift */; };
@@ -91,7 +91,7 @@
 		031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlackConnectionController.swift; path = ../SlackConnectionController.swift; sourceTree = "<group>"; };
 		034897FA1A7680CF00A97623 /* group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = group.swift; sourceTree = "<group>"; };
 		035DE9AD1A49E9DC00C067F4 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = ../../../../../Documents/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
-		035DE9BF1A4BA57100C067F4 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		035DE9BF1A4BA57100C067F4 /* Nexus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nexus.swift; sourceTree = "<group>"; };
 		038D8B7C1A7EF7F3006D89BD /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		039730381A7892FD00CC1F1E /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		0397303E1A78B19400CC1F1E /* purpose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = purpose.swift; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 				03DAB32F1A47CCC7001E3866 /* HTTPRequest.swift */,
 				03D69FD31A491E8C000F644F /* SerializableParameterObject.swift */,
 				03BB72931A47D8E4007DFB1D /* SlackConnection.swift */,
-				035DE9BF1A4BA57100C067F4 /* EventManager.swift */,
+				035DE9BF1A4BA57100C067F4 /* Nexus.swift */,
 				031373C41A6C6263006BAE3C /* TaskScheduler.swift */,
 				039730381A7892FD00CC1F1E /* SwiftyJSON.swift */,
 			);
@@ -421,7 +421,7 @@
 				039730401A78B19400CC1F1E /* purpose.swift in Sources */,
 				031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */,
 				038D8B7D1A7EF7F3006D89BD /* UserController.swift in Sources */,
-				035DE9C01A4BA57100C067F4 /* EventManager.swift in Sources */,
+				035DE9C01A4BA57100C067F4 /* Nexus.swift in Sources */,
 				0397304B1A79E19600CC1F1E /* user.swift in Sources */,
 				031D32A41A4605AA00A6E271 /* Constants.swift in Sources */,
 				0397304A1A79E19600CC1F1E /* profile.swift in Sources */,

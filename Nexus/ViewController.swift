@@ -10,16 +10,11 @@ import Foundation
 import AppKit
 import WebKit
 
-class ViewController: NSViewController, SlackConnectionControllerDelegate, SmileViewDelegate {
+class ViewController: NSViewController, SmileViewDelegate {
     
     //views
     var smileView : SmileView? = nil;
     var authorizationView : WebView? = nil;
-
-    //controllers
-    var connectionController : SlackConnectionController? = nil;
-    
-    var connectionID : String? = nil;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,21 +39,7 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
         var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
         viewBindingsDict.setValue(authorizationView, forKey: "webView")
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));
-        
-        //****** This logic should go elsewhere. Probably in the AppDelegate. 
-        //Create controller objects
-        let authorizationController = AuthorizationController();
-        authorizationController.setWebView(&authorizationView!);
-        connectionController = SlackConnectionController(authController: authorizationController);
-        connectionController?.delegate = self;
-        
-        //create new connection
-        connectionID = connectionController?.createConnection();
-    }
-
-    func PrintMessage() -> () {
-        println("Make coffee");
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: nil, metrics: nil, views: viewBindingsDict));        
     }
 
     override var representedObject: AnyObject? {
@@ -67,32 +48,23 @@ class ViewController: NSViewController, SlackConnectionControllerDelegate, Smile
         }
     }
     
-    //MARK: Delegate methods
-    func connectionAttemptForIdentfier(identifier : String) -> (){
-        smileView?.SetTextToDisplay("Connecting...");
-        smileView?.setNeedsDisplayInRect(self.view.frame);
+    func updateStatus(statusString : String) -> () {
+        smileView?.SetTextToDisplay(statusString);
     }
     
-    func connectionFailedWithIdentifier(identifier : String, andError: NSError) -> (){
-        smileView?.SetTextToDisplay("Connection failed!");
-        smileView?.hidden = false;
-        smileView?.setNeedsDisplayInRect(self.view.frame);
-    }
-    func didCreateConnectionWithIdentifier(identifier : String) -> (){
-        smileView?.SetTextToDisplay("Nexus running...");
-        smileView?.hidden = false;
-        smileView?.setNeedsDisplayInRect(self.view.frame);        
-    }
-    func didDestroyConnectionWithIdentifier(identifier : String) -> (){
-        smileView?.SetTextToDisplay("Nexus stopped.");
-        authorizationView?.hidden = true;
-        smileView?.hidden = false;
+    func shouldShowAuthorizationView(shouldShowAuthorizationView : Bool){
+        if(shouldShowAuthorizationView){
+            smileView?.hidden = true;
+            authorizationView?.hidden = false;
+            authorizationView?.setNeedsDisplayInRect(self.view.frame);
+        } else {
+            smileView?.hidden = false;
+            authorizationView?.hidden = true;
+            smileView?.setNeedsDisplayInRect(self.view.frame);
+        }
     }
     
     func animationHasCompleted() {
-//        if(connectionID != nil){
-//            connectionID = connectionController?.createConnection();
-//        }
     }
 
     

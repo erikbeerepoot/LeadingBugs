@@ -22,7 +22,7 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
     var authorizationController : AuthorizationController? = nil;
     var connections : Dictionary<String,SlackConnection>? = nil;
     var delegate : SlackConnectionControllerDelegate? = nil;
-    var eventManager : EventManager? = nil;
+
     
     //MARK: Construction/Destruction
     init(authController : AuthorizationController ) {
@@ -31,17 +31,14 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
         //configure authorization controller
         authorizationController = authController;
         authorizationController?.delegate = self;
-        
-        //EventManager handles incoming slack events
-        eventManager = EventManager();
     }
     
     //MARK: Main logic
-    func createConnection() -> (String){
+    func createConnection(rtDelegate : SlackRealTimeConnectionDelegate?) -> (String){
         let newConnection = SlackConnection();
         let identifier = NSUUID().UUIDString;
         newConnection.delegate = self;
-        newConnection.rtDelegate = eventManager;
+        newConnection.rtDelegate = rtDelegate;
         
         //attemp authorization
         if(!authorizationController!.authorized){
