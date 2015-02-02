@@ -53,12 +53,9 @@ struct MessageController {
 
         
         //configure message parameters
-        let url = NSURL(string:SlackEndpoints.kSendMessageEndpoint)!;
-        let msg = Message(aChannel: kTestChannelID, messageText: "Ahhh. What a beautiful day to be alive!");
-        msg.updateArgument("username", withValue: kBotName);
-        
-        //send it over the connection
-        sourceConnection.send(url, sendObject: msg, callback: nil);
+        let url = NSURL(string:SlackEndpoints.sendMessage)!;
+        message.updateArgument("username", withValue: kBotName);        
+        sourceConnection.send(url, sendObject: message, callback: nil);
         
         //increase "global" message count
         messageCount++;

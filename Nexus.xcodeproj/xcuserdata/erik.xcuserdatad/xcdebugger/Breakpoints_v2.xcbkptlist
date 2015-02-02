@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nexus/SlackConnection.swift"
-            timestampString = "444501304.58804"
+            filePath = "Nexus/EventManager.swift"
+            timestampString = "444527655.018627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "websocketDidReceiveMessage(_:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "processEvent_presenceChange(_:withConnection:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nexus/Event.swift"
-            timestampString = "444501494.941136"
+            filePath = "Nexus/EventManager.swift"
+            timestampString = "444527655.018627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "didReceiveEvent(_:onConnection:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "processEvent_presenceChange(_:withConnection:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,76 +41,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nexus/Event.swift"
-            timestampString = "444501424.416499"
+            filePath = "Nexus/EventManager.swift"
+            timestampString = "444527655.018627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "didReceiveEvent(_:onConnection:)"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "processEvent_presenceChange(_:withConnection:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Event.swift"
-            timestampString = "444501528.998114"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "didReceiveEvent(_:onConnection:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nexus/Event.swift"
-            timestampString = "444501542.151631"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "didReceiveEvent(_:onConnection:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Nexus.Event.didReceiveEvent (Nexus.Event)(Nexus.JSON, onConnection : Nexus.SlackConnection) -&gt; ()"
-                  moduleName = "Nexus"
-                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/Event.swift"
-                  timestampString = "444501542.155028"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "protocol witness for Nexus.SlackRealTimeConnectionDelegate.didReceiveEvent &lt;A : Nexus.SlackRealTimeConnectionDelegate&gt;(inout Nexus.SlackRealTimeConnectionDelegate.Self)(Nexus.JSON, onConnection : Nexus.SlackConnection) -&gt; () in conformance Nexus.Event : Nexus.SlackRealTimeConnectionDelegate"
-                  moduleName = "Nexus"
-                  urlString = "file:///Users/erik/Dropbox/Projects/Programming/Swift/Nexus/Nexus/Event.swift"
-                  timestampString = "444501542.155255"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "7">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

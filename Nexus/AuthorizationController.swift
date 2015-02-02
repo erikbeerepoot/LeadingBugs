@@ -46,7 +46,7 @@ class AuthorizationController : NSObject {
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
         //create authorization request
-        var url = NSURL(string: SlackEndpoints.kAuthorizationEndpoint + "?client_id=" + SlackIDs.kClientID +  "&team=" + SlackIDs.kTeamID + "&scope=read,post,client&" + kStateKey + "=" + state);
+        var url = NSURL(string: SlackEndpoints.authorization + "?client_id=" + SlackIDs.kClientID +  "&team=" + SlackIDs.kTeamID + "&scope=read,post,client&" + kStateKey + "=" + state);
         
         //send auth GET request
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
@@ -84,7 +84,7 @@ class AuthorizationController : NSObject {
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
         //update url to perform authorization
-        var url = NSURL(string: SlackEndpoints.kOAuthAccessEndpoint + "?client_id=" + SlackIDs.kClientID + "&client_secret=" + kClientSecret + "&code=" + theCode);
+        var url = NSURL(string: SlackEndpoints.oAuthAccess + "?client_id=" + SlackIDs.kClientID + "&client_secret=" + kClientSecret + "&code=" + theCode);
         
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
             { (data : NSData!, response: NSURLResponse!,error: NSError!) in

@@ -45,11 +45,16 @@ class SlackConnection : WebSocketDelegate {
         println("Connecting...");
         
         let tokenDict = NSDictionary(object: token!, forKey: "token");
-        let URL : NSURL = NSURL(string: SlackEndpoints.kConnectEndpoint)!;
+        let URL : NSURL = NSURL(string: SlackEndpoints.connect)!;
         performRequestWithURL(URL, queryParams:tokenDict,andCompletionHandler:connectionHandler);
         return true;
     }
     
+    /**
+    Connects to Slack, allowing for real time events (RTM) to be set off or on.
+    @param realTimeEvents Flag indicating if we want to receive real-time updates from slack.
+    @returns boolean indicating success or failure
+    */
     func connect(enableRealTimeEvents realTimeEvents : Bool) -> (Bool) {
         enableRealTimeEvents = realTimeEvents;
         return connect();

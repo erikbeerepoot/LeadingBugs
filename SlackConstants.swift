@@ -26,8 +26,9 @@ public struct SlackIDs {
 }
 
 public struct SlackEndpoints {
-    public static let kAuthorizationEndpoint = "https://slack.com/oauth/authorize";
-    public static let kOAuthAccessEndpoint = "https://slack.com/api/oauth.access";
-    public static let kConnectEndpoint = "https://slack.com/api/rtm.start";
-    public static let kSendMessageEndpoint = "https://slack.com/api/chat.postMessage";
+    public static let authorization = "https://slack.com/oauth/authorize";
+    public static let oAuthAccess = "https://slack.com/api/oauth.access";
+    public static let connect = "https://slack.com/api/rtm.start";
+    public static let sendMessage = "https://slack.com/api/chat.postMessage";
+    public static let userInfo = "https://slack.com/api/users.info";
 }

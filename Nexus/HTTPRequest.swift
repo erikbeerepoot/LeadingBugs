@@ -34,8 +34,6 @@ func performRequestWithURL(url : NSURL,#queryParams : NSDictionary,andCompletion
     let newUrl = NSURL(string:urlString)!;
     var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
         { (data : NSData!, response: NSURLResponse!,error: NSError!) in
-            //parse JSON back to dictionary
-//            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
             aCompletionHandler(data,response,nil);
     });
     task.resume();
@@ -53,8 +51,6 @@ func performRequestWithURL(url : NSURL,token : String, #serializableObject : Ser
     let newUrl = NSURL(string:urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!;
     var task = urlSession.dataTaskWithURL(newUrl, completionHandler:
         { (data : NSData!, response: NSURLResponse!,error: NSError!) in
-            //parse JSON back to dictionary
-//            let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary;
             aCompletionHandler(data,response,nil);
     });
     task.resume();
