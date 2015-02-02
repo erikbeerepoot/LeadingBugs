@@ -41,6 +41,11 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
 
     var delegate : NexusDelegate? = nil;
     
+    /**
+    This method configures the main logic. The WebView is required for the application to authorize with Slack.
+    :param: authorizationView - Reference to the WebView presented when a user is asked to authorize.
+    :param: aDelegate - The object we send delegate events to.
+    */
     func configureWithWebView(inout authorizationView : WebView, andDelegate aDelegate : NexusDelegate) -> (){
         //Create controller objects
         connectionController = SlackConnectionController();
@@ -54,7 +59,11 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
         delegate = aDelegate;
     }
     
-    
+    /**
+    Callback invoked when an event arrives from Slack
+    @param: eventData - The JSON object associated with this event
+    @param: sourceConnection - the SlackConnection this event was received on
+    */
     func didReceiveEvent(eventData: JSON, onConnection sourceConnection : SlackConnection) {
         //process event
         
