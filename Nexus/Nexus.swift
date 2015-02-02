@@ -82,6 +82,11 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
      **********************************************************************/
     //MARK: Event processing code
     
+    /**
+    Process a change in user presence
+    @param: eventData - the JSON object associated with this event
+    @param: sourceConnection - The connection this event was received on
+    */
     func processEvent_presenceChange(eventData : JSON, withConnection sourceConnection : SlackConnection) -> (){
         if(eventData["type"].string != event_presenceChange){
             return;
@@ -124,11 +129,20 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
     *                          Task Callbacks                             *
     **********************************************************************/
     //MARK: Task callbacks
+    
+    /**
+    A callback invoked  when the coffeeTask expires.
+    */
     func coffeeTask() -> () {
         let targetUser : user? = userController?.getRandomUser();
+        
         if(targetUser != nil){
             //we've found a victim, send the unwitting participant a message
             let message = Message(aChannel: kTestChannelID, messageText: "@" + targetUser!.name! + "! Go make coffee!");
+            
+            //actually send the message
+            MessageController.sendMessage(message, onConnection: connectionController!.connectionForIdentifier(connectionID!)!);
+  
         }
     }
     
@@ -136,6 +150,7 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
     *                   ConnectionControllerDelegate                      *
     **********************************************************************/
     //MARK: Delegate methods
+    
     func connectionAttemptForIdentfier(identifier : String) -> (){
         delegate?.shouldDisplayText("Connecting...");
         delegate?.shouldDisplayAuthorizationView(false);

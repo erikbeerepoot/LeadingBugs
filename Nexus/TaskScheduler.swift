@@ -48,7 +48,7 @@ class CoffeeTask : SchedulableTask {
         let flags: NSCalendarUnit = .HourCalendarUnit | .DayCalendarUnit | .MonthCalendarUnit | .YearCalendarUnit;
         var components = calendar.components( flags, fromDate: NSDate());
         components.hour = 23;
-        components.minute = 04;
+        components.minute = 08;
         
         //create date from components
         var date = calendar.dateFromComponents(components)!;
