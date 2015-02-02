@@ -7,12 +7,9 @@ class {{className}} {
 {% endif %}
 {% endfor %}
 
-	func pack{{classname}}Object(jsonData : NSData) {
-		let jsonObject : JSON? = JSON(jsonData);
-
+	func pack{{classname}}Object(jsonObject : JSON?) {
 {% for var in variables %}
 {% if var.customClass %}
-
 		//Custom class, must call its packing code
 		{{var.varName}} = {{var.varType}}();
 		let {{var.varType}}Object : AnyObject? = jsonObject?["{{var.varName}}"].object;
@@ -27,6 +24,7 @@ class {{className}} {
 
 	}
 
+	//NOTE: Mostly a placeholder / untested / nonfunctional
 	func unpack{{classname}}Object() -> (NSData?) {
 		var json : JSON? = nil;
 
