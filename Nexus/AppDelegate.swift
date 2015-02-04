@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         //get the first window, and get the contentView controller for setting up main Nexus logic
         let mainWindow = NSApplication.sharedApplication().windows.first as NSWindow;
-        contentViewController = mainWindow.contentViewController as MainViewController;
+        contentViewController = (mainWindow.contentViewController as MainViewController);
 
         //we also can't use the app without the window having a valid contentViewController
         assert(contentViewController != nil);

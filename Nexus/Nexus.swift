@@ -143,7 +143,7 @@ class Nexus : SlackRealTimeConnectionDelegate, SlackConnectionControllerDelegate
     A callback invoked  when the coffeeTask expires.
     */
     func coffeeTask() -> () {
-        let targetUser : user? = userController?.getRandomUser();
+        let targetUser : user? = userController?.getRandomActiveUser();
         
         if(targetUser != nil){
             //we've found a victim, send the unwitting participant a message

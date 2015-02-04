@@ -42,7 +42,7 @@ class UserController {
             
             //now add to the user cache (if we have an id, which we definitely should!)
             if(currentUser.id != nil){
-                users[currentUser.id!] = currentUser as ExtendedUser;
+                users[currentUser.id!] = currentUser as? ExtendedUser;
             }
         }
     }
@@ -76,7 +76,7 @@ class UserController {
     }
     
     /**
-    Returns a random user from the user dictionary, or nil if no users are present.
+    Returns a random *active* user from the user dictionary, or nil if no users are present.
     @returns: a user, by value.
     */
     func getRandomActiveUser() -> (user?){
@@ -92,6 +92,5 @@ class UserController {
         //generate a random number for user selection
         let randomNum = Int(arc4random_uniform(UInt32(userList.count)));
         return userList[randomNum];
-        
     }
 }

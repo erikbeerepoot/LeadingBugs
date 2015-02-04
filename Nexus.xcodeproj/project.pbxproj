@@ -29,6 +29,10 @@
 		039730491A79E19600CC1F1E /* im.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039730441A79E19600CC1F1E /* im.swift */; };
 		0397304A1A79E19600CC1F1E /* profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039730451A79E19600CC1F1E /* profile.swift */; };
 		0397304B1A79E19600CC1F1E /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039730461A79E19600CC1F1E /* user.swift */; };
+		039D31DC1A808C5600BD98EE /* negative.txt in Resources */ = {isa = PBXBuildFile; fileRef = 039D31DB1A808C5600BD98EE /* negative.txt */; };
+		039D31DE1A808C6600BD98EE /* positive.txt in Resources */ = {isa = PBXBuildFile; fileRef = 039D31DD1A808C6600BD98EE /* positive.txt */; };
+		039D31E01A808DFD00BD98EE /* reference.txt in Resources */ = {isa = PBXBuildFile; fileRef = 039D31DF1A808DFD00BD98EE /* reference.txt */; };
+		039D31E21A808EED00BD98EE /* SentimentAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039D31E11A808EED00BD98EE /* SentimentAnalyzer.swift */; };
 		03BB72941A47D8E4007DFB1D /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BB72931A47D8E4007DFB1D /* SlackConnection.swift */; };
 		03D69FD01A491390000F644F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D69FCF1A491390000F644F /* Message.swift */; };
 		03D69FD21A491A28000F644F /* Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D69FD11A491A28000F644F /* Serialization.swift */; };
@@ -103,6 +107,10 @@
 		039730441A79E19600CC1F1E /* im.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = im.swift; sourceTree = "<group>"; };
 		039730451A79E19600CC1F1E /* profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profile.swift; sourceTree = "<group>"; };
 		039730461A79E19600CC1F1E /* user.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		039D31DB1A808C5600BD98EE /* negative.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = negative.txt; sourceTree = "<group>"; };
+		039D31DD1A808C6600BD98EE /* positive.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = positive.txt; sourceTree = "<group>"; };
+		039D31DF1A808DFD00BD98EE /* reference.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reference.txt; sourceTree = "<group>"; };
+		039D31E11A808EED00BD98EE /* SentimentAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentAnalyzer.swift; sourceTree = "<group>"; };
 		03BB72931A47D8E4007DFB1D /* SlackConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnection.swift; sourceTree = "<group>"; };
 		03D69FCF1A491390000F644F /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		03D69FD11A491A28000F644F /* Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialization.swift; sourceTree = "<group>"; };
@@ -153,6 +161,7 @@
 		031D32811A46058D00A6E271 /* Nexus */ = {
 			isa = PBXGroup;
 			children = (
+				039D31DA1A808C3E00BD98EE /* Lexicon */,
 				034897F71A7680CF00A97623 /* Generated */,
 				03BB72951A47E3CB007DFB1D /* Extensions */,
 				03DAB32C1A462A22001E3866 /* Helper */,
@@ -218,6 +227,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		039D31DA1A808C3E00BD98EE /* Lexicon */ = {
+			isa = PBXGroup;
+			children = (
+				039D31DB1A808C5600BD98EE /* negative.txt */,
+				039D31DD1A808C6600BD98EE /* positive.txt */,
+				039D31DF1A808DFD00BD98EE /* reference.txt */,
+			);
+			name = Lexicon;
+			sourceTree = "<group>";
+		};
 		03BB72951A47E3CB007DFB1D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +258,7 @@
 				03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */,
 				031D32861A46058D00A6E271 /* MainViewController.swift */,
 				035DE9BF1A4BA57100C067F4 /* Nexus.swift */,
+				039D31E11A808EED00BD98EE /* SentimentAnalyzer.swift */,
 				031D32A31A4605AA00A6E271 /* SlackConnectionController.swift */,
 				038D8B7C1A7EF7F3006D89BD /* UserController.swift */,
 			);
@@ -387,7 +407,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				031D32891A46058D00A6E271 /* Images.xcassets in Resources */,
+				039D31DE1A808C6600BD98EE /* positive.txt in Resources */,
 				031D328C1A46058D00A6E271 /* Main.storyboard in Resources */,
+				039D31E01A808DFD00BD98EE /* reference.txt in Resources */,
+				039D31DC1A808C5600BD98EE /* negative.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +447,7 @@
 				03DAB3321A47CDAA001E3866 /* AuthorizationController.swift in Sources */,
 				039730401A78B19400CC1F1E /* purpose.swift in Sources */,
 				031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */,
+				039D31E21A808EED00BD98EE /* SentimentAnalyzer.swift in Sources */,
 				038D8B7D1A7EF7F3006D89BD /* UserController.swift in Sources */,
 				035DE9C01A4BA57100C067F4 /* Nexus.swift in Sources */,
 				0397304B1A79E19600CC1F1E /* user.swift in Sources */,
