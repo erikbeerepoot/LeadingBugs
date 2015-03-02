@@ -21,18 +21,18 @@ import AppKit
 import Foundation
 
 //MARK: Protocol: SlackConnectionControllerDelegate
-protocol SlackConnectionControllerDelegate {
+protocol ConnectionControllerDelegate {
     func connectionFailedWithIdentifier(identifier : String,andError error: NSError) -> ();
     func didCreateConnectionWithIdentifier(identifier : String) -> ();
     func didDestroyConnectionWithIdentifier(identifier : String) -> ();
     func connectionAttemptForIdentfier(identifier : String) -> ();
 }
 
-class SlackConnectionController : SlackConnectionDelegate,AuthorizationControllerDelegate {
+class ConnectionController : AuthorizationControllerDelegate {
     //MARK: Member variables
     var authorizationController : AuthorizationController? = nil;
     var connections : Dictionary<String,SlackConnection>? = nil;
-    var delegate : SlackConnectionControllerDelegate? = nil;
+    var delegate : ConnectionControllerDelegate? = nil;
 
     
     //MARK: Construction/Destruction
@@ -51,7 +51,7 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
     @param: rtDelegate - The RealTime delegate. The delegate object that receives real-time event notifications.
     @returns: The UID of this connection.
     */
-    func createConnection(rtDelegate : SlackRealTimeConnectionDelegate?) -> (String){
+    func createConnection(rtDelegate : RealTimeConnectionDelegate?) -> (String){
         let newConnection = SlackConnection();
         let identifier = NSUUID().UUIDString;
         newConnection.delegate = self;
@@ -75,7 +75,7 @@ class SlackConnectionController : SlackConnectionDelegate,AuthorizationControlle
      @brief: Returns the SlackConnection for the identifier, if it exists
      @returns: reference to SlackConnection
     */
-    func connectionForIdentifier(id : String) -> SlackConnection? {
+    func connectionForIdentifier(id : String) -> Connection? {
         return connections?[id];
     }
     

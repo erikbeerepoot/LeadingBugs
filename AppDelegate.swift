@@ -33,6 +33,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
 
+    func configureWithWebView(inout authorizationView : WebView) -> (){
+        //Create controller objects
+        connectionController = SlackConnectionController();
+        connectionController?.authorizationController?.setWebView(&authorizationView);
+        connectionController?.delegate = self;
+        
+        //create new connection (if we haven't already created one)
+        if(connectionID == nil || connectionID?.isEmpty==true){
+            connectionID = connectionController?.createConnection(self);
+        }
+        delegate = aDelegate;
+    }
 
 }
 

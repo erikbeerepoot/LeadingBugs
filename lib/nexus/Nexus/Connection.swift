@@ -6,22 +6,22 @@
 //  Copyright (c) 2014 Dactyl Studios. All rights reserved.
 //
 
-import Foundation
 import StarscreamOSX
+import Foundation
 
-protocol SlackConnectionDelegate {
-    func connectionDidFinishWithError(error : NSError?, sender: SlackConnection) -> ();
-    func connectionDidDisconnectWithError(error : NSError?, sender : SlackConnection) -> ();
+protocol ConnectionDelegate {
+    func connectionDidFinishWithError(error : NSError?, sender: Connection) -> ();
+    func connectionDidDisconnectWithError(error : NSError?, sender : Connection) -> ();
 }
 
-protocol SlackRealTimeConnectionDelegate {
-    func didReceiveEvent(eventData : JSON, onConnection sourceConnect : SlackConnection) -> ();
+protocol RealTimeConnectionDelegate {
+    func didReceiveEvent(eventData : JSON, onConnection sourceConnect : Connection) -> ();
 }
 
-class SlackConnection : WebSocketDelegate {
+class Connection : WebSocketDelegate {
     //notification mechanisms
-    var delegate : SlackConnectionDelegate? = nil;
-    var rtDelegate : SlackRealTimeConnectionDelegate? = nil;
+    var delegate : ConnectionDelegate? = nil;
+    var rtDelegate : RealTimeConnectionDelegate? = nil;
     var sentCallback : ((Bool,NSError?) -> ())? = nil;
     
     //state
@@ -35,7 +35,7 @@ class SlackConnection : WebSocketDelegate {
     
     /**
     @name: Connect
-    @brief: Connects to slack (authenticated)
+    @brief: Connects to server (authenticated)
     @returns: Success (true) or failure (false)
     */
     func connect() -> (Bool){
@@ -51,7 +51,7 @@ class SlackConnection : WebSocketDelegate {
     }
     
     /**
-    Connects to Slack, allowing for real time events (RTM) to be set off or on.
+    Connects to serv server, allowing for real time events (RTM) to be set off or on.
     @param realTimeEvents Flag indicating if we want to receive real-time updates from slack.
     @returns boolean indicating success or failure
     */

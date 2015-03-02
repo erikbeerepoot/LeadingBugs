@@ -45,18 +45,18 @@ class AuthorizationController : NSObject {
     @brief: Starts authorization process with Slack
     @returns: True, if the process has been started. False, if not.
     */
-    func startAuthorization() -> (Bool){
+    func startAuthorization(#parameters : Dictionary<String,String>) -> (Bool){
         if authorized { return true; }
         if m_authorizationView==nil { return false; }
         
-        println("Authorizing with slack...");
+        println("Authorizing with API...");
         
         //setup session
         var sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
         //create authorization request
-        var url = NSURL(string: SlackEndpoints.authorization + "?client_id=" + SlackIDs.kClientID +  "&team=" + SlackIDs.kTeamID + "&scope=read,post,client&" + kStateKey + "=" + state);
+        var url = NSURL(string: endpoints.authorization + encodeDictionary(parameters));
         
         //send auth GET request
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
@@ -64,7 +64,7 @@ class AuthorizationController : NSObject {
                 //process results
                 if(error==nil){
                     let statusCode = (response as NSHTTPURLResponse).statusCode;
-                    if(statusCode==kStatusCodeOK){
+                    if(statusCode==statusCodes.statusCodeOK){
                         //show authorization prompt on UI
                         dispatch_async(dispatch_get_main_queue(),{
                             let url : NSURL = response.URL!
@@ -86,7 +86,7 @@ class AuthorizationController : NSObject {
         return true;
     }
     
-    func completeAuthorizationWithCode(theCode : NSString) -> (){
+    func completeAuthorizationWithCode(theCode : NSString, andParameters parameters : Dictionary<String,String>?) -> (){
         if(authorized) { return };
         
         //setup session
@@ -94,7 +94,7 @@ class AuthorizationController : NSObject {
         var urlSession = NSURLSession(configuration: sessionConfiguration);
         
         //update url to perform authorization
-        var url = NSURL(string: SlackEndpoints.oAuthAccess + "?client_id=" + SlackIDs.kClientID + "&client_secret=" + kClientSecret + "&code=" + theCode);
+        var url = NSURL(string: endpoints.authorization + "&client_secret=" + appConstants.secret + "&code=" + theCode + encodeDictionary(parameters));
         
         var authTask = urlSession.dataTaskWithURL(url!, completionHandler:
             { (data : NSData!, response: NSURLResponse!,error: NSError!) in
@@ -102,7 +102,7 @@ class AuthorizationController : NSObject {
                     let httpResponse = response as NSHTTPURLResponse;
                     let statusCode = httpResponse.statusCode;
                     
-                    if(statusCode==kStatusCodeOK){
+                    if(statusCode==statusCodes.statusCodeOK){
                         //parse data
                         let jsonData : AnyObject? = NSJSONSerialization.JSONObjectWithData(data,options: NSJSONReadingOptions.MutableContainers, error: nil)
                         
@@ -118,7 +118,7 @@ class AuthorizationController : NSObject {
                                 } else {
                                     NSLog("Success!");
                                     //update state
-                                    self.authorizationToken = jsonDict.objectForKey(kAuthorizationKey) as String;
+                                    self.authorizationToken = jsonDict.objectForKey(appConstants.authorizationKey) as String;
                                     self.authorized = true;
 
                                     //hide webview
@@ -157,7 +157,7 @@ class AuthorizationController : NSObject {
             var originalURL = actInfo.objectForKey(WebActionOriginalURLKey) as NSURL;
             if originalURL.absoluteString != request.URL.absoluteString {
                 let code = parseQueryParametersForURL(request.URL);
-                self.completeAuthorizationWithCode(code!);
+                self.completeAuthorizationWithCode(code!,andParameters:nil);
             }
         }
         listener.use();
@@ -177,10 +177,10 @@ class AuthorizationController : NSObject {
         
         //for each parameter, check if it matches state or code
         for parameter in queryParameters {
-            if parameter.rangeOfString(kCodeKey) != nil {
+            if parameter.rangeOfString(appConstants.codeKey) != nil {
                 aCode = parameter.componentsSeparatedByString("=")[1];
                 continue;
-            } else if parameter.rangeOfString(kStateKey) != nil {
+            } else if parameter.rangeOfString(appConstants.stateKey) != nil {
                 aState = parameter.componentsSeparatedByString("=")[1];
             }
         }
@@ -194,7 +194,7 @@ class AuthorizationController : NSObject {
                 NSLocalizedRecoverySuggestionErrorKey : String("Verify security of your system.")
             ];
             
-            let err = NSError(domain: kAuthorizationErrorDomain, code: -1, userInfo: userInfo);
+            let err = NSError(domain: appConstants.authorizationErrorDomain, code: -1, userInfo: userInfo);
             self.delegate?.authorizationDidFinishWithError(err);
             return nil;
         }
@@ -202,11 +202,11 @@ class AuthorizationController : NSObject {
         if(aCode==nil){
             let userInfo = [
                 NSLocalizedDescriptionKey : String("Failed to authorize."),
-                NSLocalizedFailureReasonErrorKey : String("Did not receive a code from Slack server!"),
+                NSLocalizedFailureReasonErrorKey : String("Did not receive a code from server!"),
                 NSLocalizedRecoverySuggestionErrorKey : String("Please try authorizing again.")
             ];
             
-            let err = NSError(domain: kAuthorizationErrorDomain, code: -1, userInfo: userInfo);
+            let err = NSError(domain: appConstants.authorizationErrorDomain, code: -1, userInfo: userInfo);
             self.delegate?.authorizationDidFinishWithError(err);
             return nil;
         }
