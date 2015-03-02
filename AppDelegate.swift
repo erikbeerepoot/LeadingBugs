@@ -8,11 +8,22 @@
 
 import Cocoa
 import WebKit
+
+protocol WebDelegate {
+    var authorizationView : WebView { get };
+    func shouldDisplayText(text : String) -> ();
+    func shouldDisplayAuthorizationView(shouldDisplayView : Bool) ->();
+}
+
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, ConnectionControllerDelegate {
+    var connectionController : ConnectionController? = nil;
     var contentViewController : MainViewController? = nil;
     var authView : WebView? = nil;
     
+    //TODO: Move this stuff out of the app delegate
+    var connectionID : String? = nil;
+    var aDelegate : WebDelegate? = nil;
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         //we can't use the app without any windows...
@@ -25,7 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         //we also can't use the app without the window having a valid contentViewController
         assert(contentViewController != nil);
         authView = contentViewController!.authorizationView;
-        //nexus.configureWithWebView(&authView!,andDelegate:contentViewController!);
+        configureWithWebView(&authView!,andDelegate:contentViewController!);
     }
     
     func applicationWillTerminate(aNotification: NSNotification) {
@@ -33,17 +44,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
 
-    func configureWithWebView(inout authorizationView : WebView) -> (){
+    func configureWithWebView(inout authorizationView : WebView, andDelegate delegate : WebDelegate) -> (){
         //Create controller objects
-        connectionController = SlackConnectionController();
+        connectionController = ConnectionController();
         connectionController?.authorizationController?.setWebView(&authorizationView);
         connectionController?.delegate = self;
         
+        //Create parameter object to specific connection
+        var parameters : Dictionary<String,String> = Dictionary();
+        parameters["key"] = appConstants.key;
+        parameters["name"] = "LeadingBugs";
+        parameters["response_type"] = "token";
+        
         //create new connection (if we haven't already created one)
         if(connectionID == nil || connectionID?.isEmpty==true){
-            connectionID = connectionController?.createConnection(self);
+            connectionID = connectionController?.createConnection(parameters:parameters,rtDelegate:nil);
         }
-        delegate = aDelegate;
+        aDelegate = delegate;
+    }
+    
+    /**********************************************************************
+    *                   ConnectionControllerDelegate                      *
+    **********************************************************************/
+    //MARK: Delegate methods
+    
+    func connectionAttemptForIdentfier(identifier : String) -> (){
+        aDelegate?.shouldDisplayText("Connecting...");
+        aDelegate?.shouldDisplayAuthorizationView(false);
+    }
+    
+    func connectionFailedWithIdentifier(identifier : String, andError: NSError) -> (){
+        aDelegate?.shouldDisplayText("Connection failed!");
+        aDelegate?.shouldDisplayAuthorizationView(false);
+    }
+    func didCreateConnectionWithIdentifier(identifier : String) -> (){
+        aDelegate?.shouldDisplayText("Running...");
+        aDelegate?.shouldDisplayAuthorizationView(false);
+    }
+    func didDestroyConnectionWithIdentifier(identifier : String) -> (){
+        aDelegate?.shouldDisplayText("Stopped...");
+        aDelegate?.shouldDisplayAuthorizationView(false);
     }
 
 }

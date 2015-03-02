@@ -1,12 +1,12 @@
 //
-//  SlackConnection.swift
+//  Connection.swift
 //  Nexus
 //
 //  Created by Erik E. Beerepoot on 2014-12-21.
 //  Copyright (c) 2014 Dactyl Studios. All rights reserved.
 //
 
-import StarscreamOSX
+import Starscream
 import Foundation
 
 protocol ConnectionDelegate {
@@ -45,7 +45,7 @@ class Connection : WebSocketDelegate {
         println("Connecting...");
         
         let tokenDict = NSDictionary(object: token!, forKey: "token");
-        let URL : NSURL = NSURL(string: SlackEndpoints.connect)!;
+        let URL : NSURL = NSURL(string: endpoints.connect)!;
         performRequestWithURL(URL, queryParams:tokenDict,andCompletionHandler:connectionHandler);
         return true;
     }
@@ -88,7 +88,7 @@ class Connection : WebSocketDelegate {
         let httpResponse = urlResponse as NSHTTPURLResponse;
         if(data != nil && httpResponse.statusCode==200){
             let jsonObject = JSON(data:data!,options:NSJSONReadingOptions.MutableContainers);
-            let result = jsonObject[kOKKey].int;
+            let result = jsonObject[statusCodes.statusCodeOK].int;
             if(result==1){
                 //success!
                 connected = true;
@@ -96,7 +96,7 @@ class Connection : WebSocketDelegate {
                 //if we want real time events, we must connect to the websocket API now
                 if(enableRealTimeEvents){
                     //create URL
-                    let theUrl = jsonObject[kURLKey].string;
+                    let theUrl = jsonObject[appConstants.urlKey].string;
                     let url = NSURL(string: theUrl!)!;
                     
                     //connect to websocket
@@ -127,25 +127,26 @@ class Connection : WebSocketDelegate {
     func sentHandler(data : NSData?, urlResponse : NSURLResponse!, error : NSError?) -> () {
         if(data != nil){
             let jsonObject = JSON(data:data!,options:NSJSONReadingOptions.MutableContainers);
-            let result = jsonObject[kOKKey].bool;
+            let result = jsonObject[statusCodes.statusCodeOK].bool;
             sentCallback?(result!,error);
         }
     }
     
+
     //MARK: WebSocket delegate methods
-    func websocketDidConnect() -> (){
+    func websocketDidConnect(socket : Starscream.WebSocket) -> (){
         println("Websocket connected!");
     }
     
-    func websocketDidDisconnect(error : NSError?) -> (){
+    func websocketDidDisconnect(socket: Starscream.WebSocket,error : NSError?) -> (){
         println("Websocket disconnected!");
     }
     
-    func websocketDidWriteError(error : NSError?) -> (){
+    func websocketDidWriteError(socket: Starscream.WebSocket, error : NSError?) -> (){
          println("Websocket writerror!");   
     }
     
-    func websocketDidReceiveMessage(text : String) -> (){
+    func websocketDidReceiveMessage(socket: Starscream.WebSocket,text : String) -> (){
         println(text);
         let jsonObject = JSON(data:text.dataUsingEncoding(NSASCIIStringEncoding)!,options:NSJSONReadingOptions.MutableContainers);
         let msgType = jsonObject["type"].string;
@@ -153,7 +154,7 @@ class Connection : WebSocketDelegate {
         self.rtDelegate?.didReceiveEvent(jsonObject,onConnection: self);
     }
     
-    func websocketDidReceiveData(data : NSData){
+    func websocketDidReceiveData(socket: Starscream.WebSocket,data : NSData){
         println("got some data: \(data.length)");
     }
 }

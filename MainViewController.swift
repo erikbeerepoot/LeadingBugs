@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import WebKit
 
-class MainViewController: NSViewController, SmileViewDelegate {
+class MainViewController: NSViewController, SmileViewDelegate,WebDelegate {
     
     //views
     var smileView : SmileView? = nil;

@@ -29,4 +29,5 @@ public struct appConstants {
 
 public struct endpoints {
     public static let authorization = "https://trello.com/1/authorize";
+    public static let connect = "https://trello.com/1/connect";
 }

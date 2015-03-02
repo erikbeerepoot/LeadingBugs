@@ -10,17 +10,17 @@
 *   \  \:\/:/        /  /:/      |  |:|\/     \  \:\_\/        \  \:\     \  \:\/:/     \  \:\/:/     /__/:/
 *    \__\::/        /__/:/       |__|:|~       \  \:\           \__\/      \  \::/       \  \::/      \__\/
 *        ~~         \__\/         \__\|         \__\/                       \__\/         \__\/
-* @name: SlackConnectionController.swift
+* @name: ConnectionController.swift
 * @author: Erik E. Beerepoot
 * @company: Barefoot Inc.
-* @brief: Controller object for SlackConnections. Essentially, it manages
+* @brief: Controller object for Connections. Essentially, it manages
 * the connection & authorization process, and keeps track of all the connections in flight.
 */
 
 import AppKit
 import Foundation
 
-//MARK: Protocol: SlackConnectionControllerDelegate
+//MARK: Protocol: ConnectionControllerDelegate
 protocol ConnectionControllerDelegate {
     func connectionFailedWithIdentifier(identifier : String,andError error: NSError) -> ();
     func didCreateConnectionWithIdentifier(identifier : String) -> ();
@@ -28,10 +28,10 @@ protocol ConnectionControllerDelegate {
     func connectionAttemptForIdentfier(identifier : String) -> ();
 }
 
-class ConnectionController : AuthorizationControllerDelegate {
+class ConnectionController : AuthorizationControllerDelegate, ConnectionDelegate {
     //MARK: Member variables
     var authorizationController : AuthorizationController? = nil;
-    var connections : Dictionary<String,SlackConnection>? = nil;
+    var connections : Dictionary<String,Connection>? = nil;
     var delegate : ConnectionControllerDelegate? = nil;
 
     
@@ -51,15 +51,15 @@ class ConnectionController : AuthorizationControllerDelegate {
     @param: rtDelegate - The RealTime delegate. The delegate object that receives real-time event notifications.
     @returns: The UID of this connection.
     */
-    func createConnection(rtDelegate : RealTimeConnectionDelegate?) -> (String){
-        let newConnection = SlackConnection();
+    func createConnection(#parameters : Dictionary<String,String>,rtDelegate : RealTimeConnectionDelegate?) -> (String){
+        let newConnection = Connection();
         let identifier = NSUUID().UUIDString;
         newConnection.delegate = self;
         newConnection.rtDelegate = rtDelegate;
         
         //attemp authorization
         if(!authorizationController!.authorized){
-            authorizationController!.startAuthorization();
+            authorizationController!.startAuthorization(parameters:parameters);
         }
 
         //update delegate
@@ -72,8 +72,8 @@ class ConnectionController : AuthorizationControllerDelegate {
     
     /**
      @name: connectionForIdentifier
-     @brief: Returns the SlackConnection for the identifier, if it exists
-     @returns: reference to SlackConnection
+     @brief: Returns the Connection for the identifier, if it exists
+     @returns: reference to Connection
     */
     func connectionForIdentifier(id : String) -> Connection? {
         return connections?[id];
@@ -82,9 +82,9 @@ class ConnectionController : AuthorizationControllerDelegate {
     /**
      * @name: getConnection
      * @brief: Returns an arbitrary connection 
-     * @returns: a SlackConnection instance
+     * @returns: a Connection instance
      */
-    func getConnection() -> SlackConnection? {
+    func getConnection() -> Connection? {
         if(connections?.count<1){
             return nil;
         } else {
@@ -118,7 +118,7 @@ class ConnectionController : AuthorizationControllerDelegate {
      @param: error - The error object (if present)
      @param: sender - The connection object invoking the method
     */
-    func connectionDidFinishWithError(error : NSError?, sender : SlackConnection) -> (){
+    func connectionDidFinishWithError(error : NSError?, sender : Connection) -> (){
         
         //find key for the connection
         let identifier = keyForConnection(sender);
@@ -142,7 +142,7 @@ class ConnectionController : AuthorizationControllerDelegate {
     @param: error - The error object (if present)
     @param: sender - The connection object invoking the method
     */
-    func connectionDidDisconnectWithError(error: NSError?, sender : SlackConnection) {
+    func connectionDidDisconnectWithError(error: NSError?, sender : Connection) {
         //find key for the connection
         let identifier = keyForConnection(sender);
         if(identifier==nil){
@@ -163,7 +163,7 @@ class ConnectionController : AuthorizationControllerDelegate {
     @param: theConnection - the connection we want to find
     @returns: the key if it exists, nil otherwise
     */
-    func keyForConnection(theConnection : SlackConnection) -> (String?) {
+    func keyForConnection(theConnection : Connection) -> (String?) {
         var connectionIdentifier : String? = nil;
         for (identifier,connection) in connections! {
             if(connection===theConnection){
@@ -190,7 +190,7 @@ class ConnectionController : AuthorizationControllerDelegate {
                 NSLocalizedFailureReasonErrorKey : String("Could not authorize with Slack!"),
                 NSLocalizedRecoverySuggestionErrorKey : String("Unknown")
             ];
-            let err = NSError(domain: kAuthorizationErrorDomain, code: -1, userInfo: userInfo);
+            let err = NSError(domain: appConstants.authorizationErrorDomain, code: -1, userInfo: userInfo);
             
             //not authorized, cannot connect
             for id in connections!.keys {
