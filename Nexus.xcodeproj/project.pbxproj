@@ -20,6 +20,8 @@
 		034897FF1A7680CF00A97623 /* group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034897FA1A7680CF00A97623 /* group.swift */; };
 		035DE9BC1A49EA0A00C067F4 /* StarscreamOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035DE9B91A49E9DD00C067F4 /* StarscreamOSX.framework */; };
 		035DE9C01A4BA57100C067F4 /* Nexus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035DE9BF1A4BA57100C067F4 /* Nexus.swift */; };
+		038166001AA4C9170023012B /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038165FE1AA4C9170023012B /* AuthorizationController.swift */; };
+		038166011AA4C9170023012B /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038165FF1AA4C9170023012B /* HTTPRequest.swift */; };
 		038D8B7D1A7EF7F3006D89BD /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038D8B7C1A7EF7F3006D89BD /* UserController.swift */; };
 		039730391A7892FD00CC1F1E /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039730381A7892FD00CC1F1E /* SwiftyJSON.swift */; };
 		039730401A78B19400CC1F1E /* purpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0397303E1A78B19400CC1F1E /* purpose.swift */; };
@@ -38,8 +40,6 @@
 		03D69FD21A491A28000F644F /* Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D69FD11A491A28000F644F /* Serialization.swift */; };
 		03D69FD41A491E8C000F644F /* SerializableParameterObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D69FD31A491E8C000F644F /* SerializableParameterObject.swift */; };
 		03DAB3281A4629F6001E3866 /* SmileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAB3271A4629F6001E3866 /* SmileView.swift */; };
-		03DAB3301A47CCC7001E3866 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAB32F1A47CCC7001E3866 /* HTTPRequest.swift */; };
-		03DAB3321A47CDAA001E3866 /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +98,8 @@
 		034897FA1A7680CF00A97623 /* group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = group.swift; sourceTree = "<group>"; };
 		035DE9AD1A49E9DC00C067F4 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = ../../../../../Documents/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		035DE9BF1A4BA57100C067F4 /* Nexus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nexus.swift; sourceTree = "<group>"; };
+		038165FE1AA4C9170023012B /* AuthorizationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthorizationController.swift; path = lib/AuthorizationController.swift; sourceTree = "<group>"; };
+		038165FF1AA4C9170023012B /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPRequest.swift; path = lib/HTTPRequest.swift; sourceTree = "<group>"; };
 		038D8B7C1A7EF7F3006D89BD /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		039730381A7892FD00CC1F1E /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		0397303E1A78B19400CC1F1E /* purpose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = purpose.swift; sourceTree = "<group>"; };
@@ -116,8 +118,6 @@
 		03D69FD11A491A28000F644F /* Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialization.swift; sourceTree = "<group>"; };
 		03D69FD31A491E8C000F644F /* SerializableParameterObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializableParameterObject.swift; sourceTree = "<group>"; };
 		03DAB3271A4629F6001E3866 /* SmileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SmileView.swift; path = ../SmileView.swift; sourceTree = "<group>"; };
-		03DAB32F1A47CCC7001E3866 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
-		03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +161,7 @@
 		031D32811A46058D00A6E271 /* Nexus */ = {
 			isa = PBXGroup;
 			children = (
+				038165FD1AA4C8C30023012B /* lib */,
 				039D31DA1A808C3E00BD98EE /* Lexicon */,
 				034897F71A7680CF00A97623 /* Generated */,
 				03BB72951A47E3CB007DFB1D /* Extensions */,
@@ -227,6 +228,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		038165FD1AA4C8C30023012B /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				038165FE1AA4C9170023012B /* AuthorizationController.swift */,
+				038165FF1AA4C9170023012B /* HTTPRequest.swift */,
+				039730381A7892FD00CC1F1E /* SwiftyJSON.swift */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
 		039D31DA1A808C3E00BD98EE /* Lexicon */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +266,6 @@
 		03DAB32A1A462A07001E3866 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				03DAB3311A47CDAA001E3866 /* AuthorizationController.swift */,
 				031D32861A46058D00A6E271 /* MainViewController.swift */,
 				035DE9BF1A4BA57100C067F4 /* Nexus.swift */,
 				039D31E11A808EED00BD98EE /* SentimentAnalyzer.swift */,
@@ -269,11 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				033ACA021A7FDD6A003F3286 /* ExtendedUser.swift */,
-				03DAB32F1A47CCC7001E3866 /* HTTPRequest.swift */,
 				03D69FCF1A491390000F644F /* Message.swift */,
 				03D69FD31A491E8C000F644F /* SerializableParameterObject.swift */,
 				03BB72931A47D8E4007DFB1D /* SlackConnection.swift */,
-				039730381A7892FD00CC1F1E /* SwiftyJSON.swift */,
 				031373C41A6C6263006BAE3C /* TaskScheduler.swift */,
 			);
 			name = Model;
@@ -437,14 +445,13 @@
 				031D32851A46058D00A6E271 /* AppDelegate.swift in Sources */,
 				039730481A79E19600CC1F1E /* file.swift in Sources */,
 				03D69FD01A491390000F644F /* Message.swift in Sources */,
+				038166001AA4C9170023012B /* AuthorizationController.swift in Sources */,
 				031D32A61A4605AA00A6E271 /* SlackConnectionController.swift in Sources */,
 				03BB72941A47D8E4007DFB1D /* SlackConnection.swift in Sources */,
 				03D69FD21A491A28000F644F /* Serialization.swift in Sources */,
 				039730391A7892FD00CC1F1E /* SwiftyJSON.swift in Sources */,
-				03DAB3301A47CCC7001E3866 /* HTTPRequest.swift in Sources */,
 				039730471A79E19600CC1F1E /* channel.swift in Sources */,
 				039730491A79E19600CC1F1E /* im.swift in Sources */,
-				03DAB3321A47CDAA001E3866 /* AuthorizationController.swift in Sources */,
 				039730401A78B19400CC1F1E /* purpose.swift in Sources */,
 				031D32A51A4605AA00A6E271 /* SlackConstants.swift in Sources */,
 				039D31E21A808EED00BD98EE /* SentimentAnalyzer.swift in Sources */,
@@ -452,6 +459,7 @@
 				035DE9C01A4BA57100C067F4 /* Nexus.swift in Sources */,
 				0397304B1A79E19600CC1F1E /* user.swift in Sources */,
 				031D32A41A4605AA00A6E271 /* Constants.swift in Sources */,
+				038166011AA4C9170023012B /* HTTPRequest.swift in Sources */,
 				0397304A1A79E19600CC1F1E /* profile.swift in Sources */,
 				039730411A78B19400CC1F1E /* topic.swift in Sources */,
 			);
